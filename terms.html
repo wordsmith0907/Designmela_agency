@@ -360,6 +360,314 @@
     </div>
   </section>
 
+  <!-- ==================== FINAL CTA / CONTACT SECTION ==================== -->
+  <section class="final-cta-section" id="contact">
+    <div class="container final-cta-container">
+      <div class="intake-card">
+        <!-- Step Header -->
+        <div class="intake-header">
+          <div class="intake-status" id="intake-status">PROJECT INTAKE / Let's start with the basics.</div>
+          <div class="intake-step-number" id="intake-step-number">17%</div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="dm-progress-wrap">
+          <div class="dm-track">
+            <div class="dm-fill" id="intake-progress-fill" style="width: 17%;">
+              <div class="dm-particle-field"></div>
+            </div>
+            <div class="dm-orb" id="intake-progress-orb" style="left: 17%;"></div>
+          </div>
+        </div>
+        
+        <!-- Form Step Content -->
+        <form id="intake-form" action="https://api.web3forms.com/submit" method="POST" novalidate autocomplete="off">
+          <input type="hidden" name="access_key" value="a742e68f-d427-4708-acc7-5e8c1eae6136">
+          <input type="hidden" name="subject" value="New inquiry from Design Mela website">
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+          <!-- Step 1: Details -->
+          <div class="intake-step active" data-step="1">
+            <h3 class="intake-step-title">Your Details</h3>
+            <p class="body-small intake-step-desc">Introduce yourself so I know who I'm building for.</p>
+            <div class="dm-fields-row">
+              <div class="form-group">
+                <label for="intake-name" class="form-label">What is your name? <span class="required">*</span></label>
+                <input type="text" id="intake-name" name="name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
+                <span class="error-message" id="error-name">Please enter your name.</span>
+              </div>
+              <hr class="dm-question-divider" />
+              <div class="form-group">
+                <label for="intake-email" class="form-label">What is your email? <span class="required">*</span></label>
+                <input type="email" id="intake-email" name="email" class="form-input" placeholder="e.g. sarah@example.com" required>
+                <span class="error-message" id="error-email">Please enter a valid email address.</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 2: Project -->
+          <div class="intake-step" data-step="2" style="display: none;">
+            <h3 class="intake-step-title">Your Project</h3>
+            <p class="body-small intake-step-desc">Tell me about what you are trying to make.</p>
+            <div class="dm-fields-row">
+              <div class="form-group">
+                <label class="form-label">What are we building? <span class="required">*</span></label>
+                <div class="radio-grid">
+                  <label class="radio-card">
+                    <input type="radio" name="project_type" value="Website" required>
+                    <span class="radio-card-label">Website</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_type" value="Landing Page" required>
+                    <span class="radio-card-label">Landing Page</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_type" value="Branding" required>
+                    <span class="radio-card-label">Branding</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_type" value="AI Tool" required>
+                    <span class="radio-card-label">AI Tool</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_type" value="Business Automation" required>
+                    <span class="radio-card-label">Business Automation</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_type" value="Something Else" required>
+                    <span class="radio-card-label">Something Else</span>
+                  </label>
+                </div>
+                <!-- Describe input revealed conditionally -->
+                <div id="project-type-other-wrap" style="display: none; margin-top: 16px;">
+                  <label for="intake-other-describe" class="form-label">Please describe what you want to build: <span class="required">*</span></label>
+                  <input type="text" id="intake-other-describe" name="project_type_other" class="form-input">
+                  <span class="error-message" id="error-project-type-other">Please describe your project.</span>
+                </div>
+                <span class="error-message" id="error-project-type">Please select a project type.</span>
+              </div>
+              <hr class="dm-question-divider" />
+              <div class="form-group">
+                <label class="form-label">What stage is the project in? <span class="required">*</span></label>
+                <div class="radio-grid">
+                  <label class="radio-card">
+                    <input type="radio" name="project_stage" value="Idea" required>
+                    <span class="radio-card-label">Rough Idea</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_stage" value="Design" required>
+                    <span class="radio-card-label">Design Ready</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_stage" value="Development" required>
+                    <span class="radio-card-label">Dev Ready</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="project_stage" value="Relaunch" required>
+                    <span class="radio-card-label">Relaunch/Tweak</span>
+                  </label>
+                </div>
+                <span class="error-message" id="error-project-stage">Please select a project stage.</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 3: Vision -->
+          <div class="intake-step" data-step="3" style="display: none;">
+            <h3 class="intake-step-title">Vision</h3>
+            <p class="body-small intake-step-desc">Share your goals and what assets you already have.</p>
+            <div class="dm-fields-row--stacked">
+              <div class="form-group">
+                <label for="intake-goals" class="form-label">What are the primary goals of this project? <span class="required">*</span></label>
+                <textarea id="intake-goals" name="goals" class="form-textarea" placeholder="Describe what success looks like for this project..." required></textarea>
+                <span class="error-message" id="error-goals">Please share your project goals.</span>
+              </div>
+              <hr class="dm-question-divider" />
+              <div class="form-group">
+                <label class="form-label">What assets do you already have? (Select all that apply)</label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="assets" value="Logo">
+                    <span class="checkbox-card-label">Logo / Brand Mark</span>
+                  </label>
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="assets" value="Brand Guidelines">
+                    <span class="checkbox-card-label">Brand Guidelines</span>
+                  </label>
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="assets" value="Copy">
+                    <span class="checkbox-card-label">Written Copy</span>
+                  </label>
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="assets" value="Wireframes">
+                    <span class="checkbox-card-label">Wireframes / Layouts</span>
+                  </label>
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="assets" value="Existing Site">
+                    <span class="checkbox-card-label">Existing Website</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 4: Planning -->
+          <div class="intake-step" data-step="4" style="display: none;">
+            <h3 class="intake-step-title">Planning</h3>
+            <p class="body-small intake-step-desc">Define your timeline and budget expectations.</p>
+            <div class="dm-fields-row">
+              <div class="form-group">
+                <label class="form-label">What is your expected timeline? <span class="required">*</span></label>
+                <div class="radio-grid">
+                  <label class="radio-card">
+                    <input type="radio" name="timeline" value="< 1 month" required>
+                    <span class="radio-card-label">&lt; 1 Month</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="timeline" value="1-3 months" required>
+                    <span class="radio-card-label">1 - 3 Months</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="timeline" value="3+ months" required>
+                    <span class="radio-card-label">3+ Months</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="timeline" value="Flexible" required>
+                    <span class="radio-card-label">Flexible</span>
+                  </label>
+                </div>
+                <span class="error-message" id="error-timeline">Please select a timeline.</span>
+              </div>
+              <hr class="dm-question-divider" />
+              <div class="form-group">
+                <label class="form-label">What is your estimated budget? <span class="required">*</span></label>
+                <div class="radio-grid" id="budget-radio-grid">
+                  <label class="radio-card">
+                    <input type="radio" name="budget" value="tier1" required>
+                    <span class="radio-card-label" data-budget-tier="1">&lt; ₹5,000</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="budget" value="tier2" required>
+                    <span class="radio-card-label" data-budget-tier="2">₹5,000 – ₹10,000</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="budget" value="tier3" required>
+                    <span class="radio-card-label" data-budget-tier="3">₹10,000 – ₹20,000</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="budget" value="tier4" required>
+                    <span class="radio-card-label" data-budget-tier="4">₹20,000+</span>
+                  </label>
+                </div>
+                <span class="error-message" id="error-budget">Please select a budget.</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 5: Inspiration -->
+          <div class="intake-step" data-step="5" style="display: none;">
+            <h3 class="intake-step-title">Inspiration</h3>
+            <p class="body-small intake-step-desc">Share references or extra details about your ideas.</p>
+            <div class="dm-fields-row--stacked">
+              <div class="form-group">
+                <label for="intake-reference-url" class="form-label">Reference URL (optional)</label>
+                <input type="url" id="intake-reference-url" name="reference_url" class="form-input" placeholder="e.g. https://awwwards.com/site-inspiration">
+                <span class="error-message" id="error-reference-url">Please enter a valid URL.</span>
+              </div>
+              <hr class="dm-question-divider" />
+              <div class="form-group">
+                <label for="intake-context" class="form-label">Additional Context (optional)</label>
+                <textarea id="intake-context" name="context" class="form-textarea" placeholder="Any details, tech stack preferences, or specific requests..."></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 6: Final Step -->
+          <div class="intake-step" data-step="6" style="display: none;">
+            <h3 class="intake-step-title">Final Step</h3>
+            <p class="body-small intake-step-desc">Choose how you'd like to get in touch and confirm details.</p>
+            <div class="dm-fields-row">
+              <div class="form-group">
+                <label class="form-label">Preferred Contact Method? <span class="required">*</span></label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="contact_method" value="email">
+                    <span class="checkbox-card-label">Email</span>
+                  </label>
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="contact_method" value="whatsapp">
+                    <span class="checkbox-card-label">WhatsApp</span>
+                  </label>
+                  <label class="checkbox-card">
+                    <input type="checkbox" name="contact_method" value="phone">
+                    <span class="checkbox-card-label">Phone Call</span>
+                  </label>
+                </div>
+                <span class="error-message" id="error-contact-method">Please select at least one contact method.</span>
+              </div>
+              
+              <hr class="dm-question-divider" />
+              
+              <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 0;">
+                <div id="contact-details-container">
+                  <div class="dm-hint-text">Select at least one method above.</div>
+                </div>
+              </div>
+              
+              <hr class="dm-question-divider" />
+
+              <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 0;">
+                <label for="intake-detail-instagram" class="form-label">Instagram handle (optional)</label>
+                <input type="text" id="intake-detail-instagram" name="instagram_handle" class="form-input" placeholder="@designmela_com">
+              </div>
+
+              <hr class="dm-question-divider" />
+              
+              <div class="form-group checkbox-consent-group" style="grid-column: 1 / -1; margin-bottom: 0;">
+                <label class="consent-label">
+                  <input type="checkbox" name="consent" id="intake-consent" required>
+                  <span class="consent-checkbox-text">I consent to sharing these details to receive a project quote. <span class="required">*</span></span>
+                </label>
+                <span class="error-message" id="error-consent">You must agree before submitting.</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Success Screen (Hidden by default) -->
+          <div class="intake-success" id="intake-success" style="display: none;">
+            <div class="success-icon-wrap">
+              <span class="success-mark">✓</span>
+            </div>
+            <h3 class="success-title">You're In.</h3>
+            <p class="body-large success-desc">
+              Your project brief has been received. We'll craft the best path forward and get in touch within 12 hours.
+            </p>
+            <div class="success-actions">
+              <a href="index.html#work" class="btn-primary dm-btn-hard" id="btn-success-work">
+                <span>View Our Work <span class="arrow">→</span></span>
+              </a>
+              <a href="https://wa.me/918082017828" target="_blank" rel="noopener" class="btn-secondary" id="btn-success-whatsapp">
+                <span>Chat on WhatsApp</span> <span class="arrow">↗</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Submission Error Message (Hidden by default) -->
+          <div class="intake-submit-error" id="intake-submit-error" style="display: none; margin-bottom: 24px; padding: 16px 20px; border: 2px solid var(--color-ink); border-radius: 12px; background-color: rgba(255, 77, 77, 0.08); color: var(--color-ink); box-shadow: 4px 4px 0 rgba(255, 77, 77, 0.15);">
+            <p class="body-small" style="margin: 0; font-weight: 600; line-height: 1.5;">
+              ⚠️ Submission failed. Please try again, or email us directly at <a href="mailto:hello@designmela.com" style="text-decoration: underline; font-weight: 700; color: inherit;">hello@designmela.com</a>.
+            </p>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="intake-navigation" id="intake-navigation">
+            <button type="button" class="btn-back" id="btn-intake-back" style="visibility: hidden;">Back</button>
+            <button type="button" class="btn-continue dm-btn-hard" id="btn-intake-continue" disabled>Continue</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer-section">
     <div class="container footer-container">
       <div class="footer-top">
