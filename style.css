@@ -2811,16 +2811,17 @@ video.hitesh-img {
 
 /* Custom 3:4 portrait aspect ratio for Designmela Assistant image panel */
 .aether-image-panel {
-  aspect-ratio: 3 / 4;
   width: 100%;
   max-width: 440px;
   margin: 0 auto;
+  aspect-ratio: 3 / 4;
 }
 
 .aether-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  display: block;
 }
 
 /* Responsive overrides for all project showcase cards */
