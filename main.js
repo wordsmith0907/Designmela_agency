@@ -2057,6 +2057,11 @@
     let hasSentFirstMessage = false;
     let isQuickHelpExpanded = false;
 
+    // Enable Send Button on typing input
+    chatInput.addEventListener('input', () => {
+      sendBtn.disabled = isWaitingForResponse || chatInput.value.trim().length === 0;
+    });
+
     // Smooth height collapse of quick-reply drawer row
     function collapseQuickHelpPermanently() {
       hasSentFirstMessage = true;
@@ -3131,7 +3136,7 @@
       );
 
       // Restore ongoing 15-min session or trigger greeting on first load
-      if (messageHistory.length === 0 && chatUIThread.length === 0) {
+      if (messageArea.children.length === 0) {
         initDeeSession();
       }
     }
