@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "start": "node server.mjs",
-    "build": "echo 'No build step required for static site'"
+    "start": "node server.mjs"
   },
   "author": "Designmela",
   "license": "ISC"
