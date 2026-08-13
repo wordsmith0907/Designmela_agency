@@ -2066,7 +2066,17 @@
       if (isHtml) {
         bubble.innerHTML = text;
       } else {
-        bubble.textContent = text;
+        // Format markdown links [Text](URL) and raw URLs into clean styled embedded links
+        const formatted = text
+          .replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">$1 ↗</a>')
+          .replace(/(?<!href=")(?<!src=")(https?:\/\/[^\s\)]+)/g, (match, url) => {
+            let label = 'WhatsApp Chat';
+            if (url.includes('instagram.com')) label = 'Instagram';
+            else if (url.includes('designmela.com')) label = 'Designmela';
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${label} ↗</a>`;
+          });
+        
+        bubble.innerHTML = formatted;
       }
       
       // Muted timestamp on hover
