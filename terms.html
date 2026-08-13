@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions — Designmela</title>
+  <meta name="description" content="Designmela agency Terms & Conditions — project terms, payments, 50% deposit requirements, 10%+5% loyalty discounts, and intellectual property ownership.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23171717'/><text x='50' y='68' font-family='sans-serif' font-weight='900' font-size='60' fill='%23B8D968' text-anchor='middle'>D</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- GSAP CDN for smooth transitions -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="index.html" class="logo" aria-label="Designmela Home">
+        <span class="logo-mark">D</span>
+        <span class="logo-text">designmela</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html#work" class="nav-link">Work</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#pricing" class="nav-link">Pricing</a>
+        <a href="index.html#process" class="nav-link">Process</a>
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Region Selector Pill -->
+        <div class="region-selector-pill" id="region-selector-pill" role="button" tabindex="0" aria-label="Select currency region" aria-expanded="false">
+          <span class="region-flag" id="region-flag">🇺🇸</span>
+          <span class="region-code" id="region-code">USD</span>
+          <span class="region-caret">▾</span>
+        </div>
+
+        <a href="index.html#contact" class="btn-primary">
+          <span>Let's Talk <span class="arrow">→</span></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Region Modal -->
+  <div class="region-modal-overlay" id="region-modal-overlay" style="display: none;" aria-hidden="true">
+    <div class="region-modal-card" role="dialog" aria-modal="true" aria-labelledby="region-modal-title">
+      <button class="region-modal-close" id="region-modal-close" type="button" aria-label="Close region modal">&times;</button>
+      <h3 class="h3-modal-title" id="region-modal-title">Choose Your Currency Region</h3>
+      <p class="region-modal-desc">Select your preferred region to view accurate local pricing presets across all services.</p>
+      
+      <div class="region-options-grid">
+        <button class="region-option-btn active" data-region="US" data-currency="USD" data-symbol="$" data-flag="🇺🇸" data-dial="+1">
+          <span class="option-flag">🇺🇸</span>
+          <div class="option-details">
+            <span class="option-name">United States &amp; International</span>
+            <span class="option-currency">USD ($)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="IN" data-currency="INR" data-symbol="₹" data-flag="🇮🇳" data-dial="+91">
+          <span class="option-flag">🇮🇳</span>
+          <div class="option-details">
+            <span class="option-name">India</span>
+            <span class="option-currency">INR (₹)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="GB" data-currency="GBP" data-symbol="£" data-flag="🇬🇧" data-dial="+44">
+          <span class="option-flag">🇬🇧</span>
+          <div class="option-details">
+            <span class="option-name">United Kingdom</span>
+            <span class="option-currency">GBP (£)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="EU" data-currency="EUR" data-symbol="€" data-flag="🇪🇺" data-dial="+49">
+          <span class="option-flag">🇪🇺</span>
+          <div class="option-details">
+            <span class="option-name">Eurozone</span>
+            <span class="option-currency">EUR (€)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="AE" data-currency="AED" data-symbol="AED " data-flag="🇦🇪" data-dial="+971">
+          <span class="option-flag">🇦🇪</span>
+          <div class="option-details">
+            <span class="option-name">United Arab Emirates</span>
+            <span class="option-currency">AED (AED)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="AU" data-currency="AUD" data-symbol="A$" data-flag="🇦🇺" data-dial="+61">
+          <span class="option-flag">🇦🇺</span>
+          <div class="option-details">
+            <span class="option-name">Australia</span>
+            <span class="option-currency">AUD (A$)</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HERO HEADER ==================== -->
+  <section class="legal-hero">
+    <div class="legal-hero-inner">
+      <span class="legal-pill-badge">Legal Documentation</span>
+      <h1 class="legal-hero-title">Terms &amp; Conditions</h1>
+      <p class="legal-hero-subhead">The boring-but-important stuff, kept as short and direct as legally possible.</p>
+      <div class="legal-hero-meta">
+        <span>Effective Date: August 2026</span>
+        <span>•</span>
+        <span>Version 1.0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT SECTION ==================== -->
+  <section class="legal-section-wrap">
+    <div class="legal-container">
+      
+      <!-- Desktop Sticky Section Jump Sidebar -->
+      <aside class="legal-nav-sidebar" aria-label="Table of contents">
+        <div class="legal-nav-title">Jump to Section</div>
+        <ul class="legal-nav-list">
+          <li><a href="#section-1" class="legal-nav-link"><span class="legal-nav-num">01</span> Applicability</a></li>
+          <li><a href="#section-2" class="legal-nav-link"><span class="legal-nav-num">02</span> Services Offered</a></li>
+          <li><a href="#section-3" class="legal-nav-link"><span class="legal-nav-num">03</span> Process &amp; Communication</a></li>
+          <li><a href="#section-4" class="legal-nav-link active"><span class="legal-nav-num">04</span> Payments &amp; Refunds</a></li>
+          <li><a href="#section-5" class="legal-nav-link active"><span class="legal-nav-num">05</span> Loyalty &amp; Referrals</a></li>
+          <li><a href="#section-6" class="legal-nav-link"><span class="legal-nav-num">06</span> Intellectual Property</a></li>
+          <li><a href="#section-7" class="legal-nav-link"><span class="legal-nav-num">07</span> Client Responsibilities</a></li>
+          <li><a href="#section-8" class="legal-nav-link"><span class="legal-nav-num">08</span> Liability Limits</a></li>
+          <li><a href="#section-9" class="legal-nav-link"><span class="legal-nav-num">09</span> Governing Law</a></li>
+          <li><a href="#section-10" class="legal-nav-link"><span class="legal-nav-num">10</span> Policy Changes</a></li>
+          <li><a href="#section-11" class="legal-nav-link"><span class="legal-nav-num">11</span> Legal Contact</a></li>
+        </ul>
+      </aside>
+
+      <!-- Document Content Body -->
+      <main class="legal-content">
+
+        <!-- Mobile Section Jump Dropdown -->
+        <div class="legal-mobile-jump">
+          <select id="legal-mobile-select" class="legal-mobile-select" aria-label="Jump to legal section">
+            <option value="#section-1">01. Applicability &amp; Parties</option>
+            <option value="#section-2">02. Services Offered</option>
+            <option value="#section-3">03. Project Process &amp; Communication</option>
+            <option value="#section-4" selected>04. Payments, Revisions &amp; Refunds</option>
+            <option value="#section-5">05. Loyalty &amp; Referral Discounts</option>
+            <option value="#section-6">06. Intellectual Property Rights</option>
+            <option value="#section-7">07. Client Responsibilities</option>
+            <option value="#section-8">08. Limitation of Liability</option>
+            <option value="#section-9">09. Governing Law &amp; Jurisdiction</option>
+            <option value="#section-10">10. Changes to Terms</option>
+            <option value="#section-11">11. Contact &amp; Queries</option>
+          </select>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="legal-card" id="section-1">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">01</span>
+                <h2 class="legal-card-title">Who This Applies To</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>These Terms &amp; Conditions govern the relationship between <strong>Designmela</strong> ("the Agency", "we", "us") and any individual or entity ("the Client", "you") accessing our website or commissioning design, branding, digital, and software development services.</p>
+              <p>By browsing designmela.com, submitting a project brief, or initiating a service engagement with us, you agree to be bound by these terms in full.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="legal-card" id="section-2">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">02</span>
+                <h2 class="legal-card-title">Services Offered</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Designmela provides custom digital product design, web app development, brand identity systems, AI chatbot integration, and creative production services. Exact scope, deliverables, timelines, and pricing for each engagement are outlined in individual project proposals or agreed project briefs.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="legal-card" id="section-3">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">03</span>
+                <h2 class="legal-card-title">Project Process &amp; Communication</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Initial project inquiries and automated estimates provided by our AI assistant (Dee) or WhatsApp chats serve as preliminary scoping tools and lead capture. They do not constitute a final binding contract quote until formal scope and deposit are confirmed in writing by Designmela.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 4 (HIGH PRIORITY — EXPANDED BY DEFAULT) -->
+        <div class="legal-card" id="section-4">
+          <details class="legal-accordion" open>
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">04</span>
+                <h2 class="legal-card-title">Payments, Revisions &amp; Refunds</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>To ensure project momentum and resource allocation, all client engagements follow our standard payment structure:</p>
+              <ul>
+                <li><strong>50% Upfront Deposit:</strong> Due prior to project commencement. Payment of the deposit secures your project slot and official start date in our production schedule.</li>
+                <li><strong>Remaining 50% Balance:</strong> Due upon completion of project milestone review and prior to final file handover or live site deployment. Final design assets and code repositories are released only after the balance is settled in full.</li>
+              </ul>
+              
+              <div class="legal-callout-box">
+                <h4>💳 Deposit &amp; Cancellation Policy</h4>
+                <p>Upfront deposits secure reserved designer and developer availability. If a project is cancelled by the client prior to work commencing, deposit terms apply as agreed in your specific engagement statement.</p>
+                <!-- TODO: Clarify specific refund/cancellation policy details (e.g. 50% deposit refundability window before work starts vs partial refund once underway vs non-refundable deposit terms) before final publishing -->
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 5 (HIGH PRIORITY — EXPANDED BY DEFAULT) -->
+        <div class="legal-card" id="section-5">
+          <details class="legal-accordion" open>
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">05</span>
+                <h2 class="legal-card-title">Loyalty &amp; Referral Discounts</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>We value long-term partnerships and word-of-mouth growth. Designmela offers structured discounts for returning clients and completed referrals:</p>
+              
+              <div class="legal-callout-box">
+                <h4>🎁 Discount Stacking Rules</h4>
+                <ul>
+                  <li><strong>Returning Client Discount:</strong> Enjoy <strong>10% off</strong> total cost on your next project with us.</li>
+                  <li><strong>Referral Discount:</strong> Receive an additional <strong>5% off</strong> your next project when you refer a new client. Referral discount is credited once the referred client's project is fully completed and paid.</li>
+                  <li><strong>Combined Stacking:</strong> These discounts stack! A client who both returns and has a completed client referral earns <strong>10% + 5% = 15% total discount</strong> off their next project's total cost.</li>
+                  <li><strong>Scope Limit:</strong> Discounts apply strictly to the <em>next</em> project's total cost, not current or in-progress projects.</li>
+                </ul>
+                <!-- TODO: Decide whether loyalty and referral discounts can combine with temporary promotional campaigns or are capped/exclusive before final publishing -->
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="legal-card" id="section-6">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">06</span>
+                <h2 class="legal-card-title">Intellectual Property Rights</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Upon receipt of full final payment, full intellectual property rights for custom deliverable assets, brand identity files, and site code transfer to the Client. Designmela retains the right to display completed deliverables in agency portfolios, case studies, and promotional showcases unless a separate Non-Disclosure Agreement (NDA) is executed.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="legal-card" id="section-7">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">07</span>
+                <h2 class="legal-card-title">Client Responsibilities</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Timely completion depends on mutual collaboration. Clients are responsible for providing necessary brand assets, copy, credentials, and milestone feedback in a timely manner. Project timelines pause during client feedback delays exceeding 7 business days.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="legal-card" id="section-8">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">08</span>
+                <h2 class="legal-card-title">Limitation of Liability</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Designmela is not liable for indirect, incidental, or consequential damages resulting from third-party hosting downtime, API outages, or unapproved post-handover site modifications.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 9 -->
+        <div class="legal-card" id="section-9">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">09</span>
+                <h2 class="legal-card-title">Governing Law &amp; Jurisdiction</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>These terms are governed by and construed in accordance with applicable laws.</p>
+              <!-- TODO: Fill in business jurisdiction/city (e.g., courts of Mumbai, Maharashtra, India) prior to legal publication -->
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 10 -->
+        <div class="legal-card" id="section-10">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">10</span>
+                <h2 class="legal-card-title">Changes to These Terms</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>We reserve the right to update these terms to reflect evolution in agency services or legal standards. Updates are posted directly to this page with an updated effective date.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 11 -->
+        <div class="legal-card" id="section-11">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">11</span>
+                <h2 class="legal-card-title">Legal Contact &amp; Inquiries</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>For questions or formal contract inquiries regarding these terms, contact our legal desk at <a href="mailto:hello@designmela.com" style="color: var(--color-ink); font-weight: 700; text-decoration: underline;">hello@designmela.com</a>.</p>
+              <!-- TODO: Confirm legal contact email (e.g. legal@designmela.com or hello@designmela.com) before final publishing -->
+            </div>
+          </details>
+        </div>
+
+      </main>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">D</span>
+            <span class="logo-text">designmela</span>
+          </a>
+          <p class="footer-tagline">
+            Building digital systems that move businesses forward.
+          </p>
+        </div>
+        
+        <div class="footer-links-row">
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Navigation</span>
+            <a href="index.html#work" class="footer-link">Work</a>
+            <a href="index.html#services" class="footer-link">Services</a>
+            <a href="index.html#about" class="footer-link">About</a>
+            <a href="index.html#contact" class="footer-link">Contact</a>
+          </div>
+
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Legal</span>
+            <a href="terms.html" class="footer-link" style="color: var(--color-ink); font-weight: 700;">Terms &amp; Conditions</a>
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+          </div>
+          
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Connect</span>
+            <div class="footer-social-icons">
+              <!-- Email Icon -->
+              <a href="mailto:hello@designmela.com" class="footer-icon-btn" aria-label="Email hello@designmela.com" title="Email: hello@designmela.com">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </a>
+
+              <!-- Instagram Icon -->
+              <a href="https://www.instagram.com/designmela_com/" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram @designmela_com" title="Instagram (@designmela_com)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </a>
+
+              <!-- Primary WhatsApp Icon (+91 80820 17828) -->
+              <a href="https://wa.me/918082017828" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Primary WhatsApp +91 80820 17828" title="Primary WhatsApp: +91 80820 17828">
+                <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+                  <path d="M16.004 2.002C8.271 2.002 2.004 8.269 2.004 16c0 2.471.644 4.888 1.87 7.016L2 30l7.191-1.883A13.94 13.94 0 0 0 16.004 30C23.735 30 23.731 30 16 30c-3.737 0-7.25-1.456-9.893-4.099A13.908 13.908 0 0 0 16.004 2.002Zm0 2.497a11.447 11.447 0 0 1 8.138 3.372A11.44 11.44 0 0 1 27.503 16c0 6.337-5.159 11.5-11.499 11.5a11.445 11.445 0 0 1-5.832-1.588l-.418-.248-4.333 1.137 1.156-4.222-.273-.433A11.413 11.413 0 0 1 4.501 16C4.501 9.665 9.665 4.499 16.004 4.499Zm-3.45 4.71c-.236 0-.62.088-.945.44-.325.352-1.24 1.214-1.24 2.96 0 1.745 1.27 3.432 1.447 3.668.177.236 2.497 3.812 6.048 5.346.845.365 1.504.583 2.018.746.848.27 1.62.232 2.23.14.68-.1 2.094-.856 2.39-1.683.295-.827.295-1.536.207-1.683-.089-.148-.325-.236-.68-.413-.354-.177-2.094-1.034-2.419-1.152-.325-.118-.56-.177-.797.177-.236.354-.914 1.152-1.121 1.388-.207.236-.413.266-.768.088-.354-.177-1.498-.552-2.854-1.76-1.055-.94-1.768-2.102-1.975-2.457-.207-.354-.022-.546.156-.722.16-.16.354-.413.532-.62.177-.207.236-.354.354-.59.118-.237.059-.443-.03-.62-.088-.177-.796-1.922-1.092-2.632-.287-.69-.58-.597-.797-.608-.207-.01-.443-.012-.68-.012Z"/>
+                </svg>
+                <span class="icon-sub-badge" title="Primary Number: +91 80820 17828">1</span>
+              </a>
+
+              <!-- Secondary WhatsApp Icon (+91 95993 20907) -->
+              <a href="https://wa.me/919599320907" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Secondary WhatsApp +91 95993 20907" title="Secondary WhatsApp: +91 95993 20907">
+                <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+                  <path d="M16.004 2.002C8.271 2.002 2.004 8.269 2.004 16c0 2.471.644 4.888 1.87 7.016L2 30l7.191-1.883A13.94 13.94 0 0 0 16.004 30C23.735 30 23.731 30 16 30c-3.737 0-7.25-1.456-9.893-4.099A13.908 13.908 0 0 0 16.004 2.002Zm0 2.497a11.447 11.447 0 0 1 8.138 3.372A11.44 11.44 0 0 1 27.503 16c0 6.337-5.159 11.5-11.499 11.5a11.445 11.445 0 0 1-5.832-1.588l-.418-.248-4.333 1.137 1.156-4.222-.273-.433A11.413 11.413 0 0 1 4.501 16C4.501 9.665 9.665 4.499 16.004 4.499Zm-3.45 4.71c-.236 0-.62.088-.945.44-.325.352-1.24 1.214-1.24 2.96 0 1.745 1.27 3.432 1.447 3.668.177.236 2.497 3.812 6.048 5.346.845.365 1.504.583 2.018.746.848.27 1.62.232 2.23.14.68-.1 2.094-.856 2.39-1.683.295-.827.295-1.536.207-1.683-.089-.148-.325-.236-.68-.413-.354-.177-2.094-1.034-2.419-1.152-.325-.118-.56-.177-.797.177-.236.354-.914 1.152-1.121 1.388-.207.236-.413.266-.768.088-.354-.177-1.498-.552-2.854-1.76-1.055-.94-1.768-2.102-1.975-2.457-.207-.354-.022-.546.156-.722.16-.16.354-.413.532-.62.177-.207.236-.354.354-.59.118-.237.059-.443-.03-.62-.088-.177-.796-1.922-1.092-2.632-.287-.69-.58-.597-.797-.608-.207-.01-.443-.012-.68-.012Z"/>
+                </svg>
+                <span class="icon-sub-badge" title="Secondary Number: +91 95993 20907">2</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="tech-line">
+
+      <div class="footer-bottom">
+        <span class="metadata footer-copy">© 2026 Designmela. All rights reserved.</span>
+        <span class="metadata footer-credits">Built with curiosity + modern tools.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // In-page Smooth Jump Scroll Handler for Legal Mobile Select & Desktop Links
+    document.addEventListener('DOMContentLoaded', () => {
+      const select = document.getElementById('legal-mobile-select');
+      if (select) {
+        select.addEventListener('change', (e) => {
+          const targetId = e.target.value;
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

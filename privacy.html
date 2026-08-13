@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Designmela</title>
+  <meta name="description" content="Designmela agency Privacy Policy — details on data collection, 15-minute sessionStorage chat retention, WhatsApp escalation rules, and visitor privacy rights.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23171717'/><text x='50' y='68' font-family='sans-serif' font-weight='900' font-size='60' fill='%23B8D968' text-anchor='middle'>D</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- GSAP CDN for smooth transitions -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="index.html" class="logo" aria-label="Designmela Home">
+        <span class="logo-mark">D</span>
+        <span class="logo-text">designmela</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html#work" class="nav-link">Work</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#pricing" class="nav-link">Pricing</a>
+        <a href="index.html#process" class="nav-link">Process</a>
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Region Selector Pill -->
+        <div class="region-selector-pill" id="region-selector-pill" role="button" tabindex="0" aria-label="Select currency region" aria-expanded="false">
+          <span class="region-flag" id="region-flag">🇺🇸</span>
+          <span class="region-code" id="region-code">USD</span>
+          <span class="region-caret">▾</span>
+        </div>
+
+        <a href="index.html#contact" class="btn-primary">
+          <span>Let's Talk <span class="arrow">→</span></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Region Modal -->
+  <div class="region-modal-overlay" id="region-modal-overlay" style="display: none;" aria-hidden="true">
+    <div class="region-modal-card" role="dialog" aria-modal="true" aria-labelledby="region-modal-title">
+      <button class="region-modal-close" id="region-modal-close" type="button" aria-label="Close region modal">&times;</button>
+      <h3 class="h3-modal-title" id="region-modal-title">Choose Your Currency Region</h3>
+      <p class="region-modal-desc">Select your preferred region to view accurate local pricing presets across all services.</p>
+      
+      <div class="region-options-grid">
+        <button class="region-option-btn active" data-region="US" data-currency="USD" data-symbol="$" data-flag="🇺🇸" data-dial="+1">
+          <span class="option-flag">🇺🇸</span>
+          <div class="option-details">
+            <span class="option-name">United States &amp; International</span>
+            <span class="option-currency">USD ($)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="IN" data-currency="INR" data-symbol="₹" data-flag="🇮🇳" data-dial="+91">
+          <span class="option-flag">🇮🇳</span>
+          <div class="option-details">
+            <span class="option-name">India</span>
+            <span class="option-currency">INR (₹)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="GB" data-currency="GBP" data-symbol="£" data-flag="🇬🇧" data-dial="+44">
+          <span class="option-flag">🇬🇧</span>
+          <div class="option-details">
+            <span class="option-name">United Kingdom</span>
+            <span class="option-currency">GBP (£)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="EU" data-currency="EUR" data-symbol="€" data-flag="🇪🇺" data-dial="+49">
+          <span class="option-flag">🇪🇺</span>
+          <div class="option-details">
+            <span class="option-name">Eurozone</span>
+            <span class="option-currency">EUR (€)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="AE" data-currency="AED" data-symbol="AED " data-flag="🇦🇪" data-dial="+971">
+          <span class="option-flag">🇦🇪</span>
+          <div class="option-details">
+            <span class="option-name">United Arab Emirates</span>
+            <span class="option-currency">AED (AED)</span>
+          </div>
+        </button>
+        <button class="region-option-btn" data-region="AU" data-currency="AUD" data-symbol="A$" data-flag="🇦🇺" data-dial="+61">
+          <span class="option-flag">🇦🇺</span>
+          <div class="option-details">
+            <span class="option-name">Australia</span>
+            <span class="option-currency">AUD (A$)</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HERO HEADER ==================== -->
+  <section class="legal-hero">
+    <div class="legal-hero-inner">
+      <span class="legal-pill-badge">Data &amp; Privacy Standards</span>
+      <h1 class="legal-hero-title">Privacy Policy</h1>
+      <p class="legal-hero-subhead">How we handle your details: no shady tracking, no selling data, just what's needed to build great work.</p>
+      <div class="legal-hero-meta">
+        <span>Effective Date: August 2026</span>
+        <span>•</span>
+        <span>Version 1.0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT SECTION ==================== -->
+  <section class="legal-section-wrap">
+    <div class="legal-container">
+      
+      <!-- Desktop Sticky Section Jump Sidebar -->
+      <aside class="legal-nav-sidebar" aria-label="Table of contents">
+        <div class="legal-nav-title">Jump to Section</div>
+        <ul class="legal-nav-list">
+          <li><a href="#privacy-1" class="legal-nav-link"><span class="legal-nav-num">01</span> Data We Collect</a></li>
+          <li><a href="#privacy-2" class="legal-nav-link"><span class="legal-nav-num">02</span> Why We Collect It</a></li>
+          <li><a href="#privacy-3" class="legal-nav-link active"><span class="legal-nav-num">03</span> WhatsApp Escalation</a></li>
+          <li><a href="#privacy-4" class="legal-nav-link active"><span class="legal-nav-num">04</span> Storage &amp; Retention</a></li>
+          <li><a href="#privacy-5" class="legal-nav-link"><span class="legal-nav-num">05</span> Third Parties</a></li>
+          <li><a href="#privacy-6" class="legal-nav-link"><span class="legal-nav-num">06</span> Cookies &amp; Tracking</a></li>
+          <li><a href="#privacy-7" class="legal-nav-link"><span class="legal-nav-num">07</span> Visitor Data Rights</a></li>
+          <li><a href="#privacy-8" class="legal-nav-link"><span class="legal-nav-num">08</span> Policy Updates</a></li>
+          <li><a href="#privacy-9" class="legal-nav-link"><span class="legal-nav-num">09</span> Contact Info</a></li>
+        </ul>
+      </aside>
+
+      <!-- Document Content Body -->
+      <main class="legal-content">
+
+        <!-- Mobile Section Jump Dropdown -->
+        <div class="legal-mobile-jump">
+          <select id="privacy-mobile-select" class="legal-mobile-select" aria-label="Jump to privacy section">
+            <option value="#privacy-1">01. Data We Collect</option>
+            <option value="#privacy-2">02. Why We Collect It</option>
+            <option value="#privacy-3" selected>03. WhatsApp Escalation</option>
+            <option value="#privacy-4">04. Data Storage &amp; Retention (sessionStorage)</option>
+            <option value="#privacy-5">05. Third-Party Services</option>
+            <option value="#privacy-6">06. Cookies &amp; Tracking</option>
+            <option value="#privacy-7">07. Visitor Data Rights</option>
+            <option value="#privacy-8">08. Policy Updates</option>
+            <option value="#privacy-9">09. Contact Information</option>
+          </select>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="legal-card" id="privacy-1">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">01</span>
+                <h2 class="legal-card-title">What Data We Collect</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>We collect minimal information necessary to respond to client inquiries and scope design/dev projects:</p>
+              <ul>
+                <li><strong>Contact Form Inputs:</strong> Name, email address, phone number, project type, and brief description submitted via our main contact form or audit request modals.</li>
+                <li><strong>Dee AI Chat Messages:</strong> Queries, pricing requests, and project briefs typed directly into the Dee chat widget.</li>
+                <li><strong>Initiated Direct Messages:</strong> Contact details shared when initiating a WhatsApp chat from our site.</li>
+                <li><strong>Technical Session Metadata:</strong> Basic browser metadata, regional currency selection, and IP location detection to display localized pricing.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="legal-card" id="privacy-2">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">02</span>
+                <h2 class="legal-card-title">Why We Collect It</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Your details are used solely to facilitate business communication and project delivery:</p>
+              <ul>
+                <li>Responding to service inquiries and scheduling project discovery calls.</li>
+                <li>Preparing accurate project estimates, timelines, and proposal briefs.</li>
+                <li>Improving AI assistant (Dee) prompt relevance for agency services.</li>
+                <li>Fulfilling digital presence audit requests.</li>
+              </ul>
+              <p>We <strong>never sell, rent, or trade</strong> client or visitor contact details to third-party advertisers or data brokers.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 3 (HIGH PRIORITY — EXPANDED BY DEFAULT) -->
+        <div class="legal-card" id="privacy-3">
+          <details class="legal-accordion" open>
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">03</span>
+                <h2 class="legal-card-title">WhatsApp Escalation &amp; External Platforms</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Our site features direct integration with WhatsApp for fast inquiry escalation:</p>
+              
+              <div class="legal-callout-box">
+                <h4>🟢 WhatsApp Hand-Off Terms</h4>
+                <ul>
+                  <li>Clicking <strong>"Continue on WhatsApp"</strong> or secondary fallback contact links hands the chat off to WhatsApp's native mobile app or Web client.</li>
+                  <li>Conversations conducted on WhatsApp take place on WhatsApp's external platform and are subject to <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline;">WhatsApp's Privacy Policy</a>, which operates outside Designmela's direct infrastructure control.</li>
+                  <li>Both our Primary WhatsApp line (+91 80820 17828) and Secondary fallback line (+91 95993 20907) operate under these same external platform rules.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 4 (HIGH PRIORITY — EXPANDED BY DEFAULT) -->
+        <div class="legal-card" id="privacy-4">
+          <details class="legal-accordion" open>
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">04</span>
+                <h2 class="legal-card-title">Data Storage &amp; Session Retention</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>We prioritize local-first data privacy for chat interactions:</p>
+              
+              <div class="legal-callout-box">
+                <h4>💾 15-Minute Client-Side Session Storage</h4>
+                <ul>
+                  <li><strong>Browser Local Storage:</strong> Dee's active chat thread and temporary inquiry progress are stored locally in your browser's <code>sessionStorage</code>.</li>
+                  <li><strong>Automatic 15-Minute Expiry:</strong> Chat session state automatically expires and wipes completely after 15 minutes of inactivity or when the browser tab is closed.</li>
+                  <li><strong>Zero Unsolicited Server Logging:</strong> No chat transcript data is saved to remote databases or external servers unless you explicitly submit a contact form or initiate a WhatsApp message.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="legal-card" id="privacy-5">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">05</span>
+                <h2 class="legal-card-title">Third-Party Service Providers</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>We rely on trusted third-party infrastructure providers to host and run our site services:</p>
+              <ul>
+                <li><strong>Vercel:</strong> Site hosting and serverless function routing.</li>
+                <li><strong>Google Gemini API:</strong> Processing natural language queries for Dee AI chat responses.</li>
+                <li><strong>Web3Forms:</strong> Secure submission delivery for contact forms and digital audits.</li>
+                <li><strong>WhatsApp (Meta):</strong> Direct messaging and lead escalation.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="legal-card" id="privacy-6">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">06</span>
+                <h2 class="legal-card-title">Cookies &amp; Local Storage</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>We do not use intrusive cross-site tracking cookies. We utilize standard browser <code>sessionStorage</code> strictly to maintain currency preferences and retain active chat history during your visit.</p>
+              <!-- TODO: Confirm whether any third-party web analytics (e.g. Google Analytics / Vercel Analytics) or tracking cookies are active before final publishing -->
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="legal-card" id="privacy-7">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">07</span>
+                <h2 class="legal-card-title">Visitor Data Rights</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>Depending on your jurisdiction, you hold full rights regarding your personal information, including rights to access, inspect, update, or request permanent deletion of any contact data submitted to us.</p>
+              <p>To request data inspection or deletion, email us at <a href="mailto:hello@designmela.com" style="color: var(--color-ink); font-weight: 700; text-decoration: underline;">hello@designmela.com</a>.</p>
+              <!-- TODO: Confirm contact email for formal data subject request fulfillment (e.g. privacy@designmela.com or hello@designmela.com) prior to final publication -->
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="legal-card" id="privacy-8">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">08</span>
+                <h2 class="legal-card-title">Changes to This Policy</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>We may update this Privacy Policy periodically to reflect technological or regulatory updates. Any changes will be posted here with a revised effective date.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Section 9 -->
+        <div class="legal-card" id="privacy-9">
+          <details class="legal-accordion">
+            <summary class="legal-summary">
+              <div class="legal-card-header">
+                <span class="legal-icon-badge">09</span>
+                <h2 class="legal-card-title">Contact Information</h2>
+              </div>
+              <span class="legal-toggle-icon">▾</span>
+            </summary>
+            <div class="legal-card-body">
+              <p>For questions or feedback regarding our privacy practices, reach out to our team at <a href="mailto:hello@designmela.com" style="color: var(--color-ink); font-weight: 700; text-decoration: underline;">hello@designmela.com</a>.</p>
+            </div>
+          </details>
+        </div>
+
+      </main>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">D</span>
+            <span class="logo-text">designmela</span>
+          </a>
+          <p class="footer-tagline">
+            Building digital systems that move businesses forward.
+          </p>
+        </div>
+        
+        <div class="footer-links-row">
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Navigation</span>
+            <a href="index.html#work" class="footer-link">Work</a>
+            <a href="index.html#services" class="footer-link">Services</a>
+            <a href="index.html#about" class="footer-link">About</a>
+            <a href="index.html#contact" class="footer-link">Contact</a>
+          </div>
+
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Legal</span>
+            <a href="terms.html" class="footer-link">Terms &amp; Conditions</a>
+            <a href="privacy.html" class="footer-link" style="color: var(--color-ink); font-weight: 700;">Privacy Policy</a>
+          </div>
+          
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Connect</span>
+            <div class="footer-social-icons">
+              <!-- Email Icon -->
+              <a href="mailto:hello@designmela.com" class="footer-icon-btn" aria-label="Email hello@designmela.com" title="Email: hello@designmela.com">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </a>
+
+              <!-- Instagram Icon -->
+              <a href="https://www.instagram.com/designmela_com/" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram @designmela_com" title="Instagram (@designmela_com)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </a>
+
+              <!-- Primary WhatsApp Icon (+91 80820 17828) -->
+              <a href="https://wa.me/918082017828" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Primary WhatsApp +91 80820 17828" title="Primary WhatsApp: +91 80820 17828">
+                <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+                  <path d="M16.004 2.002C8.271 2.002 2.004 8.269 2.004 16c0 2.471.644 4.888 1.87 7.016L2 30l7.191-1.883A13.94 13.94 0 0 0 16.004 30C23.735 30 23.731 30 16 30c-3.737 0-7.25-1.456-9.893-4.099A13.908 13.908 0 0 0 16.004 2.002Zm0 2.497a11.447 11.447 0 0 1 8.138 3.372A11.44 11.44 0 0 1 27.503 16c0 6.337-5.159 11.5-11.499 11.5a11.445 11.445 0 0 1-5.832-1.588l-.418-.248-4.333 1.137 1.156-4.222-.273-.433A11.413 11.413 0 0 1 4.501 16C4.501 9.665 9.665 4.499 16.004 4.499Zm-3.45 4.71c-.236 0-.62.088-.945.44-.325.352-1.24 1.214-1.24 2.96 0 1.745 1.27 3.432 1.447 3.668.177.236 2.497 3.812 6.048 5.346.845.365 1.504.583 2.018.746.848.27 1.62.232 2.23.14.68-.1 2.094-.856 2.39-1.683.295-.827.295-1.536.207-1.683-.089-.148-.325-.236-.68-.413-.354-.177-2.094-1.034-2.419-1.152-.325-.118-.56-.177-.797.177-.236.354-.914 1.152-1.121 1.388-.207.236-.413.266-.768.088-.354-.177-1.498-.552-2.854-1.76-1.055-.94-1.768-2.102-1.975-2.457-.207-.354-.022-.546.156-.722.16-.16.354-.413.532-.62.177-.207.236-.354.354-.59.118-.237.059-.443-.03-.62-.088-.177-.796-1.922-1.092-2.632-.287-.69-.58-.597-.797-.608-.207-.01-.443-.012-.68-.012Z"/>
+                </svg>
+                <span class="icon-sub-badge" title="Primary Number: +91 80820 17828">1</span>
+              </a>
+
+              <!-- Secondary WhatsApp Icon (+91 95993 20907) -->
+              <a href="https://wa.me/919599320907" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Secondary WhatsApp +91 95993 20907" title="Secondary WhatsApp: +91 95993 20907">
+                <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+                  <path d="M16.004 2.002C8.271 2.002 2.004 8.269 2.004 16c0 2.471.644 4.888 1.87 7.016L2 30l7.191-1.883A13.94 13.94 0 0 0 16.004 30C23.735 30 23.731 30 16 30c-3.737 0-7.25-1.456-9.893-4.099A13.908 13.908 0 0 0 16.004 2.002Zm0 2.497a11.447 11.447 0 0 1 8.138 3.372A11.44 11.44 0 0 1 27.503 16c0 6.337-5.159 11.5-11.499 11.5a11.445 11.445 0 0 1-5.832-1.588l-.418-.248-4.333 1.137 1.156-4.222-.273-.433A11.413 11.413 0 0 1 4.501 16C4.501 9.665 9.665 4.499 16.004 4.499Zm-3.45 4.71c-.236 0-.62.088-.945.44-.325.352-1.24 1.214-1.24 2.96 0 1.745 1.27 3.432 1.447 3.668.177.236 2.497 3.812 6.048 5.346.845.365 1.504.583 2.018.746.848.27 1.62.232 2.23.14.68-.1 2.094-.856 2.39-1.683.295-.827.295-1.536.207-1.683-.089-.148-.325-.236-.68-.413-.354-.177-2.094-1.034-2.419-1.152-.325-.118-.56-.177-.797.177-.236.354-.914 1.152-1.121 1.388-.207.236-.413.266-.768.088-.354-.177-1.498-.552-2.854-1.76-1.055-.94-1.768-2.102-1.975-2.457-.207-.354-.022-.546.156-.722.16-.16.354-.413.532-.62.177-.207.236-.354.354-.59.118-.237.059-.443-.03-.62-.088-.177-.796-1.922-1.092-2.632-.287-.69-.58-.597-.797-.608-.207-.01-.443-.012-.68-.012Z"/>
+                </svg>
+                <span class="icon-sub-badge" title="Secondary Number: +91 95993 20907">2</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="tech-line">
+
+      <div class="footer-bottom">
+        <span class="metadata footer-copy">© 2026 Designmela. All rights reserved.</span>
+        <span class="metadata footer-credits">Built with curiosity + modern tools.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // In-page Smooth Jump Scroll Handler for Legal Mobile Select & Desktop Links
+    document.addEventListener('DOMContentLoaded', () => {
+      const select = document.getElementById('privacy-mobile-select');
+      if (select) {
+        select.addEventListener('change', (e) => {
+          const targetId = e.target.value;
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
