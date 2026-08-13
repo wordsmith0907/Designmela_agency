@@ -2207,6 +2207,26 @@
       messageArea.scrollTop = messageArea.scrollHeight;
     }
 
+    // Quick Help Drawer State & Session Auto-Collapse Handler
+    let isQuickHelpExpanded = false;
+
+    function hideQuickHelpPillForSession() {
+      try {
+        sessionStorage.setItem('dee_qh_hidden', 'true');
+      } catch (e) {}
+      if (chipsContainer) {
+        chipsContainer.classList.add('dee-chips-hidden-session');
+      }
+    }
+
+    function isQuickHelpPillHidden() {
+      try {
+        return sessionStorage.getItem('dee_qh_hidden') === 'true';
+      } catch (e) {
+        return false;
+      }
+    }
+
     // Session Restore & Greeting Logic (15-Minute Expiry Check)
     function initDeeSession() {
       try {
@@ -2237,8 +2257,11 @@
         console.warn('Failed to restore Dee chat session:', e);
       }
 
-      // Expired (>15 mins) or new tab — clear storage and show fresh greeting
-      sessionStorage.removeItem(SESSION_KEY);
+      // Expired (>15 mins) or new session — reset session storage & show fresh greeting
+      try {
+        sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem('dee_qh_hidden');
+      } catch (e) {}
       chatUIThread = [];
       showGreeting();
     }
@@ -2254,34 +2277,90 @@
     }
 
     function renderDefaultChips() {
-      renderChips([
+      // If visitor has sent a message in this session, keep Quick help hidden!
+      if (isQuickHelpPillHidden()) {
+        if (chipsContainer) {
+          chipsContainer.classList.add('dee-chips-hidden-session');
+        }
+        return;
+      }
+
+      const defaultOptions = [
         "Tell me about your services 📁",
         "What are your start prices? 🏷️",
         "Get a Free Audit 📋",
         "Let's start a project brief! 🚀"
-      ], (choice) => {
-        addMessage('user', choice);
-        messageHistory.push({ role: 'user', parts: [{ text: choice }] });
-        if (choice.includes("Get a Free Audit")) {
-          const auditReply = "I can't pull up live details in chat, but I can set you up with a full digital presence audit — takes 6-12 hours and covers your website, socials, and Maps presence. Want me to get that started?";
-          addMessage('bot', auditReply);
-          messageHistory.push({ role: 'model', parts: [{ text: auditReply }] });
-          renderChips([
-            "Open Audit Form 📋",
-            "Let's start a project brief! 🚀"
-          ], (auditChoice) => {
-            if (auditChoice.includes("Audit")) {
-              openAuditModal();
-            } else {
-              startInquiryFlow();
-            }
-          });
-        } else if (choice.includes("Let's start a project brief!")) {
-          startInquiryFlow();
-        } else {
-          handleIncomingMessage(choice);
+      ];
+
+      chipsContainer.innerHTML = '';
+      chipsContainer.classList.remove('dee-chips-hidden-session');
+      chipsContainer.style.display = 'flex';
+
+      // Create compact "Quick help ▾" Pill Button
+      const toggleBtn = document.createElement('button');
+      toggleBtn.type = 'button';
+      toggleBtn.className = 'dee-quickhelp-toggle';
+      toggleBtn.id = 'dee-quickhelp-toggle';
+      toggleBtn.innerHTML = `Quick help <span class="dee-qh-arrow" id="dee-qh-arrow">${isQuickHelpExpanded ? '▴' : '▾'}</span>`;
+
+      // Create Drawer Container for the 4 chips (collapsed by default)
+      const drawerEl = document.createElement('div');
+      drawerEl.className = 'dee-quickhelp-drawer';
+      drawerEl.id = 'dee-quickhelp-drawer';
+      drawerEl.style.display = isQuickHelpExpanded ? 'flex' : 'none';
+
+      const arrowSpan = toggleBtn.querySelector('#dee-qh-arrow');
+
+      // Populate 4 chips inside drawer
+      defaultOptions.forEach(chipText => {
+        const btn = document.createElement('button');
+        btn.className = 'dee-chip';
+        btn.type = 'button';
+        btn.textContent = chipText;
+        btn.addEventListener('click', () => {
+          hideQuickHelpPillForSession();
+          handleDefaultChipClick(chipText);
+        });
+        drawerEl.appendChild(btn);
+      });
+
+      // Toggle Pill Event Listener
+      toggleBtn.addEventListener('click', () => {
+        isQuickHelpExpanded = !isQuickHelpExpanded;
+        drawerEl.style.display = isQuickHelpExpanded ? 'flex' : 'none';
+        if (arrowSpan) {
+          arrowSpan.textContent = isQuickHelpExpanded ? '▴' : '▾';
         }
       });
+
+      chipsContainer.appendChild(toggleBtn);
+      chipsContainer.appendChild(drawerEl);
+      messageArea.scrollTop = messageArea.scrollHeight;
+    }
+
+    function handleDefaultChipClick(choice) {
+      addMessage('user', choice);
+      messageHistory.push({ role: 'user', parts: [{ text: choice }] });
+
+      if (choice.includes("Get a Free Audit")) {
+        const auditReply = "I can't pull up live details in chat, but I can set you up with a full digital presence audit — takes 6-12 hours and covers your website, socials, and Maps presence. Want me to get that started?";
+        addMessage('bot', auditReply);
+        messageHistory.push({ role: 'model', parts: [{ text: auditReply }] });
+        renderChips([
+          "Open Audit Form 📋",
+          "Let's start a project brief! 🚀"
+        ], (auditChoice) => {
+          if (auditChoice.includes("Audit")) {
+            openAuditModal();
+          } else {
+            startInquiryFlow();
+          }
+        });
+      } else if (choice.includes("Let's start a project brief!")) {
+        startInquiryFlow();
+      } else {
+        handleIncomingMessage(choice);
+      }
     }
 
     // Structured Inquiry Flow controller
@@ -3170,6 +3249,8 @@
       e.preventDefault();
       const text = chatInput.value.trim();
       if (!text || isWaitingForResponse) return;
+
+      hideQuickHelpPillForSession();
 
       addMessage('user', text);
       messageHistory.push({ role: 'user', parts: [{ text: text }] });
