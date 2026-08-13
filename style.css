@@ -2809,6 +2809,20 @@ video.hitesh-img {
   object-fit: cover;
 }
 
+/* Custom 3:4 portrait aspect ratio for Designmela Assistant image panel */
+.aether-image-panel {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.aether-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Responsive overrides for all project showcase cards */
 @media (max-width: 1024px) {
   .caliora-card, .driply-card, .jaingrill-card, .aether-card, .workflow-card, .hitesh-card {
