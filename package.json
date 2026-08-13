@@ -1,0 +1,14 @@
+{
+  "name": "designmela-site",
+  "version": "1.0.0",
+  "description": "Designmela digital creative studio portfolio website",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "build": "echo 'No build step required for static site'"
+  },
+  "author": "Designmela",
+  "license": "ISC"
+}
