@@ -1545,7 +1545,7 @@ a {
 
 .footer-links-row {
   display: flex;
-  gap: 80px;
+  gap: 48px;
   margin-left: auto;
 }
 
@@ -1556,18 +1556,37 @@ a {
 }
 
 .footer-col-title {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  line-height: 1;
 }
 
 .footer-link {
+  font-family: var(--font-body);
   font-size: 14px;
+  font-weight: 500;
   color: var(--color-ink-secondary);
   transition: color 0.2s var(--ease-out);
+  line-height: 1.4;
 }
 
 .footer-link:hover {
   color: var(--color-ink);
+}
+
+@media (max-width: 768px) {
+  .footer-links-row {
+    flex-direction: column;
+    gap: 28px;
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 /* Footer Social & Contact Icon Button Row */
