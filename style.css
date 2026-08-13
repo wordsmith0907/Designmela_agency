@@ -4457,9 +4457,13 @@ video.hitesh-img {
   }
 }
 
-/* ============================================================
-   LEGAL PAGES (TERMS & CONDITIONS + PRIVACY POLICY)
-   ============================================================ */
+/* Ensure legal page navbar matches home page navbar with crisp contrast */
+.legal-page .navbar {
+  background-color: rgba(250, 249, 245, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
 
 .legal-hero {
   background-color: var(--color-ink);
