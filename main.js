@@ -2017,16 +2017,33 @@
         "+63": 10,
         "+66": 9,
         "+84": 9,
-        "+353": 9,
-        "+43": 10,
-        "+32": 9,
-        "+45": 8,
-        "+46": 9,
         "+47": 8,
         "+358": 9
       };
       return lengths[dialCode] || 10;
     };
+
+    // TARGET 1 & TARGET 2 Constants
+    const PRIMARY_NUMBER = '918082017828';
+    const SECONDARY_NUMBER = '919599320907';
+    const SESSION_KEY = 'dee_chat_session_v2';
+    const FIFTEEN_MINUTES_MS = 15 * 60 * 1000;
+    let chatUIThread = []; // Tracks rendered UI message bubbles for sessionStorage persistence
+
+    // Session Persistence Helper
+    function saveChatSession() {
+      try {
+        const sessionData = {
+          lastActivity: Date.now(),
+          messages: chatUIThread,
+          messageHistory: messageHistory,
+          inquiryState: inquiryState
+        };
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+      } catch (e) {
+        console.warn('Unable to save chat session:', e);
+      }
+    }
 
     // Always display red unread badge on fresh page load until user clicks trigger
     if (unreadDot) {
@@ -2057,7 +2074,11 @@
     });
 
     // Helper to add chat message bubble
-    function addMessage(sender, text, isHtml = false) {
+    function addMessage(sender, text, isHtml = false, skipSave = false) {
+      if (!skipSave) {
+        chatUIThread.push({ sender, text, isHtml });
+      }
+
       const msg = document.createElement('div');
       msg.className = `dee-message dee-message-${sender === 'user' ? 'user' : 'bot'}`;
       
@@ -2112,6 +2133,10 @@
       
       // Scroll to bottom
       messageArea.scrollTop = messageArea.scrollHeight;
+
+      if (!skipSave) {
+        saveChatSession();
+      }
     }
 
     // Show bouncing dots typing indicator
@@ -2147,10 +2172,10 @@
       }
     }
 
-    // Dynamic Suggestion Chips Row Manager
-    function renderChips(chips, onSelect) {
+    // Dynamic Suggestion Chips Row Manager with optional Secondary Action Link support
+    function renderChips(chips, onSelect, secondaryHtml = null) {
       chipsContainer.innerHTML = '';
-      if (!chips || chips.length === 0) {
+      if ((!chips || chips.length === 0) && !secondaryHtml) {
         chipsContainer.style.display = 'none';
         chipsContainer.classList.remove('dee-chips-collapsed');
         return;
@@ -2158,18 +2183,64 @@
       
       chipsContainer.classList.remove('dee-chips-collapsed');
       chipsContainer.style.display = 'flex';
-      chips.forEach(chipText => {
-        const btn = document.createElement('button');
-        btn.className = 'dee-chip';
-        btn.type = 'button';
-        btn.textContent = chipText;
-        btn.addEventListener('click', () => {
-          collapseChips();
-          onSelect(chipText);
+
+      if (chips && chips.length > 0) {
+        chips.forEach(chipText => {
+          const btn = document.createElement('button');
+          btn.className = 'dee-chip';
+          btn.type = 'button';
+          btn.textContent = chipText;
+          btn.addEventListener('click', () => {
+            collapseChips();
+            onSelect(chipText);
+          });
+          chipsContainer.appendChild(btn);
         });
-        chipsContainer.appendChild(btn);
-      });
+      }
+
+      if (secondaryHtml) {
+        const secWrap = document.createElement('div');
+        secWrap.innerHTML = secondaryHtml;
+        chipsContainer.appendChild(secWrap.firstElementChild || secWrap);
+      }
+
       messageArea.scrollTop = messageArea.scrollHeight;
+    }
+
+    // Session Restore & Greeting Logic (15-Minute Expiry Check)
+    function initDeeSession() {
+      try {
+        const rawData = sessionStorage.getItem(SESSION_KEY);
+        if (rawData) {
+          const sessionData = JSON.parse(rawData);
+          const now = Date.now();
+          if (sessionData && sessionData.lastActivity && (now - sessionData.lastActivity <= FIFTEEN_MINUTES_MS)) {
+            // Restore active session thread!
+            messageArea.innerHTML = '';
+            chatUIThread = [];
+            if (Array.isArray(sessionData.messages) && sessionData.messages.length > 0) {
+              sessionData.messages.forEach(m => {
+                addMessage(m.sender, m.text, m.isHtml, false);
+              });
+              if (Array.isArray(sessionData.messageHistory)) {
+                messageHistory = sessionData.messageHistory;
+              }
+              if (sessionData.inquiryState) {
+                inquiryState = sessionData.inquiryState;
+              }
+              renderDefaultChips();
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Failed to restore Dee chat session:', e);
+      }
+
+      // Expired (>15 mins) or new tab — clear storage and show fresh greeting
+      sessionStorage.removeItem(SESSION_KEY);
+      chatUIThread = [];
+      showGreeting();
     }
 
     // Greeting Message
@@ -2603,20 +2674,25 @@
           const hasWaLink = lowerReply.includes('wa.me') || lowerReply.includes('whatsapp') || isAskForOwner;
           
           if (hasWaLink) {
-            const waMsg = encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
+            const serviceContext = inquiryState.data.service || "a project";
+            const dynamicMsgText = `Hi Designmela! I'd like to discuss ${serviceContext}.`;
+            const encodedWaMsg = encodeURIComponent(dynamicMsgText);
+
+            const primaryUrl = `https://wa.me/${PRIMARY_NUMBER}?text=${encodedWaMsg}`;
+            const secondaryUrl = `https://wa.me/${SECONDARY_NUMBER}?text=${encodedWaMsg}`;
+
+            const secondaryHtml = `<div class="dee-secondary-wa-wrap"><a href="${secondaryUrl}" target="_blank" rel="noopener noreferrer" class="dee-secondary-wa-link">No response? Message secondary line instead →</a></div>`;
+
             renderChips([
-              "Primary WhatsApp →",
-              "Secondary WhatsApp →",
+              "Continue on WhatsApp →",
               "Let's start a project brief! 🚀"
             ], (choice) => {
-              if (choice.includes("Primary")) {
-                window.open(`https://wa.me/918082017828?text=${waMsg}`, '_blank');
-              } else if (choice.includes("Secondary")) {
-                window.open(`https://wa.me/919599320907?text=${waMsg}`, '_blank');
+              if (choice.includes("Continue on WhatsApp")) {
+                window.open(primaryUrl, '_blank');
               } else {
                 startInquiryFlow();
               }
-            });
+            }, secondaryHtml);
           } else if (lowerReply.includes('audit') || cleanText.includes('analyze') || cleanText.includes('review my')) {
             renderChips([
               "Open Audit Form 📋",
@@ -3036,9 +3112,9 @@
         { scale: 1, opacity: 1, duration: 0.25, ease: "power2.out" }
       );
 
-      // Trigger welcome message on first load
-      if (messageHistory.length === 0) {
-        showGreeting();
+      // Restore ongoing 15-min session or trigger greeting on first load
+      if (messageHistory.length === 0 && chatUIThread.length === 0) {
+        initDeeSession();
       }
     }
 
