@@ -2053,12 +2053,14 @@
     }
     trigger.classList.add('dee-pulsing');
 
-    // Quick-Reply Chip Visibility State (Permanently collapses after first message in a session)
+    // Quick-Reply Drawer Visibility & Expand State
     let hasSentFirstMessage = false;
+    let isQuickHelpExpanded = false;
 
-    // Smooth height collapse of quick-reply chips row
-    function collapseChips() {
+    // Smooth height collapse of quick-reply drawer row
+    function collapseQuickHelpPermanently() {
       hasSentFirstMessage = true;
+      isQuickHelpExpanded = false;
       if (chipsContainer && chipsContainer.style.display !== 'none' && !chipsContainer.classList.contains('dee-chips-collapsed')) {
         chipsContainer.classList.add('dee-chips-collapsed');
         setTimeout(() => {
@@ -2069,121 +2071,105 @@
       }
     }
 
-    // Set Send Button active state & collapse chips on typing input
-    chatInput.addEventListener('input', () => {
-      sendBtn.disabled = isWaitingForResponse || chatInput.value.trim().length === 0;
-    });
-
-    // Helper to add chat message bubble
-    function addMessage(sender, text, isHtml = false, skipSave = false) {
-      if (!skipSave) {
-        chatUIThread.push({ sender, text, isHtml });
-      }
-
-      const msg = document.createElement('div');
-      msg.className = `dee-message dee-message-${sender === 'user' ? 'user' : 'bot'}`;
-      
-      const bubble = document.createElement('div');
-      bubble.className = 'dee-message-bubble';
-      if (isHtml) {
-        bubble.innerHTML = text;
-      } else {
-        // 1. Strip raw phone numbers from text so numbers are never displayed in chat text
-        let formatted = text
-          .replace(/\(\+91\s*\d{5}\s*\d{5}\)/g, '')
-          .replace(/\+91\s*\d{5}\s*\d{5}/g, '')
-          .replace(/\+91\d{10}/g, '')
-          .replace(/:\s*\)/g, ')')
-          .replace(/\(\s*:\s*/g, '(');
-
-        // 2. Format markdown links [Text](URL) into clean styled embedded buttons with prefilled message
-        formatted = formatted
-          .replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, (match, label, url) => {
-            let cleanLabel = label.replace(/\(\+91[^\)]+\)/g, '').trim();
-            if (!cleanLabel) cleanLabel = 'WhatsApp Chat';
-            let finalUrl = url;
-            if (url.includes('wa.me') && !url.includes('text=')) {
-              finalUrl += (url.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
-            }
-            return `<a href="${finalUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${cleanLabel} ↗</a>`;
-          })
-          // 3. Format raw URLs into clean styled embedded buttons
-          .replace(/(?<!href=")(?<!src=")(https?:\/\/[^\s\)]+)/g, (match, url) => {
-            let label = 'WhatsApp Chat';
-            if (url.includes('instagram.com')) label = 'Instagram';
-            else if (url.includes('designmela.com')) label = 'Designmela';
-            let finalUrl = url;
-            if (url.includes('wa.me') && !url.includes('text=')) {
-              finalUrl += (url.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
-            }
-            return `<a href="${finalUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${label} ↗</a>`;
-          });
-        
-        bubble.innerHTML = formatted;
-      }
-      
-      // Muted timestamp on hover
-      const timestamp = document.createElement('span');
-      timestamp.className = 'dee-timestamp';
-      const now = new Date();
-      timestamp.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      
-      msg.appendChild(bubble);
-      msg.appendChild(timestamp);
-      messageArea.appendChild(msg);
-      
-      // Scroll to bottom
-      messageArea.scrollTop = messageArea.scrollHeight;
-
-      if (!skipSave) {
-        saveChatSession();
-      }
-    }
-
-    // Show bouncing dots typing indicator
-    let typingIndicatorElement = null;
-    function showTypingIndicator() {
-      if (typingIndicatorElement) return;
-      
-      const indicator = document.createElement('div');
-      indicator.className = 'dee-message dee-message-bot';
-      
-      const bubble = document.createElement('div');
-      bubble.className = 'dee-message-bubble';
-      
-      const container = document.createElement('div');
-      container.className = 'dee-typing-indicator';
-      container.innerHTML = `
-        <div class="dee-typing-dot"></div>
-        <div class="dee-typing-dot"></div>
-        <div class="dee-typing-dot"></div>
-      `;
-      
-      bubble.appendChild(container);
-      indicator.appendChild(bubble);
-      messageArea.appendChild(indicator);
-      messageArea.scrollTop = messageArea.scrollHeight;
-      typingIndicatorElement = indicator;
-    }
-
-    function removeTypingIndicator() {
-      if (typingIndicatorElement) {
-        typingIndicatorElement.remove();
-        typingIndicatorElement = null;
-      }
-    }
-
-    // Dynamic Suggestion Chips Row Manager with optional Secondary Action Link support
-    function renderChips(chips, onSelect, secondaryHtml = null) {
-      chipsContainer.innerHTML = '';
-      
-      // If user has sent their first message, keep quick-reply chips permanently collapsed for this session (unless secondary escalation link is passed)
-      if (hasSentFirstMessage && !secondaryHtml) {
-        chipsContainer.style.display = 'none';
-        chipsContainer.classList.add('dee-chips-collapsed');
+    // Render Collapsible "Quick help ▾" Drawer Pill
+    function renderQuickHelpDrawer() {
+      if (hasSentFirstMessage) {
+        if (chipsContainer) {
+          chipsContainer.style.display = 'none';
+          chipsContainer.classList.add('dee-chips-collapsed');
+        }
         return;
       }
 
+      chipsContainer.innerHTML = '';
+      chipsContainer.classList.remove('dee-chips-collapsed');
+      chipsContainer.style.display = 'flex';
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'dee-quick-help-wrapper';
+      wrapper.innerHTML = `
+        <button type="button" class="dee-quick-help-toggle" id="dee-quick-help-toggle" aria-expanded="false">
+          <span>Quick help</span>
+          <span class="dee-quick-help-arrow">▾</span>
+        </button>
+        <div class="dee-quick-help-drawer" id="dee-quick-help-drawer"></div>
+      `;
+
+      const toggleBtn = wrapper.querySelector('#dee-quick-help-toggle');
+      const arrowEl = wrapper.querySelector('.dee-quick-help-arrow');
+      const drawerEl = wrapper.querySelector('#dee-quick-help-drawer');
+
+      const defaultOptions = [
+        "Tell me about your services 📁",
+        "What are your start prices? 🏷️",
+        "Get a Free Audit 📋",
+        "Let's start a project brief! 🚀"
+      ];
+
+      defaultOptions.forEach(chipText => {
+        const btn = document.createElement('button');
+        btn.className = 'dee-chip';
+        btn.type = 'button';
+        btn.textContent = chipText;
+        btn.addEventListener('click', () => {
+          // Collapse drawer AND permanently hide quick help on first message
+          collapseQuickHelpPermanently();
+          addMessage('user', chipText);
+          messageHistory.push({ role: 'user', parts: [{ text: chipText }] });
+          
+          if (chipText.includes("Get a Free Audit")) {
+            const auditReply = "I can't pull up live details in chat, but I can set you up with a full digital presence audit — takes 6-12 hours and covers your website, socials, and Maps presence. Want me to get that started?";
+            addMessage('bot', auditReply);
+            messageHistory.push({ role: 'model', parts: [{ text: auditReply }] });
+            renderChips([
+              "Open Audit Form 📋",
+              "Let's start a project brief! 🚀"
+            ], (auditChoice) => {
+              if (auditChoice.includes("Audit")) {
+                openAuditModal();
+              } else {
+                startInquiryFlow();
+              }
+            });
+          } else if (chipText.includes("Let's start a project brief!")) {
+            startInquiryFlow();
+          } else {
+            handleIncomingMessage(chipText);
+          }
+        });
+        drawerEl.appendChild(btn);
+      });
+
+      // Toggle pill click listener (Expands / Collapses drawer)
+      toggleBtn.addEventListener('click', () => {
+        isQuickHelpExpanded = !isQuickHelpExpanded;
+        if (isQuickHelpExpanded) {
+          drawerEl.classList.add('dee-drawer-open');
+          toggleBtn.setAttribute('aria-expanded', 'true');
+          arrowEl.textContent = '▴';
+        } else {
+          drawerEl.classList.remove('dee-drawer-open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          arrowEl.textContent = '▾';
+        }
+        messageArea.scrollTop = messageArea.scrollHeight;
+      });
+
+      chipsContainer.appendChild(wrapper);
+      messageArea.scrollTop = messageArea.scrollHeight;
+    }
+
+    // Dynamic Suggestion Chips Row Manager (Used for escalation fallback or form triggers)
+    function renderChips(chips, onSelect, secondaryHtml = null) {
+      if (hasSentFirstMessage && !secondaryHtml) {
+        if (chipsContainer) {
+          chipsContainer.style.display = 'none';
+          chipsContainer.classList.add('dee-chips-collapsed');
+        }
+        return;
+      }
+
+      chipsContainer.innerHTML = '';
       if ((!chips || chips.length === 0) && !secondaryHtml) {
         chipsContainer.style.display = 'none';
         chipsContainer.classList.add('dee-chips-collapsed');
@@ -2200,7 +2186,7 @@
           btn.type = 'button';
           btn.textContent = chipText;
           btn.addEventListener('click', () => {
-            collapseChips();
+            collapseQuickHelpPermanently();
             onSelect(chipText);
           });
           chipsContainer.appendChild(btn);
@@ -2247,7 +2233,7 @@
                 inquiryState = sessionData.inquiryState;
               }
               if (!hasSentFirstMessage) {
-                renderDefaultChips();
+                renderQuickHelpDrawer();
               }
               return;
             }
@@ -2271,7 +2257,7 @@
         removeTypingIndicator();
         addMessage('bot', "Hey! 👋 I'm Dee — I can help you figure out what Designmela can build for you. What are you working on?");
         if (!hasSentFirstMessage) {
-          renderDefaultChips();
+          renderQuickHelpDrawer();
         }
       }, 800);
     }

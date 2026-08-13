@@ -4194,13 +4194,12 @@ video.hitesh-img {
 
 /* Chips container with smooth height collapse transition */
 .dee-chips-container {
-  padding: 10px 14px 12px 14px;
+  padding: 8px 14px 10px 14px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
   background-color: var(--color-canvas);
   border-top: 2px dashed rgba(23, 23, 23, 0.15);
-  max-height: 160px;
+  max-height: 240px;
   opacity: 1;
   overflow: hidden;
   box-sizing: border-box;
@@ -4217,6 +4216,60 @@ video.hitesh-img {
   padding-bottom: 0 !important;
   border-top-color: transparent !important;
   pointer-events: none !important;
+}
+
+/* Quick Help Drawer & Toggle Pill */
+.dee-quick-help-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dee-quick-help-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background-color: var(--color-accent-soft);
+  border: 1.5px solid var(--color-ink);
+  border-radius: 16px;
+  padding: 5px 13px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.dee-quick-help-toggle:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.dee-quick-help-arrow {
+  font-size: 11px;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.dee-quick-help-drawer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.25s ease-out, 
+              margin-top 0.3s ease;
+}
+
+.dee-quick-help-drawer.dee-drawer-open {
+  max-height: 180px;
+  opacity: 1;
+  margin-top: 8px;
 }
 
 /* Secondary WhatsApp Fallback Link (Lower Visual Weight) */
