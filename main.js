@@ -2066,14 +2066,35 @@
       if (isHtml) {
         bubble.innerHTML = text;
       } else {
-        // Format markdown links [Text](URL) and raw URLs into clean styled embedded links
-        const formatted = text
-          .replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">$1 ↗</a>')
+        // 1. Strip raw phone numbers from text so numbers are never displayed in chat text
+        let formatted = text
+          .replace(/\(\+91\s*\d{5}\s*\d{5}\)/g, '')
+          .replace(/\+91\s*\d{5}\s*\d{5}/g, '')
+          .replace(/\+91\d{10}/g, '')
+          .replace(/:\s*\)/g, ')')
+          .replace(/\(\s*:\s*/g, '(');
+
+        // 2. Format markdown links [Text](URL) into clean styled embedded buttons with prefilled message
+        formatted = formatted
+          .replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, (match, label, url) => {
+            let cleanLabel = label.replace(/\(\+91[^\)]+\)/g, '').trim();
+            if (!cleanLabel) cleanLabel = 'WhatsApp Chat';
+            let finalUrl = url;
+            if (url.includes('wa.me') && !url.includes('text=')) {
+              finalUrl += (url.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
+            }
+            return `<a href="${finalUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${cleanLabel} ↗</a>`;
+          })
+          // 3. Format raw URLs into clean styled embedded buttons
           .replace(/(?<!href=")(?<!src=")(https?:\/\/[^\s\)]+)/g, (match, url) => {
             let label = 'WhatsApp Chat';
             if (url.includes('instagram.com')) label = 'Instagram';
             else if (url.includes('designmela.com')) label = 'Designmela';
-            return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${label} ↗</a>`;
+            let finalUrl = url;
+            if (url.includes('wa.me') && !url.includes('text=')) {
+              finalUrl += (url.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
+            }
+            return `<a href="${finalUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${label} ↗</a>`;
           });
         
         bubble.innerHTML = formatted;
@@ -2582,10 +2603,10 @@
           const hasWaLink = lowerReply.includes('wa.me') || lowerReply.includes('whatsapp') || isAskForOwner;
           
           if (hasWaLink) {
-            const waMsg = encodeURIComponent("Hi! I was chatting with Dee about " + (inquiryState.data.service || "a project") + " and would love to speak to the owner.");
+            const waMsg = encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
             renderChips([
-              "Primary WhatsApp (+91 80820 17828) →",
-              "Secondary WhatsApp (+91 95993 20907) →",
+              "Primary WhatsApp →",
+              "Secondary WhatsApp →",
               "Let's start a project brief! 🚀"
             ], (choice) => {
               if (choice.includes("Primary")) {
