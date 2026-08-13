@@ -23,37 +23,28 @@
   <script src="main.js" defer></script>
 </head>
 <body>
-  <!-- ==================== HEADER ==================== -->
-  <header class="site-header" id="header">
-    <div class="header-container">
-      <a href="index.html" class="logo" aria-label="Designmela Home">
-        <span class="logo-mark">D</span>
-        <span class="logo-text">designmela</span>
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon">
+        <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text">
       </a>
-
-      <nav class="main-nav" aria-label="Main navigation">
+      
+      <div class="nav-links" id="nav-links">
         <a href="index.html#work" class="nav-link">Work</a>
         <a href="index.html#services" class="nav-link">Services</a>
-        <a href="index.html#pricing" class="nav-link">Pricing</a>
-        <a href="index.html#process" class="nav-link">Process</a>
         <a href="index.html#about" class="nav-link">About</a>
-        <a href="index.html#contact" class="nav-link">Contact</a>
-      </nav>
-
-      <div class="header-actions">
-        <!-- Region Selector Pill -->
-        <div class="region-selector-pill" id="region-selector-pill" role="button" tabindex="0" aria-label="Select currency region" aria-expanded="false">
-          <span class="region-flag" id="region-flag">🇺🇸</span>
-          <span class="region-code" id="region-code">USD</span>
-          <span class="region-caret">▾</span>
-        </div>
-
-        <a href="index.html#contact" class="btn-primary">
-          <span>Let's Talk <span class="arrow">→</span></span>
-        </a>
+        <a href="index.html#contact" class="nav-cta">Let's build ↗</a>
       </div>
+
+      <button class="nav-mobile-toggle" aria-label="Toggle menu" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-  </header>
+  </nav>
 
   <!-- Region Modal -->
   <div class="region-modal-overlay" id="region-modal-overlay" style="display: none;" aria-hidden="true">
