@@ -18,9 +18,11 @@ export default async function handler(req, res) {
         const role = turn.role === 'model' ? 'model' : 'user';
         const text = turn.parts?.[0]?.text;
         if (typeof text === 'string' && text.trim().length > 0) {
-          // Prevent consecutive identical roles (Gemini requires strict user/model alternation)
           const lastTurn = sanitizedHistory[sanitizedHistory.length - 1];
-          if (!lastTurn || lastTurn.role !== role) {
+          if (lastTurn && lastTurn.role === role) {
+            // Append consecutive text from same role to maintain strict alternation
+            lastTurn.parts[0].text += '\n' + text.trim();
+          } else {
             sanitizedHistory.push({
               role: role,
               parts: [{ text: text.trim() }]

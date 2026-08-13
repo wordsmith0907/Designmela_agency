@@ -2053,131 +2053,131 @@
     }
     trigger.classList.add('dee-pulsing');
 
-    // Quick-Reply Drawer Visibility & Expand State
-    let hasSentFirstMessage = false;
-    let isQuickHelpExpanded = false;
-
-    // Enable Send Button on typing input
-    chatInput.addEventListener('input', () => {
-      sendBtn.disabled = isWaitingForResponse || chatInput.value.trim().length === 0;
-    });
-
-    // Smooth height collapse of quick-reply drawer row
-    function collapseQuickHelpPermanently() {
-      hasSentFirstMessage = true;
-      isQuickHelpExpanded = false;
+    // Collapse Quick-Reply Chips on Typing
+    function collapseChips() {
       if (chipsContainer && chipsContainer.style.display !== 'none' && !chipsContainer.classList.contains('dee-chips-collapsed')) {
         chipsContainer.classList.add('dee-chips-collapsed');
         setTimeout(() => {
           if (chipsContainer.classList.contains('dee-chips-collapsed')) {
             chipsContainer.style.display = 'none';
           }
-        }, 350); // Matches smooth CSS max-height collapse duration
+        }, 200);
       }
     }
 
-    // Render Collapsible "Quick help ▾" Drawer Pill
-    function renderQuickHelpDrawer() {
-      if (hasSentFirstMessage) {
-        if (chipsContainer) {
-          chipsContainer.style.display = 'none';
-          chipsContainer.classList.add('dee-chips-collapsed');
-        }
-        return;
+    // Set Send Button active state & collapse chips on first keystroke
+    chatInput.addEventListener('input', () => {
+      sendBtn.disabled = isWaitingForResponse || chatInput.value.trim().length === 0;
+      if (chatInput.value.length > 0) {
+        collapseChips();
+      }
+    });
+
+    // Helper to add chat message bubble
+    function addMessage(sender, text, isHtml = false, skipSave = false) {
+      if (!skipSave) {
+        chatUIThread.push({ sender, text, isHtml });
       }
 
-      chipsContainer.innerHTML = '';
-      chipsContainer.classList.remove('dee-chips-collapsed');
-      chipsContainer.style.display = 'flex';
+      const msg = document.createElement('div');
+      msg.className = `dee-message dee-message-${sender === 'user' ? 'user' : 'bot'}`;
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'dee-message-bubble';
+      if (isHtml) {
+        bubble.innerHTML = text;
+      } else {
+        // 1. Strip raw phone numbers from text so numbers are never displayed in chat text
+        let formatted = text
+          .replace(/\(\+91\s*\d{5}\s*\d{5}\)/g, '')
+          .replace(/\+91\s*\d{5}\s*\d{5}/g, '')
+          .replace(/\+91\d{10}/g, '')
+          .replace(/:\s*\)/g, ')')
+          .replace(/\(\s*:\s*/g, '(');
 
-      const wrapper = document.createElement('div');
-      wrapper.className = 'dee-quick-help-wrapper';
-      wrapper.innerHTML = `
-        <button type="button" class="dee-quick-help-toggle" id="dee-quick-help-toggle" aria-expanded="false">
-          <span>Quick help</span>
-          <span class="dee-quick-help-arrow">▾</span>
-        </button>
-        <div class="dee-quick-help-drawer" id="dee-quick-help-drawer"></div>
-      `;
-
-      const toggleBtn = wrapper.querySelector('#dee-quick-help-toggle');
-      const arrowEl = wrapper.querySelector('.dee-quick-help-arrow');
-      const drawerEl = wrapper.querySelector('#dee-quick-help-drawer');
-
-      const defaultOptions = [
-        "Tell me about your services 📁",
-        "What are your start prices? 🏷️",
-        "Get a Free Audit 📋",
-        "Let's start a project brief! 🚀"
-      ];
-
-      defaultOptions.forEach(chipText => {
-        const btn = document.createElement('button');
-        btn.className = 'dee-chip';
-        btn.type = 'button';
-        btn.textContent = chipText;
-        btn.addEventListener('click', () => {
-          // Collapse drawer AND permanently hide quick help on first message
-          collapseQuickHelpPermanently();
-          addMessage('user', chipText);
-          messageHistory.push({ role: 'user', parts: [{ text: chipText }] });
-          
-          if (chipText.includes("Get a Free Audit")) {
-            const auditReply = "I can't pull up live details in chat, but I can set you up with a full digital presence audit — takes 6-12 hours and covers your website, socials, and Maps presence. Want me to get that started?";
-            addMessage('bot', auditReply);
-            messageHistory.push({ role: 'model', parts: [{ text: auditReply }] });
-            renderChips([
-              "Open Audit Form 📋",
-              "Let's start a project brief! 🚀"
-            ], (auditChoice) => {
-              if (auditChoice.includes("Audit")) {
-                openAuditModal();
-              } else {
-                startInquiryFlow();
-              }
-            });
-          } else if (chipText.includes("Let's start a project brief!")) {
-            startInquiryFlow();
-          } else {
-            handleIncomingMessage(chipText);
-          }
-        });
-        drawerEl.appendChild(btn);
-      });
-
-      // Toggle pill click listener (Expands / Collapses drawer)
-      toggleBtn.addEventListener('click', () => {
-        isQuickHelpExpanded = !isQuickHelpExpanded;
-        if (isQuickHelpExpanded) {
-          drawerEl.classList.add('dee-drawer-open');
-          toggleBtn.setAttribute('aria-expanded', 'true');
-          arrowEl.textContent = '▴';
-        } else {
-          drawerEl.classList.remove('dee-drawer-open');
-          toggleBtn.setAttribute('aria-expanded', 'false');
-          arrowEl.textContent = '▾';
-        }
-        messageArea.scrollTop = messageArea.scrollHeight;
-      });
-
-      chipsContainer.appendChild(wrapper);
+        // 2. Format markdown links [Text](URL) into clean styled embedded buttons with prefilled message
+        formatted = formatted
+          .replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, (match, label, url) => {
+            let cleanLabel = label.replace(/\(\+91[^\)]+\)/g, '').trim();
+            if (!cleanLabel) cleanLabel = 'WhatsApp Chat';
+            let finalUrl = url;
+            if (url.includes('wa.me') && !url.includes('text=')) {
+              finalUrl += (url.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
+            }
+            return `<a href="${finalUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${cleanLabel} ↗</a>`;
+          })
+          // 3. Format raw URLs into clean styled embedded buttons
+          .replace(/(?<!href=")(?<!src=")(https?:\/\/[^\s\)]+)/g, (match, url) => {
+            let label = 'WhatsApp Chat';
+            if (url.includes('instagram.com')) label = 'Instagram';
+            else if (url.includes('designmela.com')) label = 'Designmela';
+            let finalUrl = url;
+            if (url.includes('wa.me') && !url.includes('text=')) {
+              finalUrl += (url.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent("Hi Designmela! I'd like to discuss a project.");
+            }
+            return `<a href="${finalUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink); font-weight: 700; text-decoration: underline; background-color: var(--color-accent-soft); padding: 2px 7px; border-radius: 6px; border: 1px solid var(--color-ink); display: inline-flex; align-items: center; gap: 4px; margin: 2px 0;">${label} ↗</a>`;
+          });
+        
+        bubble.innerHTML = formatted;
+      }
+      
+      // Muted timestamp on hover
+      const timestamp = document.createElement('span');
+      timestamp.className = 'dee-timestamp';
+      const now = new Date();
+      timestamp.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      msg.appendChild(bubble);
+      msg.appendChild(timestamp);
+      messageArea.appendChild(msg);
+      
+      // Scroll to bottom
       messageArea.scrollTop = messageArea.scrollHeight;
+
+      if (!skipSave) {
+        saveChatSession();
+      }
     }
 
-    // Dynamic Suggestion Chips Row Manager (Used for escalation fallback or form triggers)
-    function renderChips(chips, onSelect, secondaryHtml = null) {
-      if (hasSentFirstMessage && !secondaryHtml) {
-        if (chipsContainer) {
-          chipsContainer.style.display = 'none';
-          chipsContainer.classList.add('dee-chips-collapsed');
-        }
-        return;
-      }
+    // Show bouncing dots typing indicator
+    let typingIndicatorElement = null;
+    function showTypingIndicator() {
+      if (typingIndicatorElement) return;
+      
+      const indicator = document.createElement('div');
+      indicator.className = 'dee-message dee-message-bot';
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'dee-message-bubble';
+      
+      const container = document.createElement('div');
+      container.className = 'dee-typing-indicator';
+      container.innerHTML = `
+        <div class="dee-typing-dot"></div>
+        <div class="dee-typing-dot"></div>
+        <div class="dee-typing-dot"></div>
+      `;
+      
+      bubble.appendChild(container);
+      indicator.appendChild(bubble);
+      messageArea.appendChild(indicator);
+      messageArea.scrollTop = messageArea.scrollHeight;
+      typingIndicatorElement = indicator;
+    }
 
+    function removeTypingIndicator() {
+      if (typingIndicatorElement) {
+        typingIndicatorElement.remove();
+        typingIndicatorElement = null;
+      }
+    }
+
+    // Dynamic Suggestion Chips Row Manager with optional Secondary Action Link support
+    function renderChips(chips, onSelect, secondaryHtml = null) {
       chipsContainer.innerHTML = '';
       if ((!chips || chips.length === 0) && !secondaryHtml) {
         chipsContainer.style.display = 'none';
-        chipsContainer.classList.add('dee-chips-collapsed');
+        chipsContainer.classList.remove('dee-chips-collapsed');
         return;
       }
       
@@ -2191,7 +2191,7 @@
           btn.type = 'button';
           btn.textContent = chipText;
           btn.addEventListener('click', () => {
-            collapseQuickHelpPermanently();
+            collapseChips();
             onSelect(chipText);
           });
           chipsContainer.appendChild(btn);
@@ -2219,15 +2219,6 @@
             messageArea.innerHTML = '';
             chatUIThread = [];
             if (Array.isArray(sessionData.messages) && sessionData.messages.length > 0) {
-              const hasUserMsg = sessionData.messages.some(m => m.sender === 'user');
-              if (hasUserMsg) {
-                hasSentFirstMessage = true;
-                if (chipsContainer) {
-                  chipsContainer.style.display = 'none';
-                  chipsContainer.classList.add('dee-chips-collapsed');
-                }
-              }
-
               sessionData.messages.forEach(m => {
                 addMessage(m.sender, m.text, m.isHtml, false);
               });
@@ -2237,9 +2228,7 @@
               if (sessionData.inquiryState) {
                 inquiryState = sessionData.inquiryState;
               }
-              if (!hasSentFirstMessage) {
-                renderQuickHelpDrawer();
-              }
+              renderDefaultChips();
               return;
             }
           }
@@ -2251,7 +2240,6 @@
       // Expired (>15 mins) or new tab — clear storage and show fresh greeting
       sessionStorage.removeItem(SESSION_KEY);
       chatUIThread = [];
-      hasSentFirstMessage = false;
       showGreeting();
     }
 
@@ -2261,27 +2249,17 @@
       setTimeout(() => {
         removeTypingIndicator();
         addMessage('bot', "Hey! 👋 I'm Dee — I can help you figure out what Designmela can build for you. What are you working on?");
-        if (!hasSentFirstMessage) {
-          renderQuickHelpDrawer();
-        }
+        renderDefaultChips();
       }, 800);
     }
 
     function renderDefaultChips() {
-      if (hasSentFirstMessage) {
-        if (chipsContainer) {
-          chipsContainer.style.display = 'none';
-          chipsContainer.classList.add('dee-chips-collapsed');
-        }
-        return;
-      }
       renderChips([
         "Tell me about your services 📁",
         "What are your start prices? 🏷️",
         "Get a Free Audit 📋",
         "Let's start a project brief! 🚀"
       ], (choice) => {
-        collapseChips();
         addMessage('user', choice);
         messageHistory.push({ role: 'user', parts: [{ text: choice }] });
         if (choice.includes("Get a Free Audit")) {
@@ -2615,7 +2593,6 @@
     async function handleIncomingMessage(userText) {
       if (isWaitingForResponse) return;
       
-      collapseChips(); // Permanently collapse quick-reply chips on first user message!
       resetIdleTimer();
 
       // Rate limit check
@@ -2675,13 +2652,31 @@
       sendBtn.disabled = true;
 
       try {
-        const response = await fetch('/api/chat', {
+        let response = await fetch('/api/chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ history: messageHistory, currency: window.dmRegion.currency, countryCode: window.dmRegion.country })
         });
+
+        // Fallback to /api/chat.js if /api/chat returns non-200
+        if (!response.ok) {
+          try {
+            const fallbackRes = await fetch('/api/chat.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ history: messageHistory, currency: window.dmRegion.currency, countryCode: window.dmRegion.country })
+            });
+            if (fallbackRes.ok) {
+              response = fallbackRes;
+            }
+          } catch (fallbackErr) {
+            console.warn('Fallback fetch to /api/chat.js failed:', fallbackErr);
+          }
+        }
 
         const data = await response.json();
         removeTypingIndicator();
@@ -3136,7 +3131,7 @@
       );
 
       // Restore ongoing 15-min session or trigger greeting on first load
-      if (messageArea.children.length === 0) {
+      if (messageHistory.length === 0 && chatUIThread.length === 0) {
         initDeeSession();
       }
     }
