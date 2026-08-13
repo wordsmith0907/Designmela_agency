@@ -2053,24 +2053,25 @@
     }
     trigger.classList.add('dee-pulsing');
 
-    // Collapse Quick-Reply Chips on Typing
+    // Quick-Reply Chip Visibility State (Permanently collapses after first message in a session)
+    let hasSentFirstMessage = false;
+
+    // Smooth height collapse of quick-reply chips row
     function collapseChips() {
+      hasSentFirstMessage = true;
       if (chipsContainer && chipsContainer.style.display !== 'none' && !chipsContainer.classList.contains('dee-chips-collapsed')) {
         chipsContainer.classList.add('dee-chips-collapsed');
         setTimeout(() => {
           if (chipsContainer.classList.contains('dee-chips-collapsed')) {
             chipsContainer.style.display = 'none';
           }
-        }, 200);
+        }, 350); // Matches smooth CSS max-height collapse duration
       }
     }
 
-    // Set Send Button active state & collapse chips on first keystroke
+    // Set Send Button active state & collapse chips on typing input
     chatInput.addEventListener('input', () => {
       sendBtn.disabled = isWaitingForResponse || chatInput.value.trim().length === 0;
-      if (chatInput.value.length > 0) {
-        collapseChips();
-      }
     });
 
     // Helper to add chat message bubble
@@ -2175,9 +2176,17 @@
     // Dynamic Suggestion Chips Row Manager with optional Secondary Action Link support
     function renderChips(chips, onSelect, secondaryHtml = null) {
       chipsContainer.innerHTML = '';
+      
+      // If user has sent their first message, keep quick-reply chips permanently collapsed for this session (unless secondary escalation link is passed)
+      if (hasSentFirstMessage && !secondaryHtml) {
+        chipsContainer.style.display = 'none';
+        chipsContainer.classList.add('dee-chips-collapsed');
+        return;
+      }
+
       if ((!chips || chips.length === 0) && !secondaryHtml) {
         chipsContainer.style.display = 'none';
-        chipsContainer.classList.remove('dee-chips-collapsed');
+        chipsContainer.classList.add('dee-chips-collapsed');
         return;
       }
       
@@ -2219,6 +2228,15 @@
             messageArea.innerHTML = '';
             chatUIThread = [];
             if (Array.isArray(sessionData.messages) && sessionData.messages.length > 0) {
+              const hasUserMsg = sessionData.messages.some(m => m.sender === 'user');
+              if (hasUserMsg) {
+                hasSentFirstMessage = true;
+                if (chipsContainer) {
+                  chipsContainer.style.display = 'none';
+                  chipsContainer.classList.add('dee-chips-collapsed');
+                }
+              }
+
               sessionData.messages.forEach(m => {
                 addMessage(m.sender, m.text, m.isHtml, false);
               });
@@ -2228,7 +2246,9 @@
               if (sessionData.inquiryState) {
                 inquiryState = sessionData.inquiryState;
               }
-              renderDefaultChips();
+              if (!hasSentFirstMessage) {
+                renderDefaultChips();
+              }
               return;
             }
           }
@@ -2240,6 +2260,7 @@
       // Expired (>15 mins) or new tab — clear storage and show fresh greeting
       sessionStorage.removeItem(SESSION_KEY);
       chatUIThread = [];
+      hasSentFirstMessage = false;
       showGreeting();
     }
 
@@ -2249,17 +2270,27 @@
       setTimeout(() => {
         removeTypingIndicator();
         addMessage('bot', "Hey! 👋 I'm Dee — I can help you figure out what Designmela can build for you. What are you working on?");
-        renderDefaultChips();
+        if (!hasSentFirstMessage) {
+          renderDefaultChips();
+        }
       }, 800);
     }
 
     function renderDefaultChips() {
+      if (hasSentFirstMessage) {
+        if (chipsContainer) {
+          chipsContainer.style.display = 'none';
+          chipsContainer.classList.add('dee-chips-collapsed');
+        }
+        return;
+      }
       renderChips([
         "Tell me about your services 📁",
         "What are your start prices? 🏷️",
         "Get a Free Audit 📋",
         "Let's start a project brief! 🚀"
       ], (choice) => {
+        collapseChips();
         addMessage('user', choice);
         messageHistory.push({ role: 'user', parts: [{ text: choice }] });
         if (choice.includes("Get a Free Audit")) {
@@ -2593,6 +2624,7 @@
     async function handleIncomingMessage(userText) {
       if (isWaitingForResponse) return;
       
+      collapseChips(); // Permanently collapse quick-reply chips on first user message!
       resetIdleTimer();
 
       // Rate limit check
