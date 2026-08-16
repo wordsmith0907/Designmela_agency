@@ -2410,7 +2410,7 @@
         showTypingIndicator();
         setTimeout(() => {
           removeTypingIndicator();
-          addMessage('bot', "Perfect. How would you prefer us to get in touch with you?");
+          addMessage('bot', "Perfect. How would you prefer me to get in touch with you?");
           renderChips([
             "Email",
             "Phone/WhatsApp",
@@ -2434,7 +2434,7 @@
               showTypingIndicator();
               setTimeout(() => {
                 removeTypingIndicator();
-                addMessage('bot', "Got it! Since DMs can get buried sometimes, mind also sharing a phone/WhatsApp number just so we can reach you if we don't hear back on Insta?");
+                addMessage('bot', "Got it! Since DMs can get buried sometimes, mind also sharing a phone/WhatsApp number just so I can reach you if I don't hear back on Insta?");
                 inquiryState.data.contactMethods.push('phone');
                 askNextInquiryDetail();
               }, 700);
@@ -3147,9 +3147,9 @@
 
           if (confirmTextEl) {
             if (userEmail) {
-              confirmTextEl.textContent = `We'll send your full audit to ${userEmail} and reach out on WhatsApp / phone at ${fullPhone}.`;
+              confirmTextEl.textContent = `I'll send your full audit to ${userEmail} and reach out on WhatsApp / phone at ${fullPhone}.`;
             } else {
-              confirmTextEl.textContent = `We'll reach out with your full audit on WhatsApp / phone at ${fullPhone}.`;
+              confirmTextEl.textContent = `I'll reach out with your full audit on WhatsApp / phone at ${fullPhone}.`;
             }
           }
 

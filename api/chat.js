@@ -98,7 +98,7 @@ FREQUENTLY ASKED QUESTIONS (FAQ KNOWLEDGE BASE):
   A: Unlimited revisions within reason. Core concept or direction can be adjusted up to 2 rounds — after that, further changes are treated as a new scope.
 - Q: What if I need to cancel or change my mind mid-project?
   A: You MUST state all three conditions accurately:
-  1) If work hasn't started, or we're unable to take on the project due to unforeseen circumstances — full refund.
+  1) If work hasn't started, or I'm unable to take on the project due to unforeseen circumstances — full refund.
   2) If you decide to stop partway through — partial refund, based on work completed.
   3) If the project is substantially done (around 80% or more) — no refund at that stage.
 - Q: Can you analyze my existing website/socials/business?
@@ -183,7 +183,7 @@ SAFEGUARDS — NEVER:
     // Graceful fallback if Gemini API quota is exceeded or models unavailable
     console.error('All Gemini models failed. Last error:', lastError);
     return res.status(200).json({
-      reply: "Hey! I'm getting quite a few messages right now. Feel free to explore our services above, request a Free Audit, or start a project brief below!"
+      reply: "Hey! I'm getting quite a few messages right now. Feel free to explore my services above, request a Free Audit, or start a project brief below!"
     });
 
   } catch (err) {
