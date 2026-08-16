@@ -2827,9 +2827,18 @@ video.hitesh-img {
 /* Responsive overrides for all project showcase cards */
 @media (max-width: 1024px) {
   .caliora-card, .driply-card, .jaingrill-card, .aether-card, .workflow-card, .hitesh-card {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 40px;
     margin-bottom: 80px;
+  }
+
+  .caliora-content, .driply-content, .jaingrill-content, .aether-content, .workflow-content, .hitesh-content {
+    order: 1;
+  }
+
+  .caliora-visual, .driply-visual, .jaingrill-visual, .aether-visual, .workflow-visual, .hitesh-visual {
+    order: 2;
   }
 }
 
