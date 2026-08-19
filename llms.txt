@@ -1,30 +1,29 @@
 # Designmela
 
-> Creative studio building websites, brand identity, AI tools, and business automation.
+> Creative digital studio building responsive websites, custom web applications, visual brand identities, AI tools, and workflow automations.
 
-Designmela turns ideas into fast, responsive websites, custom web applications, visual brand identities, AI tools, and workflow automations — combining thoughtful design with modern web technology to build software and digital assets that work.
+Designmela combines thoughtful design with modern engineering to help businesses, startups, and brands launch impactful digital experiences, automate operations, and scale online.
 
-## Core Services
+## Main Pages
 
-- [Website Design & Development](https://designmela.com/#services): Custom responsive websites built for speed, conversion, and seamless user experience.
-- [Web Apps & Dashboards](https://designmela.com/#services): Interactive web applications, customer portals, and custom management dashboards.
-- [Business Automation](https://designmela.com/#services): Custom workflow automations, API integrations, and process optimization to save manual effort.
-- [Brand Identity & Logo Design](https://designmela.com/#services): Complete visual identity, logo design, color systems, typography, and brand assets.
-- [AI Chatbots & Assistants](https://designmela.com/#services): Intelligent conversational chatbots, lead qualification engines, and AI workflow integration.
-- [Copywriting & Ad Creatives](https://designmela.com/#services): High-converting marketing copy, social media ad visual design, and presentation decks.
+- [Designmela Homepage](https://designmela.com/): Agency overview, featured work, client portfolio, and interactive consultation chat.
+- [Privacy Policy](https://designmela.com/privacy.html): Official privacy policy detailing data collection, chat retention, and visitor rights.
+- [Terms & Conditions](https://designmela.com/terms.html): Terms of service governing client project agreements, deposits, and intellectual property.
 
-## Main Pages & Resources
+## Key Sections & Services
 
-- [Designmela Homepage](https://designmela.com/): Agency overview, key services, client portfolio showcase, and direct inquiry chat.
-- [Privacy Policy](https://designmela.com/privacy.html): Data protection, chat retention terms, and visitor privacy information.
-- [Terms of Service](https://designmela.com/terms.html): Terms and conditions governing the use of Designmela website and services.
+- [Services & Capabilities](https://designmela.com/#services): Comprehensive breakdown of web design, web apps, brand identity, AI tools, and business automation.
+- [Featured Work](https://designmela.com/#work): Case studies and visual showcases of recent web development, branding, and AI projects.
+- [About Designmela](https://designmela.com/#about): Creative studio philosophy, design methodology, and studio background.
+- [Project Contact](https://designmela.com/#contact): Project intake form, budget calculator, and direct consultation options.
+- [Frequently Asked Questions](https://designmela.com/#faq): Answers to common questions regarding project timelines, pricing, and deliverables.
 
 ## Direct Contact
 
-- [Website](https://designmela.com/): Official Designmela website and portfolio.
 - [WhatsApp Consultation](https://wa.me/919599320907): Direct instant messaging for project quotes and inquiries (+91 9599320907).
+- [Email Inquiry](mailto:hello@designmela.com): Direct email contact for business proposals and partnerships.
 
-## Machine-Readable Resources
+## Machine-Readable Files
 
-- [Sitemap](https://designmela.com/sitemap.xml): XML index of site pages.
-- [Robots Directive](https://designmela.com/robots.txt): Web crawler accessibility rules.
+- [XML Sitemap](https://designmela.com/sitemap.xml): Machine-readable index of public URLs for search crawlers.
+- [Robots Directive](https://designmela.com/robots.txt): Web crawler permissions and indexing instructions.
