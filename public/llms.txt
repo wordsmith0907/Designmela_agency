@@ -1,18 +1,30 @@
 # Designmela
+
 > Creative studio building websites, brand identity, AI tools, and business automation.
 
-## Services
-- Website Design
-- Web Apps & Dashboards
-- Business Automation
-- Brand Identity & Logo Design
-- AI Chatbots & Assistants
-- Copywriting
-- Ad Creatives & Social Media
-- Presentations & Pitch Decks
-- SEO Basics
-- AI Image/Video Assistance
+Designmela turns ideas into fast, responsive websites, custom web applications, visual brand identities, AI tools, and workflow automations — combining thoughtful design with modern web technology to build software and digital assets that work.
 
-## Contact
-- Website: https://designmela.com
-- WhatsApp: +919599320907
+## Core Services
+
+- [Website Design & Development](https://designmela.com/#services): Custom responsive websites built for speed, conversion, and seamless user experience.
+- [Web Apps & Dashboards](https://designmela.com/#services): Interactive web applications, customer portals, and custom management dashboards.
+- [Business Automation](https://designmela.com/#services): Custom workflow automations, API integrations, and process optimization to save manual effort.
+- [Brand Identity & Logo Design](https://designmela.com/#services): Complete visual identity, logo design, color systems, typography, and brand assets.
+- [AI Chatbots & Assistants](https://designmela.com/#services): Intelligent conversational chatbots, lead qualification engines, and AI workflow integration.
+- [Copywriting & Ad Creatives](https://designmela.com/#services): High-converting marketing copy, social media ad visual design, and presentation decks.
+
+## Main Pages & Resources
+
+- [Designmela Homepage](https://designmela.com/): Agency overview, key services, client portfolio showcase, and direct inquiry chat.
+- [Privacy Policy](https://designmela.com/privacy.html): Data protection, chat retention terms, and visitor privacy information.
+- [Terms of Service](https://designmela.com/terms.html): Terms and conditions governing the use of Designmela website and services.
+
+## Direct Contact
+
+- [Website](https://designmela.com/): Official Designmela website and portfolio.
+- [WhatsApp Consultation](https://wa.me/919599320907): Direct instant messaging for project quotes and inquiries (+91 9599320907).
+
+## Machine-Readable Resources
+
+- [Sitemap](https://designmela.com/sitemap.xml): XML index of site pages.
+- [Robots Directive](https://designmela.com/robots.txt): Web crawler accessibility rules.
