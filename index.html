@@ -32,7 +32,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" rel="stylesheet" />
   
-  <link rel="stylesheet" href="style.css" />
+  <!-- Preload LCP Hero Image -->
+  <link rel="preload" as="image" href="assets/hero-slide-1.webp" type="image/webp" />
+
+  <!-- Non-Blocking Async Stylesheet Loading -->
+  <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="style.css" /></noscript>
   <link rel="icon" type="image/webp" href="assets/logo-icon-transparent.webp" />
 
   <!-- Structured Data / Schema Markup (JSON-LD) -->
@@ -100,17 +105,17 @@
   <!-- ==================== NAVIGATION ==================== -->
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#" class="nav-logo">
-        <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon">
-        <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text">
+      <a href="#" class="nav-logo" aria-label="Designmela homepage">
+        <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon" width="1024" height="1024">
+        <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text" width="1024" height="342">
       </a>
       
       <div class="nav-links" id="nav-links">
-        <a href="#work" class="nav-link">Work</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#faq" class="nav-link">FAQ</a>
-        <a href="#contact" class="nav-cta">Let's build ↗</a>
+        <a href="#work" class="nav-link" aria-label="Navigate to featured work section">Work</a>
+        <a href="#services" class="nav-link" aria-label="Navigate to services section">Services</a>
+        <a href="#about" class="nav-link" aria-label="Navigate to about section">About</a>
+        <a href="#faq" class="nav-link" aria-label="Navigate to frequently asked questions section">FAQ</a>
+        <a href="#contact" class="nav-cta" aria-label="Start a project with Designmela">Let's build ↗</a>
       </div>
 
       <button class="nav-mobile-toggle" aria-label="Toggle menu" id="menu-toggle">
@@ -120,6 +125,9 @@
       </button>
     </div>
   </nav>
+
+  <!-- ==================== MAIN CONTENT LANDMARK ==================== -->
+  <main id="main-content">
 
   <!-- ==================== HERO SECTION (PHASE 2) ==================== -->
   <header class="hero-section" id="hero">
@@ -172,19 +180,19 @@
             <!-- Rotating Preview Image Slides -->
             <div class="hero-browser-slides">
               <div class="hero-slide active" data-slide="1">
-                <img src="assets/hero-slide-1.webp" alt="Restore Your True Smile Dental Site Preview" class="hero-slide-img" loading="eager">
+                <img src="assets/hero-slide-1.webp" alt="Restore Your True Smile Dental Site Preview" class="hero-slide-img" loading="eager" fetchpriority="high" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="2">
-                <img src="assets/hero-slide-2.webp" alt="Royale Fine Jewellery App Preview" class="hero-slide-img" loading="eager">
+                <img src="assets/hero-slide-2.webp" alt="Royale Fine Jewellery App Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="3">
-                <img src="assets/hero-slide-3.webp" alt="Jaipur Travel & Real Estate Site Preview" class="hero-slide-img" loading="eager">
+                <img src="assets/hero-slide-3.webp" alt="Jaipur Travel & Real Estate Site Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="4">
-                <img src="assets/hero-slide-4.webp" alt="Bharat AI Travel Itinerary Site Preview" class="hero-slide-img" loading="eager">
+                <img src="assets/hero-slide-4.webp" alt="Bharat AI Travel Itinerary Site Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="5">
-                <img src="assets/hero-slide-5.webp" alt="Surya Uday Energy Solar Solutions Site Preview" class="hero-slide-img" loading="eager">
+                <img src="assets/hero-slide-5.webp" alt="Surya Uday Energy Solar Solutions Site Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
               </div>
             </div>
           </div>
@@ -285,7 +293,7 @@
             </div>
           </div>
           <div class="service-cta-col">
-            <a href="#work" class="btn-secondary">
+            <a href="#work" class="btn-secondary" aria-label="Explore branding and design work portfolio">
               <span>Explore design work <span class="arrow">→</span></span>
             </a>
           </div>
@@ -307,7 +315,7 @@
             </div>
           </div>
           <div class="service-cta-col">
-            <a href="#work" class="btn-secondary">
+            <a href="#work" class="btn-secondary" aria-label="Explore website and web app builds portfolio">
               <span>Explore builds <span class="arrow">→</span></span>
             </a>
           </div>
@@ -329,7 +337,7 @@
             </div>
           </div>
           <div class="service-cta-col">
-            <a href="#work" class="btn-secondary">
+            <a href="#work" class="btn-secondary" aria-label="Explore AI chatbots and tools portfolio">
               <span>Explore AI work <span class="arrow">→</span></span>
             </a>
           </div>
@@ -351,7 +359,7 @@
             </div>
           </div>
           <div class="service-cta-col">
-            <a href="#work" class="btn-secondary">
+            <a href="#work" class="btn-secondary" aria-label="Explore business automation systems portfolio">
               <span>Explore systems <span class="arrow">→</span></span>
             </a>
           </div>
@@ -433,7 +441,7 @@
           
           <div class="caliora-visual">
             <div class="caliora-image-panel">
-              <img src="assets/caliora.webp" alt="Caliora Dental Studio Showcase" class="caliora-img" loading="lazy">
+              <img src="assets/caliora.webp" alt="Caliora Dental Studio Showcase" class="caliora-img" loading="lazy" width="682" height="1024">
             </div>
           </div>
         </div>
@@ -442,7 +450,7 @@
         <div class="driply-card" id="project-driply">
           <div class="driply-visual">
             <div class="driply-image-panel">
-              <img src="assets/driply.webp" alt="Driply Brand Identity Showcase" class="driply-img" loading="lazy">
+              <img src="assets/driply.webp" alt="Driply Brand Identity Showcase" class="driply-img" loading="lazy" width="681" height="1024">
             </div>
           </div>
 
@@ -538,6 +546,7 @@
             <div class="hitesh-image-panel">
               <video class="hitesh-img" autoplay loop muted playsinline id="hitesh-video">
                 <source src="assets/vid_2.mp4" type="video/mp4">
+                <track kind="captions" src="/captions/vid_2.vtt" srclang="en" label="English">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -548,7 +557,7 @@
         <div class="jaingrill-card" id="project-jaingrill">
           <div class="jaingrill-visual">
             <div class="jaingrill-image-panel">
-              <img src="assets/jaingrill.webp" alt="Jain Grill Website Showcase" class="jaingrill-img" loading="lazy">
+              <img src="assets/jaingrill.webp" alt="Jain Grill Website Showcase" class="jaingrill-img" loading="lazy" width="614" height="1024">
             </div>
           </div>
 
@@ -641,7 +650,7 @@
 
           <div class="aether-visual">
             <div class="aether-image-panel">
-              <img src="assets/ai.webp" alt="Designmela Assistant Dee Chatbot Showcase" class="aether-img" loading="lazy">
+              <img src="assets/ai.webp" alt="Designmela Assistant Dee Chatbot Showcase" class="aether-img" loading="lazy" width="768" height="1024">
             </div>
           </div>
         </div>
@@ -650,7 +659,7 @@
         <div class="workflow-card" id="project-workflow">
           <div class="workflow-visual">
             <div class="workflow-image-panel">
-              <img src="assets/workflow.webp" alt="Designmela Lead Qualification Engine Showcase" class="workflow-img" loading="lazy">
+              <img src="assets/workflow.webp" alt="Designmela Lead Qualification Engine Showcase" class="workflow-img" loading="lazy" width="1024" height="682">
             </div>
           </div>
 
@@ -792,10 +801,10 @@
         <div class="process-frame-card" id="process-frame-card">
           <!-- 4 Stage Images with data-stage="1" to data-stage="4" -->
           <div class="process-frame-images">
-            <img src="assets/process/stage-1.webp" alt="Process stage 1" class="process-frame-img active" data-stage="1">
-            <img src="assets/process/stage-2.webp" alt="Process stage 2" class="process-frame-img" data-stage="2">
-            <img src="assets/process/stage-3.webp" alt="Process stage 3" class="process-frame-img" data-stage="3">
-            <img src="assets/process/stage-4.webp" alt="Process stage 4" class="process-frame-img" data-stage="4">
+            <img src="assets/process/stage-1.webp" alt="Process stage 1" class="process-frame-img active" data-stage="1" loading="lazy" width="819" height="1024">
+            <img src="assets/process/stage-2.webp" alt="Process stage 2" class="process-frame-img" data-stage="2" loading="lazy" width="819" height="1024">
+            <img src="assets/process/stage-3.webp" alt="Process stage 3" class="process-frame-img" data-stage="3" loading="lazy" width="819" height="1024">
+            <img src="assets/process/stage-4.webp" alt="Process stage 4" class="process-frame-img" data-stage="4" loading="lazy" width="819" height="1024">
           </div>
         </div>
       </div>
@@ -1267,15 +1276,16 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- ==================== FOOTER (PHASE 7) ==================== -->
   <footer class="footer-section">
     <div class="container footer-container">
       <div class="footer-top">
         <div class="footer-brand-col">
-          <a href="#" class="nav-logo footer-nav-logo">
-            <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon">
-            <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text">
+          <a href="#" class="nav-logo footer-nav-logo" aria-label="Designmela homepage">
+            <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon" loading="lazy" width="1024" height="1024">
+            <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text" loading="lazy" width="1024" height="342">
           </a>
           <p class="body-small footer-tagline">
             Digital design, websites, AI, automation & creative work.
@@ -1285,10 +1295,10 @@
         <div class="footer-links-row">
           <div class="footer-links-col">
             <span class="metadata footer-col-title">Navigation</span>
-            <a href="#work" class="footer-link">Work</a>
-            <a href="#services" class="footer-link">Services</a>
-            <a href="#about" class="footer-link">About</a>
-            <a href="#contact" class="footer-link">Contact</a>
+            <a href="#work" class="footer-link" aria-label="Footer link to featured work section">Work</a>
+            <a href="#services" class="footer-link" aria-label="Footer link to services section">Services</a>
+            <a href="#about" class="footer-link" aria-label="Footer link to about section">About</a>
+            <a href="#contact" class="footer-link" aria-label="Footer link to contact section">Contact</a>
           </div>
           
           <div class="footer-links-col">
@@ -1522,9 +1532,9 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="main.js" defer></script>
 </body>
 </html>
 </body>

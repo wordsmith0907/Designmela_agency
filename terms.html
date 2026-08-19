@@ -17,8 +17,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Stylesheets (Non-blocking) -->
+  <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="style.css"></noscript>
 
   <!-- GSAP CDN for smooth transitions -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -29,9 +30,9 @@
   <!-- ==================== NAVIGATION ==================== -->
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="index.html" class="nav-logo">
-        <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon">
-        <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text">
+      <a href="index.html" class="nav-logo" aria-label="Designmela homepage">
+        <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon" width="1024" height="1024">
+        <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text" width="1024" height="342">
       </a>
       
       <div class="nav-links" id="nav-links">

@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="style.css"></noscript>
 </head>
 <body class="error-404-page">
   <!-- Background Dot Grid -->
@@ -20,7 +21,7 @@
     <div class="error-404-content">
       <!-- Lost Dee Hero Illustration -->
       <div class="error-404-visual">
-        <img src="assets/lost-dee.webp" alt="Illustration of Dee, Designmela's mascot, looking lost with a question mark above its head" class="error-404-img" width="380" height="285">
+        <img src="assets/lost-dee.webp" alt="Illustration of Dee, Designmela's mascot, looking lost with a question mark above its head" class="error-404-img" loading="eager" fetchpriority="high" width="1024" height="768">
       </div>
 
       <!-- Text Content -->
@@ -30,13 +31,13 @@
       <!-- Action Buttons Row -->
       <div class="error-404-actions">
         <!-- Primary Button -->
-        <a href="index.html" class="btn-primary error-404-btn-primary">
+        <a href="index.html" class="btn-primary error-404-btn-primary" aria-label="Return to Designmela homepage">
           <span>Back to Homepage <span class="arrow">↗</span></span>
         </a>
 
         <!-- Glassmorphic Instagram Follow Pill -->
         <a href="https://www.instagram.com/designmela_com/" target="_blank" rel="noopener noreferrer" class="error-404-ig-pill" aria-label="Follow @designmela_com on Instagram">
-          <img src="assets/logo-icon-transparent.webp" alt="Designmela D mark" class="error-404-ig-logo">
+          <img src="assets/logo-icon-transparent.webp" alt="Designmela D mark" class="error-404-ig-logo" width="1024" height="1024">
           <div class="error-404-ig-text">
             <span class="error-404-ig-handle">@designmela_com</span>
             <span class="error-404-ig-sub">Follow for more</span>
