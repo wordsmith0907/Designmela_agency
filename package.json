@@ -9,5 +9,8 @@
     "start": "node server.mjs"
   },
   "author": "Designmela",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.0"
+  }
 }
