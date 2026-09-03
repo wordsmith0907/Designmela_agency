@@ -4,9 +4,10 @@
 
 Designmela combines thoughtful design with modern engineering to help businesses, startups, and brands launch impactful digital experiences, automate operations, and scale online.
 
-## Main Pages
+## Main Pages & Interactive Tools
 
 - [Designmela Homepage](https://designmela.com/): Agency overview, featured work, client portfolio, and interactive consultation chat.
+- [Automation Opportunity Finder](https://designmela.com/automation-finder): Interactive lead-generation quiz that estimates weekly time savings through business automation.
 - [Privacy Policy](https://designmela.com/privacy.html): Official privacy policy detailing data collection, chat retention, and visitor rights.
 - [Terms & Conditions](https://designmela.com/terms.html): Terms of service governing client project agreements, deposits, and intellectual property.
 

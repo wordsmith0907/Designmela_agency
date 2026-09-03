@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automation Opportunity Finder — Calculate Time Saved | Designmela</title>
+  <meta name="description" content="Calculate how many hours per week your business can save with automated lead qualification, booking, follow-ups, and reporting. Built by Designmela." />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://designmela.com/automation-finder" />
+  
+  <!-- LLMs.txt Autodiscovery for AI Agents -->
+  <link rel="alternate" type="text/markdown" href="/llms.txt" title="llms.txt" />
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://designmela.com/automation-finder" />
+  <meta property="og:title" content="Automation Opportunity Finder — Calculate Time Saved | Designmela" />
+  <meta property="og:description" content="Discover how many hours per week your business could save through automation." />
+  <meta property="og:image" content="https://designmela.com/assets/logo-icon-transparent.webp" />
+  <meta property="og:site_name" content="Designmela" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://designmela.com/automation-finder" />
+  <meta name="twitter:title" content="Automation Opportunity Finder | Designmela" />
+  <meta name="twitter:description" content="Calculate your estimated weekly hours saved through business automation." />
+  <meta name="twitter:image" content="https://designmela.com/assets/logo-icon-transparent.webp" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" rel="stylesheet" />
+  
+  <!-- Preload LCP Asset -->
+  <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="style.css" /></noscript>
+  <link rel="icon" type="image/webp" href="assets/logo-icon-transparent.webp" />
+
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body class="finder-page">
+  <!-- Background Dot Grid -->
+  <div class="dot-grid" id="dot-grid"></div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Designmela homepage">
+        <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon" width="1024" height="1024">
+        <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text" width="1024" height="342">
+      </a>
+      
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#work" class="nav-link" aria-label="Navigate to featured work section">Work</a>
+        <a href="index.html#services" class="nav-link" aria-label="Navigate to services section">Services</a>
+        <a href="index.html#about" class="nav-link" aria-label="Navigate to about section">About</a>
+        <a href="index.html#faq" class="nav-link" aria-label="Navigate to frequently asked questions section">FAQ</a>
+        <a href="index.html#contact" class="nav-cta" aria-label="Start a project with Designmela">Let's build ↗</a>
+      </div>
+
+      <button class="nav-mobile-toggle" aria-label="Toggle menu" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== MAIN CONTENT LANDMARK ==================== -->
+  <main id="main-content">
+
+    <!-- ==================== HERO & TOOL SECTION ==================== -->
+    <section class="finder-hero-section">
+      <div class="container finder-hero-container">
+        <div class="finder-hero-header">
+          <span class="metadata hero-eyebrow">[ WHAT COULD YOU AUTOMATE? ]</span>
+          <h1 class="h1-hero finder-title">Automation Opportunity Finder</h1>
+          <p class="body-large finder-sub">
+            Estimate how many hours per week your business could save by automating manual lead replies, booking, follow-ups, and reporting.
+          </p>
+        </div>
+
+        <!-- Multi-Step Quiz Card (Replaces Intake Card) -->
+        <div class="intake-card finder-card">
+          <!-- Step Header -->
+          <div class="intake-header">
+            <div class="intake-status" id="finder-status">YOUR BUSINESS / Let's see how much time automation could save you.</div>
+            <div class="intake-step-number" id="finder-step-number">17%</div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="dm-progress-wrap">
+            <div class="dm-track">
+              <div class="dm-fill" id="finder-progress-fill" style="width: 17%;">
+                <div class="dm-particle-field"></div>
+              </div>
+              <div class="dm-orb" id="finder-progress-orb" style="left: 17%;"></div>
+            </div>
+          </div>
+          
+          <!-- Form Content -->
+          <form id="finder-form" action="https://api.web3forms.com/submit" method="POST" novalidate autocomplete="off">
+            <input type="hidden" name="access_key" value="a742e68f-d427-4708-acc7-5e8c1eae6136">
+            <input type="hidden" name="subject" value="New Submission: Automation Opportunity Finder">
+            <input type="hidden" name="calculated_hours_saved" id="hidden-calculated-hours" value="0">
+            <input type="hidden" name="matched_automations" id="hidden-matched-automations" value="">
+            <input type="hidden" name="from_page" value="Automation Opportunity Finder (/automation-finder)">
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+            <!-- STEP 1: 17% — Your Business -->
+            <div class="intake-step finder-step active" data-step="1">
+              <h3 class="intake-step-title">Your Business</h3>
+              <p class="body-small intake-step-desc">Let's see how much time automation could save you.</p>
+              
+              <div class="dm-fields-row">
+                <div class="form-group">
+                  <label for="finder-business-name" class="form-label">Business Name <span class="required">*</span></label>
+                  <input type="text" id="finder-business-name" name="business_name" class="form-input" placeholder="e.g. Apex Health Clinic" required>
+                  <span class="error-message" id="error-business-name">Please enter your business name.</span>
+                </div>
+                
+                <hr class="dm-question-divider" />
+
+                <div class="form-group">
+                  <label for="finder-industry" class="form-label">Industry <span class="required">*</span></label>
+                  <select id="finder-industry" name="industry" class="form-input form-select" required>
+                    <option value="" disabled selected>Select Industry</option>
+                    <option value="Healthcare/Clinic">Healthcare / Clinic</option>
+                    <option value="Retail/E-commerce">Retail / E-commerce</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Professional Services">Professional Services</option>
+                    <option value="Hospitality/Travel">Hospitality / Travel</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <span class="error-message" id="error-industry">Please select an industry.</span>
+                </div>
+
+                <hr class="dm-question-divider" />
+
+                <div class="form-group">
+                  <label for="finder-website" class="form-label">Business URL (optional)</label>
+                  <input type="text" id="finder-website" name="website_url" class="form-input" placeholder="e.g. https://apexclinic.com">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: 33% — Lead Handling -->
+            <div class="intake-step finder-step" data-step="2" style="display: none;">
+              <h3 class="intake-step-title">Lead Handling</h3>
+              <p class="body-small intake-step-desc">How do you currently respond to new customer inquiries?</p>
+
+              <div class="dm-fields-row">
+                <div class="form-group">
+                  <label class="form-label">Select your current inquiry handling: <span class="required">*</span></label>
+                  <div class="radio-grid vertical-cards">
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_handling" value="A" required>
+                      <span class="radio-card-label">I reply manually on WhatsApp/Instagram/calls</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_handling" value="B" required>
+                      <span class="radio-card-label">I have a form but respond manually</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_handling" value="C" required>
+                      <span class="radio-card-label">I already use a chatbot or auto-responder</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_handling" value="D" required>
+                      <span class="radio-card-label">I don't reliably follow up</span>
+                    </label>
+                  </div>
+                  <span class="error-message" id="error-lead-handling">Please select an option.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: 50% — Booking & Scheduling -->
+            <div class="intake-step finder-step" data-step="3" style="display: none;">
+              <h3 class="intake-step-title">Booking & Scheduling</h3>
+              <p class="body-small intake-step-desc">How do customers currently book or schedule with you?</p>
+
+              <div class="dm-fields-row">
+                <div class="form-group">
+                  <label class="form-label">Select your booking method: <span class="required">*</span></label>
+                  <div class="radio-grid vertical-cards">
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="booking_scheduling" value="A" required>
+                      <span class="radio-card-label">Phone call only</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="booking_scheduling" value="B" required>
+                      <span class="radio-card-label">Back-and-forth on WhatsApp</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="booking_scheduling" value="C" required>
+                      <span class="radio-card-label">Google Form + manual confirmation</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="booking_scheduling" value="D" required>
+                      <span class="radio-card-label">Automated calendar booking already in place</span>
+                    </label>
+                  </div>
+                  <span class="error-message" id="error-booking-scheduling">Please select an option.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 4: 67% — Follow-Up & Tracking -->
+            <div class="intake-step finder-step" data-step="4" style="display: none;">
+              <h3 class="intake-step-title">Follow-Up & Tracking</h3>
+              <p class="body-small intake-step-desc">Tell us how you manage lead follow-ups and data.</p>
+
+              <div class="dm-fields-row">
+                <div class="form-group">
+                  <label class="form-label">Do you follow up with leads who don't respond right away? <span class="required">*</span></label>
+                  <div class="radio-grid vertical-cards">
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="follow_up" value="A" required>
+                      <span class="radio-card-label">Rarely / never</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="follow_up" value="B" required>
+                      <span class="radio-card-label">Sometimes, if I remember</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="follow_up" value="C" required>
+                      <span class="radio-card-label">Yes, manually every time</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="follow_up" value="D" required>
+                      <span class="radio-card-label">Yes, it's automated</span>
+                    </label>
+                  </div>
+                  <span class="error-message" id="error-follow-up">Please select an option.</span>
+                </div>
+
+                <hr class="dm-question-divider" />
+
+                <div class="form-group">
+                  <label class="form-label">How do you track new leads? <span class="required">*</span></label>
+                  <div class="radio-grid vertical-cards">
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_tracking" value="A" required>
+                      <span class="radio-card-label">I don't — I just remember</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_tracking" value="B" required>
+                      <span class="radio-card-label">Notebook or spreadsheet I update by hand</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_tracking" value="C" required>
+                      <span class="radio-card-label">A CRM, but updated manually</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="lead_tracking" value="D" required>
+                      <span class="radio-card-label">An automated CRM/lead log</span>
+                    </label>
+                  </div>
+                  <span class="error-message" id="error-lead-tracking">Please select an option.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 5: 83% — Reviews & Reporting -->
+            <div class="intake-step finder-step" data-step="5" style="display: none;">
+              <h3 class="intake-step-title">Reviews & Reporting</h3>
+              <p class="body-small intake-step-desc">Tell us how you handle client feedback and performance.</p>
+
+              <div class="dm-fields-row">
+                <div class="form-group">
+                  <label class="form-label">How do you collect customer reviews? <span class="required">*</span></label>
+                  <div class="radio-grid vertical-cards">
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="review_collection" value="A" required>
+                      <span class="radio-card-label">I don't ask</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="review_collection" value="B" required>
+                      <span class="radio-card-label">I ask verbally sometimes</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="review_collection" value="C" required>
+                      <span class="radio-card-label">I send manual messages after service</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="review_collection" value="D" required>
+                      <span class="radio-card-label">It's automated</span>
+                    </label>
+                  </div>
+                  <span class="error-message" id="error-review-collection">Please select an option.</span>
+                </div>
+
+                <hr class="dm-question-divider" />
+
+                <div class="form-group">
+                  <label class="form-label">How do you check how the business is doing (leads, sales, bookings)? <span class="required">*</span></label>
+                  <div class="radio-grid vertical-cards">
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="business_reporting" value="A" required>
+                      <span class="radio-card-label">I don't really track it</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="business_reporting" value="B" required>
+                      <span class="radio-card-label">I check manually across different apps</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="business_reporting" value="C" required>
+                      <span class="radio-card-label">I keep a spreadsheet I update</span>
+                    </label>
+                    <label class="radio-card finder-card-option">
+                      <input type="radio" name="business_reporting" value="D" required>
+                      <span class="radio-card-label">I have an automated dashboard</span>
+                    </label>
+                  </div>
+                  <span class="error-message" id="error-business-reporting">Please select an option.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 6: 100% — Your Results & Lead Capture -->
+            <div class="intake-step finder-step" data-step="6" style="display: none;">
+              <h3 class="intake-step-title">Your Results</h3>
+              <p class="body-small intake-step-desc">Here is your estimated time savings based on your answers.</p>
+
+              <!-- Dynamic Results Highlight Box -->
+              <div class="finder-results-box">
+                <div class="finder-hours-headline">
+                  <span id="finder-hours-num" class="finder-hours-num">0</span>
+                  <div class="finder-hours-label">
+                    <span class="finder-hours-big-text">HOURS / WEEK</span>
+                    <span class="finder-hours-sub-text">Estimated Time Saved Through Automation</span>
+                  </div>
+                </div>
+
+                <div class="finder-matched-title">TOP MATCHED AUTOMATIONS FOR YOUR BUSINESS:</div>
+                <div id="finder-matched-list" class="finder-matched-grid">
+                  <!-- Top 3 matched automations injected dynamically -->
+                </div>
+              </div>
+
+              <hr class="dm-question-divider" />
+
+              <p class="body-small" style="color: var(--color-ink); font-weight: 600; margin-bottom: 16px;">
+                Where should we send your custom automation breakdown & system blueprint?
+              </p>
+
+              <div class="dm-fields-row">
+                <div class="form-group">
+                  <label class="form-label">Preferred Contact Method <span class="required">*</span></label>
+                  <div class="radio-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <label class="radio-card">
+                      <input type="radio" name="contact_method" value="Email" checked required>
+                      <span class="radio-card-label">Email</span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="contact_method" value="WhatsApp" required>
+                      <span class="radio-card-label">WhatsApp</span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="contact_method" value="Phone Call" required>
+                      <span class="radio-card-label">Phone Call</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="finder-user-email" class="form-label">Your Email <span class="required">*</span></label>
+                  <input type="email" id="finder-user-email" name="email" class="form-input" placeholder="e.g. founder@yourcompany.com" required>
+                  <span class="error-message" id="error-finder-email">Please enter a valid email address.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="finder-user-phone" class="form-label">Phone / WhatsApp Number <span class="required">*</span></label>
+                  <input type="tel" id="finder-user-phone" name="phone" class="form-input" placeholder="e.g. +91 98765 43210" required>
+                  <span class="error-message" id="error-finder-phone">Please enter your phone number.</span>
+                </div>
+
+                <div class="checkbox-consent-group">
+                  <label class="consent-label">
+                    <input type="checkbox" name="consent" id="finder-consent" required checked>
+                    <span class="body-small" style="color: var(--color-ink-secondary); font-size: 13.5px;">
+                      I consent to receiving this automation breakdown from Designmela.
+                    </span>
+                  </label>
+                  <span class="error-message" id="error-finder-consent">Please check consent to proceed.</span>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px;">
+                <button type="submit" class="btn-primary dm-btn-hard" id="btn-finder-submit" style="width: 100%; justify-content: center;">
+                  <span>Get My Automation Breakdown <span class="arrow">→</span></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Confirmation State -->
+            <div class="intake-success" id="finder-success" style="display: none;">
+              <div class="success-icon-wrap" style="margin-bottom: 16px;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <h3 class="h2-section" style="font-size: 26px; margin-top: 0; margin-bottom: 12px;">You're In.</h3>
+              <p class="body-large" id="finder-success-message" style="color: var(--color-ink); font-weight: 600; margin-bottom: 24px; line-height: 1.5;">
+                Your automation breakdown is on its way — we'll follow up on <span id="finder-method-display">your preferred contact method</span> within 12 hours.
+              </p>
+              <a href="index.html" class="btn-primary dm-btn-hard" style="display: inline-flex;">
+                <span>Return to Homepage <span class="arrow">→</span></span>
+              </a>
+            </div>
+
+            <!-- Submit Error Message -->
+            <div class="intake-submit-error" id="finder-submit-error" style="display: none; margin-top: 20px;">
+              ⚠️ Submission failed. Please try again or email us directly at <a href="mailto:hello@designmela.com" style="text-decoration: underline; font-weight: 700;">hello@designmela.com</a>.
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="intake-navigation" id="finder-navigation">
+              <button type="button" class="btn-back" id="btn-finder-back" style="visibility: hidden;">Back</button>
+              <button type="button" class="btn-continue dm-btn-hard" id="btn-finder-continue" disabled>Continue</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TRUST-BUILDING CONTENT SECTION ==================== -->
+    <section class="finder-trust-section">
+      <div class="container finder-trust-container">
+        
+        <!-- Header -->
+        <div class="finder-trust-header">
+          <span class="metadata">[ WHY BUSINESSES TRUST US WITH AUTOMATION ]</span>
+          <h2 class="h2-section finder-trust-title">Automation only works if someone actually understands your business.</h2>
+          <p class="body-large finder-trust-intro">
+            Most agencies sell automation as a buzzword. We build the actual system — the same way we built our own lead pipeline (see the Lead Qualification Engine case study above).
+          </p>
+        </div>
+
+        <!-- 4 Pillar Grid -->
+        <div class="finder-pillars-grid">
+          <div class="finder-pillar-card">
+            <span class="metadata finder-pillar-num">01</span>
+            <h3 class="finder-pillar-title">BUILT BY BUILDERS, NOT CONSULTANTS</h3>
+            <p class="body-small finder-pillar-desc">
+              We ship the automation ourselves. No strategy deck, no handoff to a "technical partner" — the person who scopes your project is the person who builds it.
+            </p>
+          </div>
+
+          <div class="finder-pillar-card">
+            <span class="metadata finder-pillar-num">02</span>
+            <h3 class="finder-pillar-title">YOU SEE THE PROCESS, NOT JUST THE PITCH</h3>
+            <p class="body-small finder-pillar-desc">
+              Every project follows the same four stages you saw above — START, SHAPE, BUILD, LAUNCH. You know exactly what's happening and when, not just what you're being charged.
+            </p>
+          </div>
+
+          <div class="finder-pillar-card">
+            <span class="metadata finder-pillar-num">03</span>
+            <h3 class="finder-pillar-title">NO LOCK-IN</h3>
+            <p class="body-small finder-pillar-desc">
+              The systems we build run on tools you likely already use — Google Sheets, WhatsApp, Slack, your existing CRM. Nothing proprietary. If we ever part ways, your automation keeps running.
+            </p>
+          </div>
+
+          <div class="finder-pillar-card">
+            <span class="metadata finder-pillar-num">04</span>
+            <h3 class="finder-pillar-title">TRANSPARENT PRICING</h3>
+            <p class="body-small finder-pillar-desc">
+              Business Automation starts at ₹1,999 ($79) — the same pricing shown in our FAQ above, no hidden scoping fees.
+            </p>
+          </div>
+        </div>
+
+        <!-- Authority Stat Bar -->
+        <div class="finder-stat-bar">
+          <div class="finder-stat-item">
+            <span class="finder-stat-number">50+</span>
+            <span class="metadata finder-stat-label">Workflows Automated</span>
+          </div>
+          <div class="finder-stat-divider"></div>
+          <div class="finder-stat-item">
+            <span class="finder-stat-number">1,200+</span>
+            <span class="metadata finder-stat-label">Hours Saved Monthly</span>
+          </div>
+          <div class="finder-stat-divider"></div>
+          <div class="finder-stat-item">
+            <span class="finder-stat-number">12+</span>
+            <span class="metadata finder-stat-label">Industries Served</span>
+          </div>
+        </div>
+
+        <!-- SEO FAQ Block -->
+        <div class="finder-faq-wrapper">
+          <h3 class="h3-headline" style="font-size: 24px; margin-bottom: 24px;">Frequently Asked Questions</h3>
+          
+          <div class="faq-accordion">
+            <!-- Q1 -->
+            <div class="faq-item">
+              <button class="faq-trigger" id="finder-faq-btn-1" type="button" aria-expanded="false" aria-controls="finder-faq-content-1">
+                <span class="faq-question">What does business automation actually mean for a small business?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-content" id="finder-faq-content-1" role="region" aria-labelledby="finder-faq-btn-1">
+                <p class="body-small faq-answer">
+                  It means replacing repetitive manual work — replying to every lead by hand, updating a spreadsheet, sending follow-up messages — with a system that does it automatically. You still make the decisions; the busywork disappears.
+                </p>
+              </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="faq-item">
+              <button class="faq-trigger" id="finder-faq-btn-2" type="button" aria-expanded="false" aria-controls="finder-faq-content-2">
+                <span class="faq-question">How much does business automation cost in India?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-content" id="finder-faq-content-2" role="region" aria-labelledby="finder-faq-btn-2">
+                <p class="body-small faq-answer">
+                  Designmela's automation projects start at ₹1,999 ($79), with final pricing depending on how many workflows you need connected and how complex the branching logic is.
+                </p>
+              </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="faq-item">
+              <button class="faq-trigger" id="finder-faq-btn-3" type="button" aria-expanded="false" aria-controls="finder-faq-content-3">
+                <span class="faq-question">Do I need technical knowledge to use the automations you build?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-content" id="finder-faq-content-3" role="region" aria-labelledby="finder-faq-btn-3">
+                <p class="body-small faq-answer">
+                  No. Everything is built to run in the background using tools you already use daily — WhatsApp, Sheets, email, your existing CRM. No dashboards to learn, no code to touch.
+                </p>
+              </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="faq-item">
+              <button class="faq-trigger" id="finder-faq-btn-4" type="button" aria-expanded="false" aria-controls="finder-faq-content-4">
+                <span class="faq-question">What's the difference between an AI chatbot and a full automation system?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-content" id="finder-faq-content-4" role="region" aria-labelledby="finder-faq-btn-4">
+                <p class="body-small faq-answer">
+                  A chatbot handles a single conversation — answering questions, qualifying a lead. A full automation system connects that conversation to everything downstream: logging the lead, notifying your team, updating your CRM, and triggering follow-ups, all without anyone touching a spreadsheet.
+                </p>
+              </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="faq-item">
+              <button class="faq-trigger" id="finder-faq-btn-5" type="button" aria-expanded="false" aria-controls="finder-faq-content-5">
+                <span class="faq-question">How long does automation setup take?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-content" id="finder-faq-content-5" role="region" aria-labelledby="finder-faq-btn-5">
+                <p class="body-small faq-answer">
+                  Around a week for most projects, including testing before delivery — we'd rather test thoroughly than hand over something that breaks on day one.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Closing CTA Block -->
+        <div class="finder-closing-cta">
+          <h3 class="h2-section" style="font-size: 28px; margin-bottom: 16px;">Ready to stop doing this manually?</h3>
+          <a href="index.html#contact" class="btn-primary dm-btn-hard">
+            <span>Get Your Own System <span class="arrow">→</span></span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer-section">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <a href="index.html" class="nav-logo footer-nav-logo" aria-label="Designmela homepage">
+            <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon" loading="lazy" width="1024" height="1024">
+            <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text" loading="lazy" width="1024" height="342">
+          </a>
+          <p class="body-small footer-tagline">
+            Digital design, websites, AI, automation & creative work.
+          </p>
+        </div>
+        
+        <div class="footer-links-row">
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Navigation</span>
+            <a href="index.html#work" class="footer-link" aria-label="Footer link to featured work section">Work</a>
+            <a href="index.html#services" class="footer-link" aria-label="Footer link to services section">Services</a>
+            <a href="index.html#about" class="footer-link" aria-label="Footer link to about section">About</a>
+            <a href="index.html#contact" class="footer-link" aria-label="Footer link to contact section">Contact</a>
+          </div>
+
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Tools</span>
+            <a href="automation-finder.html" class="footer-link" aria-label="Footer link to Automation Opportunity Finder tool">Automation Finder</a>
+          </div>
+          
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Legal</span>
+            <a href="terms.html" class="footer-link">Terms &amp; Conditions</a>
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+          </div>
+          
+          <div class="footer-links-col">
+            <span class="metadata footer-col-title">Connect</span>
+            <div class="footer-social-icons">
+              <a href="mailto:hello@designmela.com" class="footer-icon-btn" aria-label="Email hello@designmela.com" title="Email: hello@designmela.com">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="3" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/designmela_com/" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram @designmela_com" title="Instagram (@designmela_com)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a href="https://wa.me/918082017828" class="footer-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Primary WhatsApp +91 80820 17828" title="Primary WhatsApp: +91 80820 17828">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="body-small footer-copyright">
+          © 2026 Designmela. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

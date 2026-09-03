@@ -3402,14 +3402,302 @@
     });
   }
 
+  // ==================== AUTOMATION OPPORTUNITY FINDER ====================
+  function initAutomationFinder() {
+    const form = document.getElementById('finder-form');
+    if (!form) return;
+
+    const steps = Array.from(document.querySelectorAll('.finder-step'));
+    const fill = document.getElementById('finder-progress-fill');
+    const orb = document.getElementById('finder-progress-orb');
+    const statusText = document.getElementById('finder-status');
+    const stepNumber = document.getElementById('finder-step-number');
+    const btnBack = document.getElementById('btn-finder-back');
+    const btnContinue = document.getElementById('btn-finder-continue');
+    const successEl = document.getElementById('finder-success');
+    const submitErrorEl = document.getElementById('finder-submit-error');
+    const navigationEl = document.getElementById('finder-navigation');
+
+    let currentStep = 1;
+    const totalSteps = 6;
+
+    const stepStatuses = {
+      1: "YOUR BUSINESS / Let's see how much time automation could save you.",
+      2: "LEAD HANDLING / How do you currently respond to new customer inquiries?",
+      3: "BOOKING & SCHEDULING / How do customers currently book or schedule?",
+      4: "FOLLOW-UP & TRACKING / Tell us how you manage lead follow-ups and data.",
+      5: "REVIEWS & REPORTING / Tell us how you handle client feedback and reporting.",
+      6: "YOUR RESULTS / Based on your responses, here is your time savings breakdown."
+    };
+
+    const stepProgress = {
+      1: 17,
+      2: 33,
+      3: 50,
+      4: 67,
+      5: 83,
+      6: 100
+    };
+
+    function updateProgress(step) {
+      const pct = stepProgress[step] || 17;
+      if (fill) fill.style.width = pct + '%';
+      if (orb) orb.style.left = pct + '%';
+      if (stepNumber) stepNumber.textContent = pct + '%';
+      if (statusText && stepStatuses[step]) statusText.textContent = stepStatuses[step];
+    }
+
+    function calculateResults() {
+      const leadHandling = form.querySelector('input[name="lead_handling"]:checked')?.value || '';
+      const booking = form.querySelector('input[name="booking_scheduling"]:checked')?.value || '';
+      const followUp = form.querySelector('input[name="follow_up"]:checked')?.value || '';
+      const leadTracking = form.querySelector('input[name="lead_tracking"]:checked')?.value || '';
+      const reviewCol = form.querySelector('input[name="review_collection"]:checked')?.value || '';
+      const businessRep = form.querySelector('input[name="business_reporting"]:checked')?.value || '';
+
+      const matchedList = [];
+
+      if (leadHandling === 'A' || leadHandling === 'D') {
+        matchedList.push({ name: 'AI Lead Qualification Chatbot', hrs: 5, desc: 'Qualifies website & WhatsApp leads 24/7 without manual intervention.' });
+      }
+      if (booking === 'A' || booking === 'B') {
+        matchedList.push({ name: 'Automated Booking & Calendar Sync', hrs: 3, desc: 'Eliminates phone tag and back-and-forth messages for appointment booking.' });
+      }
+      if (followUp === 'A' || followUp === 'B') {
+        matchedList.push({ name: 'Automated Follow-Up Sequences', hrs: 2, desc: 'Sends timely, personalized follow-ups to unanswered inquiries.' });
+      }
+      if (leadTracking === 'A' || leadTracking === 'B') {
+        matchedList.push({ name: 'Auto-Synced CRM / Lead Log', hrs: 2, desc: 'Automatically logs lead details into Google Sheets or your CRM.' });
+      }
+      if (reviewCol === 'A' || reviewCol === 'B') {
+        matchedList.push({ name: 'Automated Review Request Flow', hrs: 1, desc: 'Triggers Google review requests after successful service completion.' });
+      }
+      if (businessRep === 'A' || businessRep === 'B') {
+        matchedList.push({ name: 'Automated Reporting Dashboard', hrs: 2, desc: 'Aggregates weekly leads, bookings, and revenue metrics automatically.' });
+      }
+
+      let totalHrs = matchedList.reduce((acc, curr) => acc + curr.hrs, 0);
+      if (totalHrs === 0) {
+        totalHrs = 2;
+        matchedList.push({ name: 'Custom Workflow Optimization', hrs: 2, desc: 'Audit and streamline your existing tech stack for peak efficiency.' });
+      }
+
+      matchedList.sort((a, b) => b.hrs - a.hrs);
+      const topMatches = matchedList.slice(0, 3);
+
+      const hiddenHours = document.getElementById('hidden-calculated-hours');
+      const hiddenAutomations = document.getElementById('hidden-matched-automations');
+      if (hiddenHours) hiddenHours.value = totalHrs + ' hours/week';
+      if (hiddenAutomations) hiddenAutomations.value = topMatches.map(m => `${m.name} (${m.hrs} hrs/wk)`).join(', ');
+
+      const container = document.getElementById('finder-matched-list');
+      if (container) {
+        container.innerHTML = topMatches.map(item => `
+          <div class="finder-matched-card">
+            <div class="finder-matched-card-head">
+              <span class="finder-matched-card-name">${item.name}</span>
+              <span class="finder-matched-card-badge">~${item.hrs} hrs/wk saved</span>
+            </div>
+            <p class="body-small finder-matched-card-desc">${item.desc}</p>
+          </div>
+        `).join('');
+      }
+
+      const hoursEl = document.getElementById('finder-hours-num');
+      if (hoursEl) {
+        let start = 0;
+        const duration = 1000;
+        const startTime = performance.now();
+
+        function animateCount(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const current = Math.floor(progress * totalHrs);
+          hoursEl.textContent = current;
+          if (progress < 1) {
+            requestAnimationFrame(animateCount);
+          } else {
+            hoursEl.textContent = totalHrs;
+          }
+        }
+        requestAnimationFrame(animateCount);
+      }
+    }
+
+    function validateStep(step) {
+      let isValid = true;
+      const stepEl = form.querySelector(`.finder-step[data-step="${step}"]`);
+      if (!stepEl) return false;
+
+      stepEl.querySelectorAll('.error-message').forEach(err => err.style.display = 'none');
+      stepEl.querySelectorAll('.form-input, .form-select').forEach(inp => inp.style.borderColor = '');
+
+      if (step === 1) {
+        const bName = document.getElementById('finder-business-name');
+        const ind = document.getElementById('finder-industry');
+        if (!bName || !bName.value.trim()) isValid = false;
+        if (!ind || !ind.value) isValid = false;
+      } else if (step === 2) {
+        const checked = form.querySelector('input[name="lead_handling"]:checked');
+        if (!checked) isValid = false;
+      } else if (step === 3) {
+        const checked = form.querySelector('input[name="booking_scheduling"]:checked');
+        if (!checked) isValid = false;
+      } else if (step === 4) {
+        const fChecked = form.querySelector('input[name="follow_up"]:checked');
+        const tChecked = form.querySelector('input[name="lead_tracking"]:checked');
+        if (!fChecked || !tChecked) isValid = false;
+      } else if (step === 5) {
+        const rChecked = form.querySelector('input[name="review_collection"]:checked');
+        const bChecked = form.querySelector('input[name="business_reporting"]:checked');
+        if (!rChecked || !bChecked) isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function updateNavigationState() {
+      if (currentStep === 1) {
+        if (btnBack) btnBack.style.visibility = 'hidden';
+      } else {
+        if (btnBack) btnBack.style.visibility = 'visible';
+      }
+
+      if (currentStep === totalSteps) {
+        if (btnContinue) btnContinue.style.display = 'none';
+      } else {
+        if (btnContinue) btnContinue.style.display = 'inline-flex';
+        const valid = validateStep(currentStep);
+        if (btnContinue) btnContinue.disabled = !valid;
+      }
+    }
+
+    function showStep(step) {
+      steps.forEach(s => {
+        if (parseInt(s.getAttribute('data-step')) === step) {
+          s.style.display = 'block';
+          s.classList.add('active');
+        } else {
+          s.style.display = 'none';
+          s.classList.remove('active');
+        }
+      });
+
+      currentStep = step;
+      updateProgress(step);
+      updateNavigationState();
+
+      if (step === 6) {
+        calculateResults();
+      }
+    }
+
+    form.addEventListener('input', () => updateNavigationState());
+    form.addEventListener('change', () => updateNavigationState());
+
+    if (btnContinue) {
+      btnContinue.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (validateStep(currentStep)) {
+          if (currentStep < totalSteps) {
+            showStep(currentStep + 1);
+            window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+          }
+        } else {
+          const stepEl = form.querySelector(`.finder-step[data-step="${currentStep}"]`);
+          if (stepEl) {
+            stepEl.querySelectorAll('.error-message').forEach(err => err.style.display = 'block');
+          }
+        }
+      });
+    }
+
+    if (btnBack) {
+      btnBack.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentStep > 1) {
+          showStep(currentStep - 1);
+          window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+        }
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const userEmail = document.getElementById('finder-user-email');
+      const userPhone = document.getElementById('finder-user-phone');
+      const userConsent = document.getElementById('finder-consent');
+      let valid = true;
+
+      if (!userEmail || !userEmail.value.trim() || !userEmail.checkValidity()) {
+        valid = false;
+        const err = document.getElementById('error-finder-email');
+        if (err) err.style.display = 'block';
+      }
+      if (!userPhone || !userPhone.value.trim()) {
+        valid = false;
+        const err = document.getElementById('error-finder-phone');
+        if (err) err.style.display = 'block';
+      }
+      if (!userConsent || !userConsent.checked) {
+        valid = false;
+        const err = document.getElementById('error-finder-consent');
+        if (err) err.style.display = 'block';
+      }
+
+      if (!valid) return;
+
+      const submitBtn = document.getElementById('btn-finder-submit');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.querySelector('span').textContent = 'Submitting...';
+      }
+
+      const method = form.querySelector('input[name="preferred_contact"]:checked')?.value || 'Email';
+      const methodDisplay = document.getElementById('finder-method-display');
+      if (methodDisplay) methodDisplay.textContent = method;
+
+      const formData = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          steps.forEach(s => s.style.display = 'none');
+          if (navigationEl) navigationEl.style.display = 'none';
+          if (submitErrorEl) submitErrorEl.style.display = 'none';
+          if (successEl) successEl.style.display = 'block';
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(err => {
+        console.error('Finder submission error:', err);
+        if (submitErrorEl) submitErrorEl.style.display = 'block';
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.querySelector('span').textContent = 'Get My Automation Breakdown →';
+        }
+      });
+    });
+
+    showStep(1);
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initFAQAccordion();
       initHeroBrowserCarousel();
+      initAutomationFinder();
     });
   } else {
     initFAQAccordion();
     initHeroBrowserCarousel();
+    initAutomationFinder();
   }
 
 })();
