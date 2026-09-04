@@ -8,6 +8,10 @@
     {
       "source": "/api/finder-ai",
       "destination": "/api/finder-ai.js"
+    },
+    {
+      "source": "/api/whatsapp-audit",
+      "destination": "/api/whatsapp-audit.js"
     }
   ],
   "headers": [

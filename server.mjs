@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import handler from './api/chat.js';
 import finderAiHandler from './api/finder-ai.js';
+import waAuditHandler from './api/whatsapp-audit.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -61,8 +62,10 @@ const server = http.createServer((req, res) => {
   const pathname = urlObj.pathname;
 
   // Handle API local proxies
-  if (pathname === '/api/chat' || pathname === '/api/finder-ai') {
-    const apiTargetHandler = pathname === '/api/finder-ai' ? finderAiHandler : handler;
+  if (pathname === '/api/chat' || pathname === '/api/finder-ai' || pathname === '/api/whatsapp-audit') {
+    let apiTargetHandler = handler;
+    if (pathname === '/api/finder-ai') apiTargetHandler = finderAiHandler;
+    if (pathname === '/api/whatsapp-audit') apiTargetHandler = waAuditHandler;
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {

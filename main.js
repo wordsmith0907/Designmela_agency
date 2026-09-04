@@ -3867,16 +3867,457 @@
     showStep(1);
   }
 
+  // ==================== WHATSAPP BUSINESS AUDIT ====================
+  function initWhatsAppAudit() {
+    const form = document.getElementById('wa-audit-form');
+    if (!form) return;
+
+    const steps = Array.from(document.querySelectorAll('.wa-audit-step'));
+    const fill = document.getElementById('wa-audit-progress-fill');
+    const orb = document.getElementById('wa-audit-progress-orb');
+    const statusText = document.getElementById('wa-audit-status');
+    const stepNumber = document.getElementById('wa-audit-step-number');
+    const btnBack = document.getElementById('btn-wa-back');
+    const btnContinue = document.getElementById('btn-wa-continue');
+    const btnSubmit = document.getElementById('btn-wa-submit');
+    const successEl = document.getElementById('wa-audit-success');
+    const submitErrorEl = document.getElementById('wa-audit-submit-error');
+
+    let currentStep = 1;
+    const totalSteps = 5;
+    let uploadedFiles = [];
+
+    const stepStatuses = {
+      1: "YOUR BUSINESS / Let's audit your WhatsApp Business setup.",
+      2: "CURRENT USE / Tell us about your messaging workflow.",
+      3: "YOUR PROFILE / Provide your number, screenshots, or both.",
+      4: "DELIVERY / Where should we send your report?",
+      5: "YOUR SCORE / Here is your instant profile score preview."
+    };
+
+    const stepProgress = {
+      1: 0,
+      2: 20,
+      3: 40,
+      4: 60,
+      5: 80
+    };
+
+    function updateProgress(step) {
+      const pct = (stepProgress[step] !== undefined) ? stepProgress[step] : 0;
+      if (fill) fill.style.width = pct + '%';
+      if (orb) orb.style.left = pct + '%';
+      if (stepNumber) stepNumber.textContent = pct + '%';
+      if (statusText && stepStatuses[step]) statusText.textContent = stepStatuses[step];
+    }
+
+    const dropzone = document.getElementById('wa-upload-dropzone');
+    const fileInput = document.getElementById('wa-file-input');
+    const previewList = document.getElementById('wa-preview-list');
+
+    if (dropzone && fileInput) {
+      dropzone.addEventListener('click', () => fileInput.click());
+
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.style.borderColor = 'var(--color-accent)';
+      });
+
+      dropzone.addEventListener('dragleave', () => {
+        dropzone.style.borderColor = 'var(--color-border)';
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.style.borderColor = 'var(--color-border)';
+        if (e.dataTransfer.files) handleFiles(e.dataTransfer.files);
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files) handleFiles(e.target.files);
+      });
+    }
+
+    function handleFiles(files) {
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      const maxFiles = 2;
+
+      Array.from(files).forEach(file => {
+        if (uploadedFiles.length >= maxFiles) return;
+        if (!validTypes.includes(file.type)) return;
+        if (file.size > 5 * 1024 * 1024) return;
+
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          uploadedFiles.push({
+            data: evt.target.result,
+            mimeType: file.type,
+            name: file.name
+          });
+          renderPreviews();
+          updateNavigationState();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderPreviews() {
+      if (!previewList) return;
+      previewList.innerHTML = uploadedFiles.map((file, idx) => `
+        <div class="wa-preview-item">
+          <img src="${file.data}" alt="Screenshot preview" class="wa-preview-img">
+          <button type="button" class="wa-preview-remove" data-idx="${idx}">×</button>
+        </div>
+      `).join('');
+
+      previewList.querySelectorAll('.wa-preview-remove').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = parseInt(btn.getAttribute('data-idx'));
+          uploadedFiles.splice(idx, 1);
+          renderPreviews();
+          updateNavigationState();
+        });
+      });
+    }
+
+    const hiddenScore = document.getElementById('hidden-wa-score');
+
+    function calculateAuditResults() {
+      const bName = document.getElementById('wa-business-name')?.value || 'Your Business';
+      const ind = document.getElementById('wa-industry')?.value || 'General Business';
+      const autoReply = form.querySelector('input[name="auto_reply"]:checked')?.value || 'Not sure';
+      const responseTime = form.querySelector('input[name="response_time"]:checked')?.value || 'Within a day';
+      const catalogSetup = form.querySelector('input[name="catalog_setup"]:checked')?.value || 'No';
+      const waNum = document.getElementById('wa-profile-number')?.value?.trim() || '';
+
+      const scoreEl = document.getElementById('wa-score-num');
+      const scoreSub = document.getElementById('wa-score-subtext');
+      const obsBox = document.getElementById('wa-ai-observation-box');
+      const obsText = document.getElementById('wa-ai-observation-text');
+
+      function renderTierItems(containerId, items) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        if (!items || items.length === 0) {
+          el.innerHTML = '<div class="body-small" style="opacity: 0.6; padding: 8px 0;">No active items in this category.</div>';
+          return;
+        }
+        el.innerHTML = items.map(item => `
+          <div class="finder-matched-card">
+            <div class="finder-matched-card-head">
+              <span class="finder-matched-card-name">${item.name}</span>
+              <span class="finder-matched-card-badge">~${item.hrs} hrs/wk saved</span>
+            </div>
+            <p class="body-small finder-matched-card-desc">${item.desc}</p>
+          </div>
+        `).join('');
+      }
+
+      const fetchPromise = fetch('/api/whatsapp-audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName: bName,
+          industry: ind,
+          autoReply,
+          responseTime,
+          catalogSetup,
+          phone: waNum,
+          images: uploadedFiles
+        })
+      }).then(r => r.json());
+
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Audit fetch timeout')), 4000)
+      );
+
+      Promise.race([fetchPromise, timeoutPromise])
+        .then(data => {
+          const finalScore = data.score || 76;
+          if (scoreEl) {
+            let start = 0;
+            const duration = 1000;
+            const startTime = performance.now();
+            function animateScore(now) {
+              const elapsed = now - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const current = Math.floor(progress * finalScore);
+              scoreEl.textContent = current;
+              if (progress < 1) {
+                requestAnimationFrame(animateScore);
+              } else {
+                scoreEl.textContent = finalScore;
+              }
+            }
+            requestAnimationFrame(animateScore);
+          }
+
+          if (scoreSub) scoreSub.textContent = `Profile score for ${bName} (${ind})`;
+          if (hiddenScore) hiddenScore.value = finalScore + '/100';
+
+          renderTierItems('wa-tier-quick-wins', data.quickWins || []);
+          renderTierItems('wa-tier-high-impact', data.highImpact || []);
+          renderTierItems('wa-tier-consider-later', data.considerLater || []);
+
+          if (data.visionNotes && obsBox && obsText) {
+            obsText.textContent = data.visionNotes;
+            obsBox.style.display = 'block';
+          }
+
+          const waLink = document.getElementById('btn-wa-send-report');
+          if (waLink) {
+            const msg = `Hi Designmela, I just completed my WhatsApp Business Audit for ${bName} (Score: ${finalScore}/100) — please send my full report.`;
+            waLink.href = `https://wa.me/918082017828?text=${encodeURIComponent(msg)}`;
+          }
+        })
+        .catch(err => {
+          console.warn('WhatsApp Audit fallback active:', err.message);
+          if (scoreEl) scoreEl.textContent = '78';
+          if (scoreSub) scoreSub.textContent = `Profile score for ${bName}`;
+          renderTierItems('wa-tier-quick-wins', [
+            { name: 'Set Up Instant Greeting Message', hrs: 2, desc: 'Enable automatic welcome replies in WhatsApp Business settings.' },
+            { name: 'Complete Product/Service Catalog', hrs: 3, desc: 'Add prices and photos to your WhatsApp catalog.' }
+          ]);
+          renderTierItems('wa-tier-high-impact', [
+            { name: 'Automated Lead Qualification Bot', hrs: 5, desc: 'Deploy a bot to qualify leads immediately upon first message.' }
+          ]);
+          renderTierItems('wa-tier-consider-later', [
+            { name: 'Multi-Agent WhatsApp Inbox Sync', hrs: 4, desc: 'Route incoming chats across team members seamlessly.' }
+          ]);
+        });
+    }
+
+    function validateStep(step, showErrors = false) {
+      let isValid = true;
+      const stepEl = form.querySelector(`.wa-audit-step[data-step="${step}"]`);
+      if (!stepEl) return false;
+
+      if (showErrors) {
+        stepEl.querySelectorAll('.error-message').forEach(err => err.style.display = 'none');
+        stepEl.querySelectorAll('.form-input, .form-select').forEach(inp => inp.style.borderColor = '');
+      }
+
+      if (step === 1) {
+        const bName = document.getElementById('wa-business-name');
+        const ind = document.getElementById('wa-industry');
+        if (!bName || !bName.value.trim()) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-business-name');
+            if (err) err.style.display = 'block';
+            if (bName) bName.style.borderColor = '#ff4d4d';
+          }
+        }
+        if (!ind || !ind.value) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-industry');
+            if (err) err.style.display = 'block';
+            if (ind) ind.style.borderColor = '#ff4d4d';
+          }
+        }
+      } else if (step === 2) {
+        const aChecked = form.querySelector('input[name="auto_reply"]:checked');
+        const rChecked = form.querySelector('input[name="response_time"]:checked');
+        const cChecked = form.querySelector('input[name="catalog_setup"]:checked');
+        if (!aChecked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-auto-reply');
+            if (err) err.style.display = 'block';
+          }
+        }
+        if (!rChecked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-response-time');
+            if (err) err.style.display = 'block';
+          }
+        }
+        if (!cChecked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-catalog-setup');
+            if (err) err.style.display = 'block';
+          }
+        }
+      } else if (step === 3) {
+        const waNum = document.getElementById('wa-profile-number')?.value?.trim() || '';
+        const hasPhone = waNum.length >= 6;
+        const hasImages = uploadedFiles.length > 0;
+
+        if (!hasPhone && !hasImages) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-dual-input');
+            if (err) err.style.display = 'block';
+            const numEl = document.getElementById('wa-profile-number');
+            if (numEl) numEl.style.borderColor = '#ff4d4d';
+            if (dropzone) dropzone.style.borderColor = '#ff4d4d';
+          }
+        } else {
+          const reportPhone = document.getElementById('wa-report-phone');
+          if (reportPhone && hasPhone && !reportPhone.value) {
+            reportPhone.value = waNum;
+          }
+        }
+      } else if (step === 4) {
+        const rPhone = document.getElementById('wa-report-phone');
+        const consent = document.getElementById('wa-consent');
+        if (!rPhone || !rPhone.value.trim()) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-report-phone');
+            if (err) err.style.display = 'block';
+            if (rPhone) rPhone.style.borderColor = '#ff4d4d';
+          }
+        }
+        if (!consent || !consent.checked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-wa-consent');
+            if (err) err.style.display = 'block';
+          }
+        }
+      }
+
+      return isValid;
+    }
+
+    function updateNavigationState() {
+      if (currentStep === 1) {
+        if (btnBack) btnBack.style.visibility = 'hidden';
+      } else {
+        if (btnBack) btnBack.style.visibility = 'visible';
+      }
+
+      if (currentStep === totalSteps) {
+        if (btnContinue) btnContinue.style.display = 'none';
+        if (btnSubmit) btnSubmit.style.display = 'none';
+      } else if (currentStep === 4) {
+        if (btnContinue) btnContinue.style.display = 'none';
+        if (btnSubmit) btnSubmit.style.display = 'inline-flex';
+      } else {
+        if (btnContinue) {
+          btnContinue.style.display = 'inline-flex';
+          btnContinue.disabled = false;
+        }
+        if (btnSubmit) btnSubmit.style.display = 'none';
+      }
+    }
+
+    function showStep(step) {
+      steps.forEach(s => {
+        if (parseInt(s.getAttribute('data-step')) === step) {
+          s.style.display = 'block';
+          s.classList.add('active');
+        } else {
+          s.style.display = 'none';
+          s.classList.remove('active');
+        }
+      });
+
+      currentStep = step;
+      updateProgress(step);
+      updateNavigationState();
+
+      if (step === 5) {
+        calculateAuditResults();
+      }
+    }
+
+    form.addEventListener('input', (e) => {
+      if (e.target && e.target.classList.contains('form-input')) {
+        e.target.style.borderColor = '';
+        const parent = e.target.closest('.form-group');
+        if (parent) {
+          const err = parent.querySelector('.error-message');
+          if (err) err.style.display = 'none';
+        }
+      }
+      const dualErr = document.getElementById('error-wa-dual-input');
+      if (dualErr) dualErr.style.display = 'none';
+      if (dropzone) dropzone.style.borderColor = 'var(--color-border)';
+    });
+
+    form.addEventListener('change', (e) => {
+      if (e.target) {
+        e.target.style.borderColor = '';
+        const parent = e.target.closest('.form-group');
+        if (parent) {
+          const err = parent.querySelector('.error-message');
+          if (err) err.style.display = 'none';
+        }
+      }
+      const dualErr = document.getElementById('error-wa-dual-input');
+      if (dualErr) dualErr.style.display = 'none';
+      if (dropzone) dropzone.style.borderColor = 'var(--color-border)';
+    });
+
+    if (btnContinue) {
+      btnContinue.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (validateStep(currentStep, true)) {
+          if (currentStep < totalSteps) {
+            showStep(currentStep + 1);
+            window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+          }
+        }
+      });
+    }
+
+    if (btnBack) {
+      btnBack.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentStep > 1) {
+          showStep(currentStep - 1);
+          window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+        }
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validateStep(4, true)) return;
+
+      const submitBtn = document.getElementById('btn-wa-submit');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.querySelector('span').textContent = 'Generating Audit...';
+      }
+
+      const formData = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        showStep(5);
+      })
+      .catch(err => {
+        console.error('Audit submit error:', err);
+        showStep(5);
+      });
+    });
+
+    showStep(1);
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initFAQAccordion();
       initHeroBrowserCarousel();
       initAutomationFinder();
+      initWhatsAppAudit();
     });
   } else {
     initFAQAccordion();
     initHeroBrowserCarousel();
     initAutomationFinder();
+    initWhatsAppAudit();
   }
 
 })();

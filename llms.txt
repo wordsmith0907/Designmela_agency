@@ -8,6 +8,7 @@ Designmela combines thoughtful design with modern engineering to help businesses
 
 - [Designmela Homepage](https://designmela.com/): Agency overview, featured work, client portfolio, and interactive consultation chat.
 - [Automation Opportunity Finder](https://designmela.com/automation-finder): Interactive lead-generation quiz that estimates weekly time savings through business automation.
+- [WhatsApp Business Audit](https://designmela.com/whatsapp-audit): Interactive scoring tool and Gemini Vision screenshot analyzer for WhatsApp Business setups.
 - [Privacy Policy](https://designmela.com/privacy.html): Official privacy policy detailing data collection, chat retention, and visitor rights.
 - [Terms & Conditions](https://designmela.com/terms.html): Terms of service governing client project agreements, deposits, and intellectual property.
 
