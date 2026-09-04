@@ -4,6 +4,10 @@
     {
       "source": "/api/chat",
       "destination": "/api/chat.js"
+    },
+    {
+      "source": "/api/finder-ai",
+      "destination": "/api/finder-ai.js"
     }
   ],
   "headers": [

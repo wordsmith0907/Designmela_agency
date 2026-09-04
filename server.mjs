@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import handler from './api/chat.js';
+import finderAiHandler from './api/finder-ai.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -59,8 +60,9 @@ const server = http.createServer((req, res) => {
   const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = urlObj.pathname;
 
-  // Handle /api/chat local proxy via api/chat.js
-  if (pathname === '/api/chat') {
+  // Handle API local proxies
+  if (pathname === '/api/chat' || pathname === '/api/finder-ai') {
+    const apiTargetHandler = pathname === '/api/finder-ai' ? finderAiHandler : handler;
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
@@ -87,7 +89,7 @@ const server = http.createServer((req, res) => {
         }
       };
 
-      handler(req, mockRes);
+      apiTargetHandler(req, mockRes);
     });
     return;
   }

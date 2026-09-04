@@ -3448,61 +3448,81 @@
     }
 
     function calculateResults() {
+      const industryVal = form.querySelector('select[name="industry"]')?.value || 'Small Business';
       const leadHandling = form.querySelector('input[name="lead_handling"]:checked')?.value || '';
       const booking = form.querySelector('input[name="booking_scheduling"]:checked')?.value || '';
       const followUp = form.querySelector('input[name="follow_up"]:checked')?.value || '';
       const leadTracking = form.querySelector('input[name="lead_tracking"]:checked')?.value || '';
       const reviewCol = form.querySelector('input[name="review_collection"]:checked')?.value || '';
       const businessRep = form.querySelector('input[name="business_reporting"]:checked')?.value || '';
+      const annoyingTask = document.getElementById('finder-annoying-task')?.value?.trim() || '';
 
       const matchedList = [];
 
+      // Step 2: Lead Handling
       if (leadHandling === 'A' || leadHandling === 'D') {
-        matchedList.push({ name: 'AI Lead Qualification Chatbot', hrs: 5, desc: 'Qualifies website & WhatsApp leads 24/7 without manual intervention.' });
+        matchedList.push({ name: 'WhatsApp Lead Qualification Bot', hrs: 5, complexity: 'low', desc: 'Replies instantly to WhatsApp inquiries 24/7, qualifies intent, and logs details.' });
+        matchedList.push({ name: 'Website AI Qualification Widget', hrs: 5, complexity: 'medium', desc: 'Captures and qualifies website leads in real-time before routing to your calendar.' });
+      } else if (leadHandling === 'B') {
+        matchedList.push({ name: 'Instant Form Auto-Responder Engine', hrs: 3, complexity: 'low', desc: 'Sends immediate personalized email & SMS confirmation when a lead fills a form.' });
       }
+
+      // Step 3: Booking & Scheduling
       if (booking === 'A' || booking === 'B') {
-        matchedList.push({ name: 'Automated Booking & Calendar Sync', hrs: 3, desc: 'Eliminates phone tag and back-and-forth messages for appointment booking.' });
+        matchedList.push({ name: 'Cal.com / Calendly WhatsApp Sync', hrs: 3, complexity: 'low', desc: 'Lets leads book slots directly with automated WhatsApp appointment reminders.' });
+        matchedList.push({ name: 'Google Calendar Appointment Engine', hrs: 3, complexity: 'medium', desc: 'Syncs bookings with your team calendar and sends auto Meet/location details.' });
+      } else if (booking === 'C') {
+        matchedList.push({ name: 'No-Show Recovery & Auto-Rescheduler', hrs: 2, complexity: 'medium', desc: 'Handles cancellations and re-engages missed appointments automatically.' });
       }
+
+      // Step 4 Q1: Follow-Up
       if (followUp === 'A' || followUp === 'B') {
-        matchedList.push({ name: 'Automated Follow-Up Sequences', hrs: 2, desc: 'Sends timely, personalized follow-ups to unanswered inquiries.' });
+        matchedList.push({ name: 'Multi-Touch Email & WhatsApp Sequence', hrs: 3, complexity: 'medium', desc: 'Nurtures cold or unresponsive leads with a 3-part timed follow-up series.' });
+        matchedList.push({ name: 'Lead Re-Activation Campaign Flow', hrs: 2, complexity: 'low', desc: 'Re-engages quiet leads after 14 days of inactivity with tailored offers.' });
       }
+
+      // Step 4 Q2: Lead Tracking & CRM
       if (leadTracking === 'A' || leadTracking === 'B') {
-        matchedList.push({ name: 'Auto-Synced CRM / Lead Log', hrs: 2, desc: 'Automatically logs lead details into Google Sheets or your CRM.' });
+        matchedList.push({ name: 'Auto-Synced Google Sheets Lead Log', hrs: 2, complexity: 'low', desc: 'Logs every new lead, contact details, and source into a master Sheet instantly.' });
+      } else if (leadTracking === 'C') {
+        matchedList.push({ name: 'HubSpot / Notion CRM Auto-Pipeline Sync', hrs: 3, complexity: 'high', desc: 'Creates CRM contacts, assigns pipeline stages, and notifies team in Slack.' });
       }
+
+      // Step 5 Q1: Review Collection
       if (reviewCol === 'A' || reviewCol === 'B') {
-        matchedList.push({ name: 'Automated Review Request Flow', hrs: 1, desc: 'Triggers Google review requests after successful service completion.' });
+        matchedList.push({ name: 'Google Business Review Request Trigger', hrs: 1, complexity: 'low', desc: 'Sends a review request via WhatsApp/SMS 24h after service completion.' });
+      } else if (reviewCol === 'C') {
+        matchedList.push({ name: 'Automated Feedback & NPS Collector', hrs: 2, complexity: 'medium', desc: 'Routes positive feedback to Google Reviews and negative ones to support.' });
       }
+
+      // Step 5 Q2: Business Reporting
       if (businessRep === 'A' || businessRep === 'B') {
-        matchedList.push({ name: 'Automated Reporting Dashboard', hrs: 2, desc: 'Aggregates weekly leads, bookings, and revenue metrics automatically.' });
+        matchedList.push({ name: 'Weekly Performance WhatsApp Briefing', hrs: 2, complexity: 'low', desc: 'Delivers a clean weekly lead, booking, and sales summary to your phone.' });
+      } else if (businessRep === 'C') {
+        matchedList.push({ name: 'Live Google Looker Studio Dashboard', hrs: 3, complexity: 'high', desc: 'Consolidates website traffic, ad spend, leads, and revenue in one live dashboard.' });
       }
 
       let totalHrs = matchedList.reduce((acc, curr) => acc + curr.hrs, 0);
       if (totalHrs === 0) {
-        totalHrs = 2;
-        matchedList.push({ name: 'Custom Workflow Optimization', hrs: 2, desc: 'Audit and streamline your existing tech stack for peak efficiency.' });
+        totalHrs = 3;
+        matchedList.push({ name: 'Custom Workflow Optimization Engine', hrs: 3, complexity: 'low', desc: 'Audit and streamline your existing tech stack for peak efficiency.' });
       }
 
-      matchedList.sort((a, b) => b.hrs - a.hrs);
-      const topMatches = matchedList.slice(0, 3);
+      // Group matches into 3 Tiers
+      const quickWins = matchedList.filter(m => m.complexity === 'low');
+      const highImpact = matchedList.filter(m => m.complexity === 'medium' || m.complexity === 'high');
+      const considerLater = [
+        { name: 'Omnichannel Lead Attribution Tracker', hrs: 2, complexity: 'high', desc: 'Track exactly which ad or campaign generated every paying client.' },
+        { name: 'AI Voice Call Appointment Qualifier', hrs: 4, complexity: 'high', desc: 'Conversational voice bot that answers phone calls and schedules bookings.' }
+      ];
 
+      // Update hidden inputs for Web3Forms submission
       const hiddenHours = document.getElementById('hidden-calculated-hours');
       const hiddenAutomations = document.getElementById('hidden-matched-automations');
       if (hiddenHours) hiddenHours.value = totalHrs + ' hours/week';
-      if (hiddenAutomations) hiddenAutomations.value = topMatches.map(m => `${m.name} (${m.hrs} hrs/wk)`).join(', ');
+      if (hiddenAutomations) hiddenAutomations.value = matchedList.map(m => `${m.name} (${m.hrs} hrs/wk)`).join(', ');
 
-      const container = document.getElementById('finder-matched-list');
-      if (container) {
-        container.innerHTML = topMatches.map(item => `
-          <div class="finder-matched-card">
-            <div class="finder-matched-card-head">
-              <span class="finder-matched-card-name">${item.name}</span>
-              <span class="finder-matched-card-badge">~${item.hrs} hrs/wk saved</span>
-            </div>
-            <p class="body-small finder-matched-card-desc">${item.desc}</p>
-          </div>
-        `).join('');
-      }
-
+      // Animate hours count-up headline
       const hoursEl = document.getElementById('finder-hours-num');
       if (hoursEl) {
         let start = 0;
@@ -3522,6 +3542,87 @@
         }
         requestAnimationFrame(animateCount);
       }
+
+      // Render Tiers DOM Helper
+      function renderTierItems(containerId, items) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        if (!items || items.length === 0) {
+          el.innerHTML = '<div class="body-small" style="opacity: 0.6; padding: 8px 0;">No active items in this category.</div>';
+          return;
+        }
+        el.innerHTML = items.map(item => `
+          <div class="finder-matched-card">
+            <div class="finder-matched-card-head">
+              <span class="finder-matched-card-name">${item.name}</span>
+              <span class="finder-matched-card-badge">~${item.hrs} hrs/wk saved</span>
+            </div>
+            <p class="body-small finder-matched-card-desc">${item.desc}</p>
+          </div>
+        `).join('');
+      }
+
+      renderTierItems('finder-tier-quick-wins', quickWins);
+      renderTierItems('finder-tier-high-impact', highImpact);
+      renderTierItems('finder-tier-consider-later', considerLater);
+
+      // Render Fallback Roadmap
+      const roadmapEl = document.getElementById('finder-roadmap-list');
+      if (roadmapEl) {
+        roadmapEl.innerHTML = `
+          <li><strong>Month 1:</strong> Deploy lead qualification &amp; booking automations</li>
+          <li><strong>Month 2:</strong> Connect auto-synced lead tracking &amp; CRM log</li>
+          <li><strong>Month 3:</strong> Launch automated follow-ups &amp; weekly reporting</li>
+        `;
+      }
+
+      // Call AI Endpoint with 4s Timeout Fallback
+      const aiBox = document.getElementById('finder-ai-summary-box');
+      const aiText = document.getElementById('finder-ai-summary-text');
+
+      const fetchPromise = fetch('/api/finder-ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          industry: industryVal,
+          matchedAutomations: matchedList,
+          customAnnoyingTask: annoyingTask,
+          totalHours: totalHrs
+        })
+      }).then(r => r.json());
+
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('AI fetch timeout')), 4000)
+      );
+
+      Promise.race([fetchPromise, timeoutPromise])
+        .then(data => {
+          if (data && data.aiSummary && aiBox && aiText) {
+            aiText.textContent = data.aiSummary;
+            aiBox.style.display = 'block';
+          }
+          if (data && data.customTaskRecommendation && data.customTaskRecommendation.title) {
+            const customItem = {
+              name: `✨ Custom Task: ${data.customTaskRecommendation.title}`,
+              hrs: 3,
+              desc: data.customTaskRecommendation.desc || 'Custom automated workflow tailored to your annoying repetitive task.'
+            };
+            if (data.customTaskRecommendation.tier === 'High-Impact') {
+              highImpact.unshift(customItem);
+              renderTierItems('finder-tier-high-impact', highImpact);
+            } else {
+              quickWins.unshift(customItem);
+              renderTierItems('finder-tier-quick-wins', quickWins);
+            }
+          }
+          if (data && Array.isArray(data.roadmap) && data.roadmap.length > 0 && roadmapEl) {
+            roadmapEl.innerHTML = data.roadmap.map(item => `<li>${item}</li>`).join('');
+          }
+        })
+        .catch(err => {
+          console.warn('AI enhancement fallback active:', err.message);
+          // Keep deterministic tier rendering and default roadmap
+        });
     }
 
     function validateStep(step, showErrors = false) {

@@ -326,10 +326,17 @@
             <!-- STEP 6: 100% — Your Results & Lead Capture -->
             <div class="intake-step finder-step" data-step="6" style="display: none;">
               <h3 class="intake-step-title">Your Results</h3>
-              <p class="body-small intake-step-desc">Here is your estimated time savings based on your answers.</p>
+              <p class="body-small intake-step-desc">Here is your customized automation blueprint and estimated time savings.</p>
 
-              <!-- Dynamic Results Highlight Box -->
+              <!-- Optional Annoying Task Input -->
+              <div class="form-group" style="margin-bottom: 24px;">
+                <label for="finder-annoying-task" class="form-label">What's the most annoying repetitive task in your business right now? <span style="font-weight: 400; opacity: 0.6;">(optional)</span></label>
+                <textarea id="finder-annoying-task" name="annoying_task" class="form-input form-textarea" rows="2" placeholder="e.g. Copy-pasting lead details from Instagram to Excel, or sending manual payment reminders every Friday..."></textarea>
+              </div>
+
+              <!-- Dynamic Results Box -->
               <div class="finder-results-box">
+                <!-- Headline Hours Saved -->
                 <div class="finder-hours-headline">
                   <span id="finder-hours-num" class="finder-hours-num">0</span>
                   <div class="finder-hours-label">
@@ -338,9 +345,46 @@
                   </div>
                 </div>
 
-                <div class="finder-matched-title">TOP MATCHED AUTOMATIONS FOR YOUR BUSINESS:</div>
-                <div id="finder-matched-list" class="finder-matched-grid">
-                  <!-- Top 3 matched automations injected dynamically -->
+                <!-- AI Summary Insight Box -->
+                <div id="finder-ai-summary-box" class="finder-ai-summary-box" style="display: none;">
+                  <div class="finder-ai-tag">✨ DESIGNMELA AI INSIGHT</div>
+                  <p id="finder-ai-summary-text" class="body-small finder-ai-summary-text"></p>
+                </div>
+
+                <!-- 3-Tier Grouped Automations -->
+                <div class="finder-tiers-container">
+                  <!-- Tier 1: Quick Wins -->
+                  <div class="finder-tier-block" id="tier-block-quick-wins">
+                    <div class="finder-tier-header">
+                      <span class="finder-tier-badge tier-quick">⚡ Quick Wins</span>
+                      <span class="finder-tier-sub">Fast to set up &amp; immediate time savings</span>
+                    </div>
+                    <div id="finder-tier-quick-wins" class="finder-matched-grid"></div>
+                  </div>
+
+                  <!-- Tier 2: High Impact -->
+                  <div class="finder-tier-block" id="tier-block-high-impact">
+                    <div class="finder-tier-header">
+                      <span class="finder-tier-badge tier-impact">🎯 High Impact</span>
+                      <span class="finder-tier-sub">Bigger setup, major long-term payoff</span>
+                    </div>
+                    <div id="finder-tier-high-impact" class="finder-matched-grid"></div>
+                  </div>
+
+                  <!-- Tier 3: Consider Later -->
+                  <div class="finder-tier-block" id="tier-block-consider-later">
+                    <div class="finder-tier-header">
+                      <span class="finder-tier-badge tier-later">🔮 Consider Later</span>
+                      <span class="finder-tier-sub">Next-stage optimizations for scaling</span>
+                    </div>
+                    <div id="finder-tier-consider-later" class="finder-matched-grid"></div>
+                  </div>
+                </div>
+
+                <!-- Suggested Order Roadmap -->
+                <div id="finder-roadmap-box" class="finder-roadmap-box" style="margin-top: 24px;">
+                  <div class="finder-matched-title">🗺️ SUGGESTED IMPLEMENTATION ORDER</div>
+                  <ul id="finder-roadmap-list" class="finder-roadmap-list"></ul>
                 </div>
               </div>
 
