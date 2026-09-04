@@ -2396,19 +2396,19 @@ a {
   box-shadow: none !important;
 }
 
-#btn-intake-continue, #btn-success-work {
+#btn-intake-continue, #btn-success-work, #btn-finder-continue, #btn-finder-submit {
   box-shadow: none !important;
   transform: none !important;
   transition: opacity 0.25s ease, background-color 0.2s ease !important;
 }
 
-#btn-intake-continue:hover:not(:disabled), #btn-success-work:hover:not(:disabled) {
+#btn-intake-continue:hover:not(:disabled), #btn-success-work:hover:not(:disabled), #btn-finder-continue:hover:not(:disabled), #btn-finder-submit:hover:not(:disabled) {
   transform: none !important;
   box-shadow: none !important;
   background-color: #b5cf3c !important;
 }
 
-#btn-intake-continue:active:not(:disabled), #btn-success-work:active:not(:disabled) {
+#btn-intake-continue:active:not(:disabled), #btn-success-work:active:not(:disabled), #btn-finder-continue:active:not(:disabled), #btn-finder-submit:active:not(:disabled) {
   transform: none !important;
   box-shadow: none !important;
 }
