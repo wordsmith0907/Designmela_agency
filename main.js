@@ -3431,16 +3431,16 @@
     };
 
     const stepProgress = {
-      1: 17,
-      2: 33,
-      3: 50,
-      4: 67,
-      5: 83,
-      6: 100
+      1: 0,
+      2: 17,
+      3: 33,
+      4: 50,
+      5: 67,
+      6: 83
     };
 
     function updateProgress(step) {
-      const pct = stepProgress[step] || 17;
+      const pct = (stepProgress[step] !== undefined) ? stepProgress[step] : 0;
       if (fill) fill.style.width = pct + '%';
       if (orb) orb.style.left = pct + '%';
       if (stepNumber) stepNumber.textContent = pct + '%';
@@ -3524,33 +3524,89 @@
       }
     }
 
-    function validateStep(step) {
+    function validateStep(step, showErrors = false) {
       let isValid = true;
       const stepEl = form.querySelector(`.finder-step[data-step="${step}"]`);
       if (!stepEl) return false;
 
-      stepEl.querySelectorAll('.error-message').forEach(err => err.style.display = 'none');
-      stepEl.querySelectorAll('.form-input, .form-select').forEach(inp => inp.style.borderColor = '');
+      if (showErrors) {
+        stepEl.querySelectorAll('.error-message').forEach(err => err.style.display = 'none');
+        stepEl.querySelectorAll('.form-input, .form-select').forEach(inp => inp.style.borderColor = '');
+      }
 
       if (step === 1) {
         const bName = document.getElementById('finder-business-name');
         const ind = document.getElementById('finder-industry');
-        if (!bName || !bName.value.trim()) isValid = false;
-        if (!ind || !ind.value) isValid = false;
+        
+        if (!bName || !bName.value.trim()) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-business-name');
+            if (err) err.style.display = 'block';
+            if (bName) bName.style.borderColor = '#ff4d4d';
+          }
+        }
+        
+        if (!ind || !ind.value) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-industry');
+            if (err) err.style.display = 'block';
+            if (ind) ind.style.borderColor = '#ff4d4d';
+          }
+        }
       } else if (step === 2) {
         const checked = form.querySelector('input[name="lead_handling"]:checked');
-        if (!checked) isValid = false;
+        if (!checked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-lead-handling');
+            if (err) err.style.display = 'block';
+          }
+        }
       } else if (step === 3) {
         const checked = form.querySelector('input[name="booking_scheduling"]:checked');
-        if (!checked) isValid = false;
+        if (!checked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-booking-scheduling');
+            if (err) err.style.display = 'block';
+          }
+        }
       } else if (step === 4) {
         const fChecked = form.querySelector('input[name="follow_up"]:checked');
         const tChecked = form.querySelector('input[name="lead_tracking"]:checked');
-        if (!fChecked || !tChecked) isValid = false;
+        if (!fChecked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-follow-up');
+            if (err) err.style.display = 'block';
+          }
+        }
+        if (!tChecked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-lead-tracking');
+            if (err) err.style.display = 'block';
+          }
+        }
       } else if (step === 5) {
         const rChecked = form.querySelector('input[name="review_collection"]:checked');
         const bChecked = form.querySelector('input[name="business_reporting"]:checked');
-        if (!rChecked || !bChecked) isValid = false;
+        if (!rChecked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-review-collection');
+            if (err) err.style.display = 'block';
+          }
+        }
+        if (!bChecked) {
+          isValid = false;
+          if (showErrors) {
+            const err = document.getElementById('error-business-reporting');
+            if (err) err.style.display = 'block';
+          }
+        }
       }
 
       return isValid;
@@ -3566,9 +3622,10 @@
       if (currentStep === totalSteps) {
         if (btnContinue) btnContinue.style.display = 'none';
       } else {
-        if (btnContinue) btnContinue.style.display = 'inline-flex';
-        const valid = validateStep(currentStep);
-        if (btnContinue) btnContinue.disabled = !valid;
+        if (btnContinue) {
+          btnContinue.style.display = 'inline-flex';
+          btnContinue.disabled = false; // Always clickable so click triggers validation
+        }
       }
     }
 
@@ -3592,21 +3649,36 @@
       }
     }
 
-    form.addEventListener('input', () => updateNavigationState());
-    form.addEventListener('change', () => updateNavigationState());
+    // Input listeners to clear errors on user interaction
+    form.addEventListener('input', (e) => {
+      if (e.target && e.target.classList.contains('form-input')) {
+        e.target.style.borderColor = '';
+        const parent = e.target.closest('.form-group');
+        if (parent) {
+          const err = parent.querySelector('.error-message');
+          if (err) err.style.display = 'none';
+        }
+      }
+    });
+
+    form.addEventListener('change', (e) => {
+      if (e.target) {
+        e.target.style.borderColor = '';
+        const parent = e.target.closest('.form-group');
+        if (parent) {
+          const err = parent.querySelector('.error-message');
+          if (err) err.style.display = 'none';
+        }
+      }
+    });
 
     if (btnContinue) {
       btnContinue.addEventListener('click', (e) => {
         e.preventDefault();
-        if (validateStep(currentStep)) {
+        if (validateStep(currentStep, true)) {
           if (currentStep < totalSteps) {
             showStep(currentStep + 1);
             window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
-          }
-        } else {
-          const stepEl = form.querySelector(`.finder-step[data-step="${currentStep}"]`);
-          if (stepEl) {
-            stepEl.querySelectorAll('.error-message').forEach(err => err.style.display = 'block');
           }
         }
       });
@@ -3670,6 +3742,10 @@
           steps.forEach(s => s.style.display = 'none');
           if (navigationEl) navigationEl.style.display = 'none';
           if (submitErrorEl) submitErrorEl.style.display = 'none';
+          if (fill) fill.style.width = '100%';
+          if (orb) orb.style.left = '100%';
+          if (stepNumber) stepNumber.textContent = '100%';
+          if (statusText) statusText.textContent = "YOUR BREAKDOWN IS ON ITS WAY / Thank you!";
           if (successEl) successEl.style.display = 'block';
         } else {
           throw new Error('Form submission failed');
