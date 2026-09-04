@@ -3722,11 +3722,13 @@
 
       if (currentStep === totalSteps) {
         if (btnContinue) btnContinue.style.display = 'none';
+        if (btnSubmit) btnSubmit.style.display = 'inline-flex';
       } else {
         if (btnContinue) {
           btnContinue.style.display = 'inline-flex';
           btnContinue.disabled = false; // Always clickable so click triggers validation
         }
+        if (btnSubmit) btnSubmit.style.display = 'none';
       }
     }
 
