@@ -3702,6 +3702,14 @@ video.hitesh-img {
 /* ============================================================
    FAQ ACCORDION SECTION
    ============================================================ */
+.faq-accordion,
+.faq-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
 .faq-item {
   border: 2px solid var(--color-ink);
   border-radius: 14px;
