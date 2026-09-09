@@ -922,8 +922,17 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.services-audit-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.services-audit-banner .btn-dark-audit {
+  flex-shrink: 0;
 }
 
 .services-audit-banner:hover {
@@ -942,6 +951,7 @@ a {
     max-width: 100%;
     padding: 24px;
     margin-top: 36px;
+    flex-wrap: wrap;
   }
 }
 
