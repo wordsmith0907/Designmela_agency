@@ -213,6 +213,72 @@ WHAT YOU KNOW — AUTHORITATIVE PRICING KNOWLEDGE BASE:
 • Multi-page Website: ₹4,999 (~$199 USD)
 • E-commerce / Web App / Dashboard: ₹7,999 (~$299 USD)
 
+--- 5. REEL EDITING — STANDALONE SERVICE ---
+(Note: Standalone Reel Editing is strictly raw footage editing provided by client, distinct from full Instagram Page Management which includes post/reel ideation, publishing & page management.)
+
+• Basic Edit — ₹249/reel (~$3 USD)
+  - Raw footage accepted: up to 30 sec
+  - Final reel length: up to 15 sec
+  - Basic cuts and trimming
+  - Trending audio added
+  - Basic on-screen text overlay
+  - No color grading, no AI enhancement, no motion graphics, no hook optimization
+  - 1 free revision; extra revision ₹49
+  - Delivery: 24 hours
+
+• Standard Edit — ₹499/reel (~$6 USD)
+  - Raw footage accepted: up to 60 sec
+  - Final reel length: up to 30 sec
+  - Multi-clip cuts with pacing edit
+  - Trending audio synced to cuts
+  - Styled, animated text overlay
+  - Basic color correction (exposure/contrast)
+  - 1 AI enhancement pass (audio noise removal OR face touch-up)
+  - Basic hook placement
+  - 2 free revisions; extra revision ₹99
+  - Delivery: 24-48 hours
+
+• Advanced Edit — ₹799/reel (~$10 USD)
+  - Raw footage accepted: up to 120 sec
+  - Final reel length: up to 45 sec
+  - Dynamic pacing with zoom cuts & sound effects (SFX)
+  - Custom audio mixing + SFX layer
+  - Advanced auto-captions with custom font & styling
+  - Full color grading (LUT application + skin tone fix)
+  - 2 AI enhancement passes (upscaling + audio clarity + background noise fix)
+  - Hook optimization (first 3 seconds structured for retention)
+  - Simple custom motion graphics (logo pop, call-to-action animation)
+  - 2 free revisions; extra revision ₹149
+  - Delivery: 48-72 hours
+
+• Premium Edit — ₹1,499/reel (~$18 USD)
+  - Raw footage accepted: Unlimited
+  - Final reel length: 60+ sec
+  - Cinematic storytelling edit with variable speed ramps
+  - Fully custom audio track design (licensed music + full SFX suite)
+  - Motion typography / kinetic text layout
+  - Full color grading + custom mood LUT
+  - Full AI enhancement suite (upscaling, face enhancement, voice isolation, smart background removal)
+  - Strategic hook optimization with A/B variation note
+  - Fully custom motion graphics & branded intro/outro
+  - 2 free revisions + 1 free major re-edit; extra revision ₹249
+  - Delivery: 3-4 days
+
+• Reel Editing Add-ons:
+  - Rush delivery (half delivery time): +50% of reel price
+  - Custom voiceover / AI voice generation: ₹199 per reel
+  - Subtitle burn-in with custom font file: ₹99 per reel
+  - Cover image / thumbnail design: ₹49 per reel
+
+• Bulk Packs (60-day validity):
+  - 5 Reels Pack: 10% off total
+  - 10 Reels Pack: 12% off total
+  - 15 Reels Pack: 14% off total
+  - 30 Reels Pack: 19% off total
+
+• Reel Editing Disclaimer:
+  "Pricing applies to editing of client-provided raw footage only. Does not include filming/shooting, scripting, or content strategy. Final turnaround may vary based on footage quality and complexity — confirmed before starting the edit. Bulk packs are valid for 60 days from purchase."
+
 FAQ KNOWLEDGE BASE & QUICK ANSWERS:
 - Q: How much for automation / cheapest automation plan?
   A: Starter Automation is ₹999 (~$12 USD) for 1 workflow + WhatsApp order/booking confirmation with unique ID (24-48h delivery). Business Automation is ₹3,999 (~$49 USD) for 3 workflows + email & Google Sheets sync. Advanced is ₹7,999 (~$98 USD) for 5-7 workflows + CRM & admin dashboard. Custom AI Systems start at ₹14,999 (~$180 USD).
@@ -224,8 +290,18 @@ FAQ KNOWLEDGE BASE & QUICK ANSWERS:
   A: Starter is ₹2,999/mo (~$36/mo) for 20 posts, 3 carousels, 8 reels & 8 stories. Growth is ₹5,999/mo (~$72/mo) for 25 posts, 16 reels & comment replies. Business is ₹9,999/mo (~$120/mo) for 30 posts, 24 reels, raw video editing & DM management. Premium is ₹15,999/mo (~$190/mo) for 35 posts, 45 stories, high-end editing, DM management & 1 boosted ad campaign/mo.
 - Q: What's in Instagram Premium?
   A: Premium (₹15,999/mo or ~$190/mo) includes 35 posts, 10 carousels, 45 stories, high-end raw video editing or AI reels up to 45s, collaborative content calendar, personalized comments & near-real-time DM management, weekly analytics report with week-over-week comparison, 1 boosted ad campaign/mo included, and strategy calls 7 AM - 10 PM.
-- Q: Extra reel cost?
-  A: Extra reels beyond tier limits are ₹199 (Starter), ₹399 (Growth), ₹599 (Business), and ₹799 (Premium) each. Extra posts are ₹39 (Starter) to ₹99 (Premium) per post. Story packs are ₹49 per story.
+- Q: Extra reel cost for Instagram management?
+  A: Extra reels beyond Instagram management tier limits are ₹199 (Starter), ₹399 (Growth), ₹599 (Business), and ₹799 (Premium) each.
+- Q: How much to edit a reel / Standalone reel editing pricing?
+  A: Standalone Reel Editing starts at ₹249/reel (~$3 USD) for Basic Edit (15s final, 24h delivery). Standard Edit is ₹499 (~$6 USD) for 30s final with animated text & basic AI. Advanced Edit is ₹799 (~$10 USD) for 45s final with color grading & SFX. Premium Edit is ₹1,499 (~$18 USD) for 60+s cinematic edit with full AI suite & custom motion graphics.
+- Q: Cheapest reel editing option?
+  A: Basic Edit at ₹249/reel (~$3 USD) for up to 30 sec raw footage turned into a 15 sec reel with basic cuts, trending audio, and text overlay (24h turnaround).
+- Q: Do you offer discounts for multiple reels / bulk reel discounts?
+  A: Yes! Bulk packs (valid for 60 days): 5 reels (10% off), 10 reels (12% off), 15 reels (14% off), and 30 reels (19% off).
+- Q: What's included in premium reel edit?
+  A: Premium Edit (₹1,499/reel or ~$18 USD) accepts unlimited raw footage for a 60+s final reel. Includes cinematic edit, full SFX & licensed music, motion typography, full color grade/LUT, full AI enhancement suite, hook strategy, and custom motion graphics.
+- Q: How long does reel editing take?
+  A: Basic (24h), Standard (24-48h), Advanced (48-72h), Premium (3-4 days). Rush delivery (half delivery time) is available for +50% of the reel price.
 - Q: How does payment work?
   A: 50% deposit to get started, 50% on delivery.
 - Q: What if I need to cancel or change my mind mid-project?
