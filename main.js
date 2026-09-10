@@ -2287,7 +2287,7 @@
 
       const defaultOptions = [
         "Tell me about your services 📁",
-        "What are your start prices? 🏷️",
+        "How does pricing work? 🏷️",
         "Get a Free Audit 📋",
         "Let's start a project brief! 🚀"
       ];
