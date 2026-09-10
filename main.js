@@ -12,62 +12,82 @@
   }
 
   // ══════════════════════════════════════════════════════════════
-  // SHARED REGION DETECTION, PRICING & CURRENCY MODULE
+  // SHARED REGION DETECTION, PRICING & CURRENCY MODULE (PPP-ADJUSTED)
   // ══════════════════════════════════════════════════════════════
 
-  // ── Single-source pricing table (10 services × 6 currencies) ──
-  const DM_PRICING = {
-    website:    { INR: 2499, USD: 99,  GBP: 79,  EUR: 89,  AED: 359, AUD: 149 },
-    webapp:     { INR: 4999, USD: 199, GBP: 159, EUR: 179, AED: 729, AUD: 299 },
-    automation: { INR: 1999, USD: 79,  GBP: 59,  EUR: 69,  AED: 289, AUD: 119 },
-    branding:   { INR: 1499, USD: 59,  GBP: 45,  EUR: 49,  AED: 219, AUD: 89  },
-    chatbot:    { INR: 2499, USD: 99,  GBP: 79,  EUR: 89,  AED: 359, AUD: 149 },
-    copywriting:{ INR: 799,  USD: 29,  GBP: 23,  EUR: 25,  AED: 109, AUD: 45  },
-    adcreative: { INR: 999,  USD: 39,  GBP: 29,  EUR: 35,  AED: 145, AUD: 59  },
-    pitchdeck:  { INR: 1499, USD: 59,  GBP: 45,  EUR: 49,  AED: 219, AUD: 89  },
-    seo:        { INR: 999,  USD: 39,  GBP: 29,  EUR: 35,  AED: 145, AUD: 59  },
-    aivideo:    { INR: 599,  USD: 25,  GBP: 19,  EUR: 22,  AED: 89,  AUD: 35  }
+  // ── PPP Multipliers Constant (relative to INR base) ──
+  // Starting estimates based on general cost-of-living/PPP gaps relative to India (INR base).
+  // Easily editable to update against current World Bank PPP data.
+  const PPP_MULTIPLIERS = {
+    INR: 1.0,   // base currency, no adjustment
+    USD: 3.2,   // US, Canada
+    GBP: 2.9,   // UK
+    EUR: 2.8,   // Eurozone
+    AED: 2.4,   // UAE
+    AUD: 3.5    // Australia
   };
 
-  // ── PPP-adjusted budget ranges per currency ──
-  const DM_BUDGET_RANGES = {
-    INR: [
-      { tier: 1, label: '< ₹5,000',              value: '< ₹5,000' },
-      { tier: 2, label: '₹5,000 – ₹10,000',      value: '₹5,000–₹10,000' },
-      { tier: 3, label: '₹10,000 – ₹20,000',     value: '₹10,000–₹20,000' },
-      { tier: 4, label: '₹20,000+',               value: '₹20,000+' }
-    ],
-    USD: [
-      { tier: 1, label: '< $200',                 value: '< $200' },
-      { tier: 2, label: '$200 – $500',             value: '$200–$500' },
-      { tier: 3, label: '$500 – $1,000',           value: '$500–$1,000' },
-      { tier: 4, label: '$1,000+',                 value: '$1,000+' }
-    ],
-    GBP: [
-      { tier: 1, label: '< £150',                 value: '< £150' },
-      { tier: 2, label: '£150 – £400',             value: '£150–£400' },
-      { tier: 3, label: '£400 – £800',             value: '£400–£800' },
-      { tier: 4, label: '£800+',                   value: '£800+' }
-    ],
-    EUR: [
-      { tier: 1, label: '< €175',                 value: '< €175' },
-      { tier: 2, label: '€175 – €450',             value: '€175–€450' },
-      { tier: 3, label: '€450 – €900',             value: '€450–€900' },
-      { tier: 4, label: '€900+',                   value: '€900+' }
-    ],
-    AED: [
-      { tier: 1, label: '< AED 750',              value: '< AED 750' },
-      { tier: 2, label: 'AED 750 – AED 1,500',    value: 'AED 750–AED 1,500' },
-      { tier: 3, label: 'AED 1,500 – AED 3,500',  value: 'AED 1,500–AED 3,500' },
-      { tier: 4, label: 'AED 3,500+',             value: 'AED 3,500+' }
-    ],
-    AUD: [
-      { tier: 1, label: '< A$300',                value: '< A$300' },
-      { tier: 2, label: 'A$300 – A$750',           value: 'A$300–A$750' },
-      { tier: 3, label: 'A$750 – A$1,500',         value: 'A$750–A$1,500' },
-      { tier: 4, label: 'A$1,500+',                value: 'A$1,500+' }
-    ]
+  // Default exchange rates (INR per 1 unit of target currency)
+  const DEFAULT_EXCHANGE_RATES = {
+    INR: 1,
+    USD: 86,
+    GBP: 110,
+    EUR: 93,
+    AED: 23.4,
+    AUD: 56
   };
+
+  let currentExchangeRates = { ...DEFAULT_EXCHANGE_RATES };
+
+  // Fetch live exchange rates cached for 24h
+  async function fetchExchangeRates() {
+    const cachedRates = sessionStorage.getItem('dm_exchange_rates');
+    const cacheTime = sessionStorage.getItem('dm_exchange_rates_time');
+    const now = Date.now();
+    if (cachedRates && cacheTime && (now - parseInt(cacheTime, 10)) < 86400000) {
+      try {
+        currentExchangeRates = JSON.parse(cachedRates);
+        return currentExchangeRates;
+      } catch (e) {}
+    }
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/INR');
+      const data = await res.json();
+      if (data && data.rates) {
+        const newRates = { INR: 1 };
+        for (const cur of ['USD', 'GBP', 'EUR', 'AED', 'AUD']) {
+          if (data.rates[cur]) {
+            newRates[cur] = 1 / data.rates[cur]; // INR per unit of target currency
+          } else {
+            newRates[cur] = DEFAULT_EXCHANGE_RATES[cur];
+          }
+        }
+        currentExchangeRates = newRates;
+        sessionStorage.setItem('dm_exchange_rates', JSON.stringify(newRates));
+        sessionStorage.setItem('dm_exchange_rates_time', now.toString());
+      }
+    } catch (e) {
+      // Fallback to defaults
+    }
+    return currentExchangeRates;
+  }
+
+  // ── Single-source base pricing table (INR) ──
+  const DM_BASE_PRICING_INR = {
+    website:    2499,
+    webapp:     4999,
+    automation: 1999,
+    branding:   1499,
+    chatbot:    2499,
+    copywriting: 799,
+    adcreative:  999,
+    pitchdeck:  1499,
+    seo:         999,
+    aivideo:     599
+  };
+
+  // Base INR budget range breakpoints
+  const DM_BUDGET_BREAKPOINTS_INR = [5000, 10000, 20000];
 
   // ── Country → currency + dial code mapping ──
   const COUNTRY_CURRENCY_MAP = {
@@ -86,16 +106,38 @@
 
   // ── Currency format utility ──
   function formatPrice(amount, currency) {
+    const rounded = Math.round(amount);
     switch (currency) {
-      case 'INR': return '₹' + amount.toLocaleString('en-IN');
-      case 'USD': return '$' + amount.toLocaleString('en-US');
-      case 'GBP': return '£' + amount.toLocaleString('en-GB');
-      case 'EUR': return '€' + amount.toLocaleString('en-US');
-      case 'AED': return 'AED ' + amount.toLocaleString('en-US');
-      case 'AUD': return 'A$' + amount.toLocaleString('en-US');
-      default:    return '$' + amount.toLocaleString('en-US');
+      case 'INR': return '₹' + rounded.toLocaleString('en-IN');
+      case 'USD': return '$' + rounded.toLocaleString('en-US');
+      case 'GBP': return '£' + rounded.toLocaleString('en-GB');
+      case 'EUR': return '€' + rounded.toLocaleString('en-US');
+      case 'AED': return 'AED ' + rounded.toLocaleString('en-US');
+      case 'AUD': return 'A$' + rounded.toLocaleString('en-US');
+      default:    return '$' + rounded.toLocaleString('en-US');
     }
   }
+
+  // ── Single-source getDisplayPrice formula ──
+  function calculatePriceNumber(basePriceINR, currencyCode) {
+    const code = (currencyCode || 'INR').toUpperCase();
+    if (code === 'INR') return basePriceINR;
+    const multiplier = PPP_MULTIPLIERS[code] || 1.0;
+    const exchangeRate = currentExchangeRates[code] || DEFAULT_EXCHANGE_RATES[code] || 86; // INR per 1 target unit
+    const pppAdjustedINR = basePriceINR * multiplier;
+    const localPrice = pppAdjustedINR / exchangeRate;
+    return Math.round(localPrice);
+  }
+
+  function getDisplayPrice(basePriceINR, currencyCode) {
+    const code = (currencyCode || 'INR').toUpperCase();
+    const priceNum = calculatePriceNumber(basePriceINR, code);
+    return formatPrice(priceNum, code);
+  }
+
+  // Expose PPP helper globally for any client script that needs it
+  window.PPP_MULTIPLIERS = PPP_MULTIPLIERS;
+  window.getDisplayPrice = getDisplayPrice;
 
   // ── Shared region state (readable by all modules) ──
   window.dmRegion = {
@@ -110,15 +152,25 @@
     const cur = window.dmRegion.currency;
     document.querySelectorAll('[data-service]').forEach(el => {
       const key = el.getAttribute('data-service');
-      if (DM_PRICING[key] && DM_PRICING[key][cur] !== undefined) {
-        el.innerHTML = `Starting at <strong>${formatPrice(DM_PRICING[key][cur], cur)}</strong>`;
+      if (DM_BASE_PRICING_INR[key] !== undefined) {
+        el.innerHTML = `Starting at <strong>${getDisplayPrice(DM_BASE_PRICING_INR[key], cur)}</strong>`;
       }
     });
   }
 
   function renderBudgetLabels() {
     const cur = window.dmRegion.currency;
-    const ranges = DM_BUDGET_RANGES[cur] || DM_BUDGET_RANGES['USD'];
+    const p1 = getDisplayPrice(DM_BUDGET_BREAKPOINTS_INR[0], cur);
+    const p2 = getDisplayPrice(DM_BUDGET_BREAKPOINTS_INR[1], cur);
+    const p3 = getDisplayPrice(DM_BUDGET_BREAKPOINTS_INR[2], cur);
+
+    const ranges = [
+      { tier: 1, label: `< ${p1}`,        value: `< ${p1}` },
+      { tier: 2, label: `${p1} – ${p2}`, value: `${p1}–${p2}` },
+      { tier: 3, label: `${p2} – ${p3}`, value: `${p2}–${p3}` },
+      { tier: 4, label: `${p3}+`,         value: `${p3}+` }
+    ];
+
     ranges.forEach(({ tier, label, value }) => {
       const span = document.querySelector(`[data-budget-tier="${tier}"]`);
       if (span) {
@@ -137,6 +189,8 @@
 
   // ── Geolocation detection (once per session) ──
   window.dmRegion.ready = (async function detectRegion() {
+    await fetchExchangeRates();
+
     // Check sessionStorage cache first
     const cached = sessionStorage.getItem('dm_region');
     if (cached) {
