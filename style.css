@@ -53,6 +53,25 @@
   /* ── Eases ── */
   --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Unified Corner Radii Scale (≤ 6 distinct tokens) ── */
+  --radius-xs:     2px;     /* Micro accents, status indicator bars */
+  --radius-sm:     8px;     /* Small controls: buttons, inputs, tags */
+  --radius-md:     16px;    /* Medium panels: FAQ cards, modals, dialogs */
+  --radius-lg:     24px;    /* Large feature cards: showcase cards, banners */
+  --radius-full:   9999px;  /* Pill capsules: status pills, eyebrows */
+  --radius-circle: 50%;     /* Circles: avatars, round FABs */
+
+  /* ── Harmonious 8-Step Type Scale (≤ 10 distinct sizes) ── */
+  --text-xs:       0.75rem;                       /* 12px: Metadata, tags, pills */
+  --text-sm:       0.875rem;                      /* 14px: Secondary body, captions */
+  --text-base:     1rem;                          /* 16px: Standard body, inputs, buttons */
+  --text-lg:       1.125rem;                      /* 18px: Lead paragraphs, large body */
+  --text-xl:       1.5rem;                        /* 24px: H4, subheadings, section numbers */
+  --text-2xl:      clamp(1.75rem, 2.5vw, 2.25rem); /* 28px - 36px: H3, card/project titles */
+  --text-3xl:      clamp(2.25rem, 4.5vw, 3.5rem);  /* 36px - 56px: H2, section titles */
+  --text-4xl:      clamp(3.25rem, 6.5vw, 5rem);    /* 52px - 80px: H1, hero display headline */
+  --text-display:  clamp(5rem, 10vw, 7.5rem);      /* 80px - 120px: Ghost background numbers */
 }
 
 /* ── Reset ─────────────────────────────────────────────────── */
@@ -760,15 +779,15 @@ a {
 
 .marquee-item {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: var(--color-ink);
   white-space: nowrap;
   padding: 0 20px;
   line-height: 1;
-  opacity: 0.7;
+  opacity: 0.75;
   transition: opacity 0.2s ease;
 }
 
@@ -835,7 +854,7 @@ a {
 
 .service-row {
   display: grid;
-  grid-template-columns: 0.5fr 3fr 1.5fr;
+  grid-template-columns: 80px 1fr;
   gap: 32px;
   padding: 40px 0;
   border-bottom: 1px solid var(--color-border);
@@ -904,8 +923,8 @@ a {
 
 .service-cta-col {
   display: flex;
-  justify-content: flex-end;
-  align-self: center;
+  justify-content: flex-start;
+  margin-top: 18px;
 }
 
 /* ── Services Audit Banner (20% Shorter Width = 80%) ───────── */
@@ -2358,7 +2377,7 @@ a {
   font-size: 15px;
   font-weight: 600;
   padding: 14px 32px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm, 8px);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.25s, opacity 0.25s;
 }
@@ -2382,7 +2401,7 @@ a {
   background-color: #C6E242 !important;
   color: #0A0A0A !important;
   border: 2px solid #0A0A0A !important;
-  border-radius: 999px !important;
+  border-radius: var(--radius-sm, 8px) !important;
   box-shadow: 4px 4px 0px 0px #C6E242 !important;
   transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.25s ease !important;
   transform: translate(0, 0);
@@ -2628,13 +2647,13 @@ a {
 /* Shared Title */
 .caliora-title, .driply-title, .jaingrill-title, .aether-title, .workflow-title, .hitesh-title {
   font-family: var(--font-display);
-  font-size: clamp(40px, 4.5vw, 68px);
+  font-size: clamp(38px, 4.2vw, 64px);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   color: var(--color-ink);
   margin: 0;
-  text-transform: uppercase;
+  text-transform: none;
   padding-left: 20px;
   position: relative;
 }
@@ -3718,11 +3737,13 @@ video.hitesh-img {
   flex-direction: column;
   gap: 16px;
   width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
 }
 
 .faq-item {
   border: 2px solid var(--color-ink);
-  border-radius: 14px;
+  border-radius: var(--radius-md, 16px);
   background-color: var(--color-surface);
   box-shadow: 4px 4px 0 var(--color-ink);
   overflow: hidden;
@@ -3731,8 +3752,8 @@ video.hitesh-img {
 
 .faq-trigger {
   width: 100%;
-  padding: 20px 52px;
-  text-align: center;
+  padding: 18px 24px;
+  text-align: left;
   background: transparent;
   border: none;
   font-family: var(--font-display);
@@ -3740,12 +3761,18 @@ video.hitesh-img {
   font-weight: 600;
   color: var(--color-ink);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  gap: 16px;
   position: relative;
   cursor: pointer;
   outline: none;
   transition: background-color 0.2s ease;
+}
+
+.faq-question {
+  flex: 1;
+  text-align: left;
 }
 
 .faq-trigger:hover {
@@ -3757,12 +3784,13 @@ video.hitesh-img {
   font-weight: 700;
   color: var(--color-accent-dark);
   line-height: 1;
-  position: absolute;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: static;
+  transform: none;
   transition: transform 0.3s ease, color 0.3s ease;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .faq-content {
@@ -3784,7 +3812,7 @@ video.hitesh-img {
 }
 
 .faq-item.active .faq-icon {
-  transform: translateY(-50%) rotate(45deg);
+  transform: rotate(45deg);
   color: var(--color-ink);
 }
 
@@ -3866,12 +3894,9 @@ video.hitesh-img {
 
 @media (max-width: 640px) {
   .faq-trigger {
-    padding: 16px 44px 16px 18px;
+    padding: 16px 18px;
     font-size: 15.5px;
-    text-align: center;
-  }
-  .faq-icon {
-    right: 16px;
+    text-align: left;
   }
   .faq-item.active .faq-content {
     padding: 16px 18px;
@@ -3939,13 +3964,13 @@ video.hitesh-img {
   background-color: var(--color-ink);
   color: #ffffff;
   border: 2px solid var(--color-ink);
-  border-radius: 12px;
+  border-radius: var(--radius-sm, 8px);
   padding: 14px 28px;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
   transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
   text-decoration: none;
   outline: none;
