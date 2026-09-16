@@ -2679,7 +2679,140 @@ a {
   margin: 0;
 }
 
-/* Shared 2x2 Grid */
+/* ── Case Study Key Outcome Callout ── */
+.project-outcome-callout {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+  background-color: var(--color-accent-soft);
+  border: 1.5px solid var(--color-accent-dark);
+  border-left: 5px solid var(--color-accent-dark);
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: 2px 2px 0 var(--color-ink);
+  margin-top: 4px;
+}
+
+.outcome-header {
+  display: flex;
+  align-items: center;
+}
+
+.outcome-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-dark);
+  text-transform: uppercase;
+}
+
+.outcome-text {
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* ── Progressive Disclosure Accordion ── */
+.case-study-details {
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-sm, 8px);
+  background-color: rgba(255, 255, 255, 0.75);
+  overflow: hidden;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.case-study-details[open] {
+  border-color: var(--color-accent-dark);
+  background-color: var(--color-surface);
+  box-shadow: 3px 3px 0 rgba(23, 23, 23, 0.06);
+}
+
+.case-study-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 18px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-ink);
+  user-select: none;
+  list-style: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.case-study-summary::-webkit-details-marker {
+  display: none;
+}
+
+.case-study-summary:hover {
+  background-color: rgba(184, 217, 104, 0.15);
+}
+
+.summary-chevron {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  transition: transform 0.25s ease;
+}
+
+.case-study-details[open] .summary-chevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Grid */
+.case-study-dropdown-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: 14px 18px 18px 18px;
+  border-top: 1px dashed var(--color-border-strong);
+  animation: caseStudyFadeIn 0.2s ease;
+}
+
+@keyframes caseStudyFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.breakdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.breakdown-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-dark);
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.breakdown-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: #2A2A2A;
+  margin: 0;
+}
+
+/* Legacy fallback support */
 .caliora-grid, .driply-grid, .jaingrill-grid, .aether-grid, .workflow-grid, .hitesh-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2696,45 +2829,6 @@ a {
   gap: 12px;
   background-color: transparent;
   box-shadow: 3px 3px 0 rgba(23, 23, 23, 0.04);
-  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.caliora-grid-box:hover, .driply-grid-box:hover, .jaingrill-grid-box:hover, .aether-grid-box:hover, .workflow-grid-box:hover, .hitesh-grid-box:hover {
-  background-color: rgba(101, 125, 40, 0.04);
-  transform: translateY(-2px);
-  box-shadow: 5px 5px 0 rgba(23, 23, 23, 0.08);
-}
-
-.caliora-grid-title, .driply-grid-title, .jaingrill-grid-title, .aether-grid-title, .workflow-grid-title, .hitesh-grid-title {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--color-accent-dark);
-  text-transform: uppercase;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 4px;
-  margin-bottom: 4px;
-  align-self: flex-start;
-}
-
-.caliora-grid-title::after, .driply-grid-title::after, .jaingrill-grid-title::after, .aether-grid-title::after, .workflow-grid-title::after, .hitesh-grid-title::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 24px;
-  height: 2px;
-  background-color: var(--color-accent-dark);
-}
-
-.caliora-grid-text, .driply-grid-text, .jaingrill-grid-text, .aether-grid-text, .workflow-grid-text, .hitesh-grid-text {
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  color: #2A2A2A;
-  margin: 0;
 }
 
 /* Shared Tags */
