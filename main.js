@@ -3342,6 +3342,26 @@
       });
     }
 
+    // ── Auto-Open Chat via URL Query / Hash for Testing ──
+    function checkUrlForChat() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const chatParam = urlParams.get('chat');
+      const hash = (window.location.hash || '').toLowerCase();
+      if (chatParam === 'open' || chatParam === 'true' || chatParam === '1' || hash === '#chat' || hash === '#dee' || hash === '#dee-chat-window') {
+        if (!isChatOpen) {
+          setTimeout(() => {
+            openChat();
+            if (chatInput) {
+              chatInput.focus();
+            }
+          }, 350);
+        }
+      }
+    }
+
+    checkUrlForChat();
+    window.addEventListener('hashchange', checkUrlForChat);
+
   })();
 
   // ============================================================

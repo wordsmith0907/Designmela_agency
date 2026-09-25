@@ -1,3 +1,56 @@
+import crypto from 'crypto';
+
+// ── Gemini Explicit Context Caching Layer ──
+// Stores: Map<cacheKey, { name: string, model: string, hash: string, expiresAt: number }>
+const contextCacheStore = new Map();
+const CACHE_TTL_SECONDS = 3600; // 1 hour TTL
+const CACHE_EXPIRY_BUFFER_MS = 60 * 1000; // 1 min safety buffer before Google's 1-hour expiration
+
+function getPromptHash(text) {
+  return crypto.createHash('sha256').update(text).digest('hex').slice(0, 16);
+}
+
+async function getOrCreateCachedContent(model, systemPrompt, apiKey) {
+  const hash = getPromptHash(systemPrompt);
+  const cacheKey = `${model}:${hash}`;
+  const now = Date.now();
+
+  const cached = contextCacheStore.get(cacheKey);
+  if (cached && cached.expiresAt > now) {
+    return cached.name;
+  }
+
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/cachedContents?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: `models/${model}`,
+        displayName: `dee_chat_ctx_${hash}`,
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        ttl: `${CACHE_TTL_SECONDS}s`
+      })
+    });
+
+    const data = await res.json();
+    if (res.ok && data.name) {
+      contextCacheStore.set(cacheKey, {
+        name: data.name,
+        model,
+        hash,
+        expiresAt: now + (CACHE_TTL_SECONDS * 1000) - CACHE_EXPIRY_BUFFER_MS
+      });
+      return data.name;
+    } else {
+      // Gracefully fall back to inline systemInstruction if caching is unavailable
+      return null;
+    }
+  } catch (err) {
+    // Network or fetch error: fail open, fall back gracefully
+    return null;
+  }
+}
+
 // ── PPP Multipliers Constant (relative to INR base) ──
 // Starting estimates based on general cost-of-living/PPP gaps relative to India (INR base).
 // Easily editable to update against current World Bank PPP data.
@@ -422,23 +475,52 @@ SAFEGUARDS — NEVER:
 
     for (const model of modelsToTry) {
       try {
-        const geminiRes = await fetch(
+        // Attempt to fetch or create explicit Gemini context cache
+        const cacheName = await getOrCreateCachedContent(model, systemPrompt, apiKey);
+
+        const requestBody = {
+          generationConfig: {
+            maxOutputTokens: 280,
+            temperature: 0.7
+          },
+          contents: sanitizedHistory
+        };
+
+        if (cacheName) {
+          requestBody.cachedContent = cacheName;
+        } else {
+          requestBody.systemInstruction = { parts: [{ text: systemPrompt }] };
+        }
+
+        let geminiRes = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              systemInstruction: { parts: [{ text: systemPrompt }] },
-              generationConfig: {
-                maxOutputTokens: 280,
-                temperature: 0.7
-              },
-              contents: sanitizedHistory
-            })
+            body: JSON.stringify(requestBody)
           }
         );
 
-        const geminiData = await geminiRes.json();
+        let geminiData = await geminiRes.json();
+
+        // If request with cachedContent failed (e.g. cache expired/evicted by Google), fall back to raw prompt immediately
+        if (!geminiRes.ok && cacheName) {
+          const hash = getPromptHash(systemPrompt);
+          contextCacheStore.delete(`${model}:${hash}`);
+
+          delete requestBody.cachedContent;
+          requestBody.systemInstruction = { parts: [{ text: systemPrompt }] };
+
+          geminiRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(requestBody)
+            }
+          );
+          geminiData = await geminiRes.json();
+        }
 
         if (geminiRes.ok && geminiData.candidates?.[0]?.content?.parts?.[0]?.text) {
           reply = geminiData.candidates[0].content.parts[0].text;
