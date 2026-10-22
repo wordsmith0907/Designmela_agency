@@ -7,7 +7,7 @@
   <meta name="description" content="Designmela turns ideas into websites, apps, brands, AI tools and automations — combining thoughtful design with modern technology to build things that work." />
   
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://designmela.com/" />
+  <link rel="canonical" href="https://www.designmela.com/" />
   
   <!-- LLMs.txt Autodiscovery for AI Agents -->
   <link rel="alternate" type="text/markdown" href="/llms.txt" title="llms.txt" />
@@ -30,7 +30,13 @@
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
+  </noscript>
+  <link rel="preload" as="image" href="assets/hero-slide-1-mobile.webp" media="(max-width: 768px)" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/hero-slide-1.webp" media="(min-width: 769px)" type="image/webp" fetchpriority="high" />
   
   <!-- Preload LCP Hero Image -->
   <link rel="preload" as="image" href="assets/hero-slide-1.webp" type="image/webp" />
@@ -104,6 +110,7 @@
   </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
   <!-- Background Dot Grid -->
   <div class="dot-grid" id="dot-grid"></div>
 
@@ -111,16 +118,16 @@
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="#" class="nav-logo" aria-label="Designmela homepage">
-        <img src="assets/logo-icon-transparent.webp" alt="Designmela Icon" class="nav-logo-icon" width="1024" height="1024">
-        <img src="assets/logo-text-transparent.webp" alt="Designmela Text" class="nav-logo-text" width="1024" height="342">
+        <img src="assets/logo-icon-96.webp" srcset="assets/logo-icon-96.webp 96w, assets/logo-icon-transparent.webp 1024w" sizes="(max-width: 768px) 40px, 48px" alt="Designmela Icon" class="nav-logo-icon" width="48" height="48" loading="eager" decoding="async">
+        <img src="assets/logo-text-400.webp" srcset="assets/logo-text-400.webp 400w, assets/logo-text-transparent.webp 1024w" sizes="(max-width: 768px) 160px, 204px" alt="Designmela Text" class="nav-logo-text" width="204" height="68" loading="eager" decoding="async">
       </a>
       
       <div class="nav-links" id="nav-links">
         <a href="#work" class="nav-link" aria-label="Navigate to featured work section">Work</a>
         <a href="#services" class="nav-link" aria-label="Navigate to services section">Services</a>
         <a href="#about" class="nav-link" aria-label="Navigate to about section">About</a>
-        <a href="#faq" class="nav-link" aria-label="Navigate to frequently asked questions section">FAQ</a>
-        <a href="#contact" class="nav-cta" aria-label="Start a project with Designmela">Let's build ↗</a>
+        <a href="#faq" class="nav-link" aria-label="FAQ - Frequently asked questions">FAQ</a>
+        <a href="#contact" class="nav-cta" aria-label="Let's build - Start a project with Designmela">Let's build ↗</a>
       </div>
 
       <button class="nav-mobile-toggle" aria-label="Toggle menu" id="menu-toggle">
@@ -185,19 +192,19 @@
             <!-- Rotating Preview Image Slides -->
             <div class="hero-browser-slides">
               <div class="hero-slide active" data-slide="1">
-                <img src="assets/hero-slide-1.webp" alt="Restore Your True Smile Dental Site Preview" class="hero-slide-img" loading="eager" fetchpriority="high" width="1200" height="900">
+                <img src="assets/hero-slide-1.webp" srcset="assets/hero-slide-1-mobile.webp 640w, assets/hero-slide-1.webp 1200w" sizes="(max-width: 768px) 100vw, 600px" alt="Restore Your True Smile Dental Site Preview" class="hero-slide-img" loading="eager" fetchpriority="high" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="2">
-                <img src="assets/hero-slide-2.webp" alt="Royale Fine Jewellery App Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
+                <img src="assets/hero-slide-2.webp" srcset="assets/hero-slide-2-mobile.webp 640w, assets/hero-slide-2.webp 1200w" sizes="(max-width: 768px) 100vw, 600px" alt="Royale Fine Jewellery App Preview" class="hero-slide-img" loading="lazy" decoding="async" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="3">
-                <img src="assets/hero-slide-3.webp" alt="Jaipur Travel & Real Estate Site Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
+                <img src="assets/hero-slide-3.webp" srcset="assets/hero-slide-3-mobile.webp 640w, assets/hero-slide-3.webp 1200w" sizes="(max-width: 768px) 100vw, 600px" alt="Jaipur Travel & Real Estate Site Preview" class="hero-slide-img" loading="lazy" decoding="async" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="4">
-                <img src="assets/hero-slide-4.webp" alt="Bharat AI Travel Itinerary Site Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
+                <img src="assets/hero-slide-4.webp" srcset="assets/hero-slide-4-mobile.webp 640w, assets/hero-slide-4.webp 1200w" sizes="(max-width: 768px) 100vw, 600px" alt="Bharat AI Travel Itinerary Site Preview" class="hero-slide-img" loading="lazy" decoding="async" width="1200" height="900">
               </div>
               <div class="hero-slide" data-slide="5">
-                <img src="assets/hero-slide-5.webp" alt="Surya Uday Energy Solar Solutions Site Preview" class="hero-slide-img" loading="lazy" width="1200" height="900">
+                <img src="assets/hero-slide-5.webp" srcset="assets/hero-slide-5-mobile.webp 640w, assets/hero-slide-5.webp 1200w" sizes="(max-width: 768px) 100vw, 600px" alt="Surya Uday Energy Solar Solutions Site Preview" class="hero-slide-img" loading="lazy" decoding="async" width="1200" height="900">
               </div>
             </div>
           </div>
@@ -582,9 +589,8 @@
 
           <div class="hitesh-visual">
             <div class="hitesh-image-panel">
-              <video class="hitesh-img" autoplay loop muted playsinline id="hitesh-video">
+              <video class="hitesh-img" autoplay loop muted playsinline id="hitesh-video" preload="metadata" poster="assets/vid_2-poster.webp" aria-label="Portfolio showcase video of Hitesh Visuals photography and cinematography work">
                 <source src="assets/vid_2.mp4" type="video/mp4">
-                <track kind="captions" src="/captions/vid_2.vtt" srclang="en" label="English">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -1374,8 +1380,8 @@
 
           <div class="footer-links-col">
             <span class="metadata footer-col-title">Tools</span>
-            <a href="automation-finder.html" class="footer-link" aria-label="Footer link to Automation Opportunity Finder tool">Automation Finder</a>
-            <a href="whatsapp-audit.html" class="footer-link" aria-label="Footer link to WhatsApp Business Audit tool">WhatsApp Audit</a>
+            <a href="automation-finder.html" class="footer-link" aria-label="Automation Finder tool">Automation Finder</a>
+            <a href="whatsapp-audit.html" class="footer-link" aria-label="WhatsApp Audit tool">WhatsApp Audit</a>
           </div>
           
           <div class="footer-links-col">
@@ -1452,7 +1458,7 @@
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <!-- Unread status badge (WhatsApp style 1 new message) -->
-      <span class="dee-unread-badge" id="dee-unread-dot">1</span>
+      <span class="dee-unread-badge" id="dee-unread-dot" aria-hidden="true">1</span>
     </button>
 
     <!-- Expanded Chat Window -->

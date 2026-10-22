@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { handleCors, enforceRateLimit, enforcePayloadLimit, getGeminiApiKey } from './_security.js';
 
 // ── Gemini Explicit Context Caching Layer ──
 // Stores: Map<cacheKey, { name: string, model: string, hash: string, expiresAt: number }>
@@ -126,13 +127,31 @@ function getDisplayPrice(basePriceINR, currencyCode, exchangeRates) {
 }
 
 export default async function handler(req, res) {
+  if (!handleCors(req, res)) {
+    return res.status(403).json({ error: 'Origin not allowed' });
+  }
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader('Allow', ['POST', 'OPTIONS']);
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const DEFAULT_KEY = Buffer.from('QVEuQWI4Uk42S3F1ejlPY0VSeXdOdU0xTkx0ZmNMUjE4Rkk5dkM3cDVjN05rV3JtTUd2a3c=', 'base64').toString('utf8');
-  const apiKey = process.env.GEMINI_API_KEY || DEFAULT_KEY;
+  if (!enforceRateLimit(req, res, { routeKey: 'chat', maxRequests: 25, windowMs: 60000 })) {
+    return;
+  }
+
+  if (!enforcePayloadLimit(req, res, 40000)) {
+    return;
+  }
+
+  const apiKey = getGeminiApiKey();
+  if (!apiKey) {
+    return res.status(500).json({ error: 'AI service configuration unavailable. Please try again later.' });
+  }
 
   try {
     let { history = [], currency = 'USD', countryCode = 'IN' } = req.body || {};
@@ -497,6 +516,7 @@ SAFEGUARDS — NEVER:
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            signal: AbortSignal.timeout(15000),
             body: JSON.stringify(requestBody)
           }
         );
@@ -545,6 +565,6 @@ SAFEGUARDS — NEVER:
 
   } catch (err) {
     console.error('Vercel API error:', err);
-    return res.status(500).json({ error: 'Server error: ' + err.message });
+    return res.status(500).json({ error: 'Unable to process chat request at this time. Please try again later.' });
   }
 }

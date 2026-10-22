@@ -1,3 +1,53 @@
+// ── Privacy-Preserving Conversion Analytics & Telemetry ──
+function trackEvent(name, data = {}) {
+  try {
+    // Strict data minimization: filter out any PII or free text fields
+    const sanitized = {};
+    const forbidden = ['name', 'email', 'phone', 'message', 'text', 'notes', 'url', 'value', 'data', 'history'];
+    for (const [k, v] of Object.entries(data)) {
+      if (!forbidden.includes(k.toLowerCase()) && typeof v !== 'object') {
+        sanitized[k] = v;
+      }
+    }
+
+    // 1. Dispatch to Vercel Web Analytics if active
+    if (typeof window.va === 'function') {
+      window.va('event', { name, data: sanitized });
+    }
+
+    // 2. Dispatch custom DOM event for auditability and extensible analytics
+    document.dispatchEvent(new CustomEvent('designmela:track', {
+      detail: { name, data: sanitized, timestamp: Date.now() }
+    }));
+  } catch (e) {
+    // Fail silently, never disrupt user interactions
+  }
+}
+
+// Global click delegation for WhatsApp and primary CTAs
+document.addEventListener('click', (e) => {
+  // WhatsApp link clicks
+  const waLink = e.target.closest('a[href*="wa.me"]');
+  if (waLink) {
+    const href = waLink.getAttribute('href') || '';
+    const recipient = href.includes('8082017828') ? 'primary' : (href.includes('9599320907') ? 'secondary' : 'custom');
+    const location = waLink.closest('nav') ? 'nav' :
+                     waLink.closest('footer') ? 'footer' :
+                     waLink.closest('.whatsapp-float') ? 'float' : 'content';
+    trackEvent('whatsapp_click', { recipient, location });
+    return;
+  }
+
+  // Primary Action / Brief CTA clicks
+  const cta = e.target.closest('a[href="#contact"], .nav-cta, .btn-primary[href="#contact"]');
+  if (cta) {
+    const location = cta.closest('nav') ? 'nav' :
+                     cta.closest('.hero-section') ? 'hero' :
+                     cta.closest('footer') ? 'footer' : 'content';
+    trackEvent('primary_cta_click', { location });
+  }
+}, { passive: true });
+
 /* ============================================================
    Designmela — main.js
    Premium GSAP ScrollTrigger animations and loading sequences
@@ -323,7 +373,7 @@
         ease: 'power3.out'
       });
 
-      tl.from('.hero-eyebrow-wrap', {
+      tl.from('.hero-eyebrow-pill', {
         y: 15,
         opacity: 0,
         duration: 0.5,
@@ -351,7 +401,7 @@
         ease: 'power3.out'
       }, '-=0.5');
 
-      tl.from('.hero-graphics', {
+      tl.from('.hero-browser-wrapper', {
         scale: 0.98,
         opacity: 0,
         duration: 0.8,
@@ -468,18 +518,21 @@
 
       // Animate line fill
       const lastStageHeight = stages[stages.length - 1].offsetHeight;
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: '.process-stages',
-          start: 'top 65%',
-          end: `bottom-=${lastStageHeight - 18}px 65%`, // Ends exactly at center of last circle
-          scrub: true
-        }
-      })
-      .to('.process-progress-line', {
-        height: '100%',
-        ease: 'none'
-      });
+      const progressLine = document.querySelector('.process-progress-line');
+      if (progressLine) {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: '.process-stages',
+            start: 'top 65%',
+            end: `bottom-=${lastStageHeight - 18}px 65%`,
+            scrub: true
+          }
+        })
+        .to(progressLine, {
+          height: '100%',
+          ease: 'none'
+        });
+      }
     }
 
     // Custom Reveal for Brand Cards (fade + slide up 12px)
@@ -1715,6 +1768,7 @@
       statusText.textContent = stepStatuses[nextStep];
 
       currentStep = nextStep;
+      trackEvent('form_step_viewed', { form_id: 'intake', step: nextStep });
       
       // Regenerate fresh particle set for the new width
       generateParticles(currentStep);
@@ -1745,6 +1799,7 @@
         const result = await response.json();
 
         if (response.ok && result.success) {
+          trackEvent('form_submit_success', { form_id: 'intake' });
           // Pause typewriter on submission success
           if (typewriterController) typewriterController.pause();
           if (step2Typewriter) step2Typewriter.pause();
@@ -1799,6 +1854,7 @@
           throw new Error(result.message || 'Submission failed');
         }
       } catch (err) {
+        trackEvent('form_submit_failed', { form_id: 'intake' });
         console.error('Submission error:', err);
         if (submitError) submitError.style.display = 'block';
         
@@ -1830,6 +1886,7 @@
 
     btnContinue.addEventListener('click', () => {
       if (!validateStep(currentStep)) {
+        trackEvent('form_validation_error', { form_id: 'intake', step: currentStep });
         showStepValidationErrors(currentStep);
         return;
       }
@@ -3244,6 +3301,7 @@
 
     // Toggle Chat window opening and closing
     function openChat() {
+      trackEvent('chatbot_opened', { trigger: 'button' });
       windowEl.style.display = 'flex';
       trigger.setAttribute('aria-expanded', 'true');
       isChatOpen = true;

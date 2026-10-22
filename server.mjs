@@ -61,6 +61,20 @@ const server = http.createServer((req, res) => {
   const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = urlObj.pathname;
 
+  // Apply security headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' data: blob:; connect-src 'self' https://api.web3forms.com https://open.er-api.com https://ipwho.is https://va.vercel-scripts.com https://vitals.vercel-insights.com; frame-ancestors 'self';");
+
+  // Mock Vercel Insights script in local dev environment
+  if (pathname === '/_vercel/insights/script.js') {
+    res.writeHead(200, { 'Content-Type': 'application/javascript' });
+    res.end('// Local Vercel Web Analytics mock stub\n');
+    return;
+  }
+
   // Handle API local proxies
   if (pathname === '/api/chat' || pathname === '/api/finder-ai' || pathname === '/api/whatsapp-audit') {
     let apiTargetHandler = handler;
@@ -88,6 +102,10 @@ const server = http.createServer((req, res) => {
         json(data) {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify(data));
+          return this;
+        },
+        end(data) {
+          res.end(data);
           return this;
         }
       };

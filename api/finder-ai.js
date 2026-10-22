@@ -1,11 +1,31 @@
+import { handleCors, enforceRateLimit, enforcePayloadLimit, getGeminiApiKey } from './_security.js';
+
 export default async function handler(req, res) {
+  if (!handleCors(req, res)) {
+    return res.status(403).json({ error: 'Origin not allowed' });
+  }
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader('Allow', ['POST', 'OPTIONS']);
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const DEFAULT_KEY = Buffer.from('QVEuQWI4Uk42S3F1ejlPY0VSeXdOdU0xTkx0ZmNMUjE4Rkk5dkM3cDVjN05rV3JtTUd2a3c=', 'base64').toString('utf8');
-  const apiKey = process.env.GEMINI_API_KEY || DEFAULT_KEY;
+  if (!enforceRateLimit(req, res, { routeKey: 'finder', maxRequests: 15, windowMs: 60000 })) {
+    return;
+  }
+
+  if (!enforcePayloadLimit(req, res, 20000)) {
+    return;
+  }
+
+  const apiKey = getGeminiApiKey();
+  if (!apiKey) {
+    return res.status(500).json({ error: 'AI service configuration unavailable. Please try again later.' });
+  }
 
   try {
     const {
@@ -106,6 +126,6 @@ Generate the structured JSON response as requested. Return ONLY the JSON object.
 
   } catch (err) {
     console.error('Finder AI API Error:', err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: 'Unable to process automation analysis at this time. Please try again later.' });
   }
 }

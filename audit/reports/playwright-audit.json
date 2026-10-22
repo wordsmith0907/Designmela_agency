@@ -1,0 +1,1179 @@
+{
+  "url": "https://www.designmela.com/",
+  "timestamp": "2026-10-21T19:02:42.759Z",
+  "viewports": {},
+  "consoleMessages": [
+    {
+      "type": "warning",
+      "text": "GSAP target .hero-eyebrow-wrap not found. https://gsap.com",
+      "location": {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+        "line": 9,
+        "column": 932,
+        "lineNumber": 9,
+        "columnNumber": 932
+      }
+    },
+    {
+      "type": "warning",
+      "text": "GSAP target  not found. https://gsap.com",
+      "location": {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+        "line": 9,
+        "column": 932,
+        "lineNumber": 9,
+        "columnNumber": 932
+      }
+    },
+    {
+      "type": "warning",
+      "text": "GSAP target .hero-graphics not found. https://gsap.com",
+      "location": {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+        "line": 9,
+        "column": 932,
+        "lineNumber": 9,
+        "columnNumber": 932
+      }
+    },
+    {
+      "type": "warning",
+      "text": "GSAP target  not found. https://gsap.com",
+      "location": {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+        "line": 9,
+        "column": 932,
+        "lineNumber": 9,
+        "columnNumber": 932
+      }
+    },
+    {
+      "type": "warning",
+      "text": "GSAP target .process-progress-line not found. https://gsap.com",
+      "location": {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+        "line": 9,
+        "column": 932,
+        "lineNumber": 9,
+        "columnNumber": 932
+      }
+    }
+  ],
+  "failedRequests": [
+    {
+      "url": "https://www.designmela.com/assets/vid_2.mp4",
+      "method": "GET",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.designmela.com/assets/vid_2.mp4",
+      "method": "GET",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "links": [
+    {
+      "text": "",
+      "href": "#",
+      "target": null
+    },
+    {
+      "text": "Work",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Services",
+      "href": "#services",
+      "target": null
+    },
+    {
+      "text": "About",
+      "href": "#about",
+      "target": null
+    },
+    {
+      "text": "FAQ",
+      "href": "#faq",
+      "target": null
+    },
+    {
+      "text": "Let's build ↗",
+      "href": "#contact",
+      "target": null
+    },
+    {
+      "text": "Let's build\n↗",
+      "href": "#contact",
+      "target": null
+    },
+    {
+      "text": "Explore real work ↓",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Explore design work →",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Explore builds →",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Explore AI work →",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Explore systems →",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "View Website\n↗",
+      "href": "https://dentist-dm.netlify.app/",
+      "target": "_blank"
+    },
+    {
+      "text": "View on Instagram\n↗",
+      "href": "https://www.instagram.com/shop.driply/",
+      "target": "_blank"
+    },
+    {
+      "text": "View Website\n↗",
+      "href": "https://hiteshphotos.netlify.app/",
+      "target": "_blank"
+    },
+    {
+      "text": "View Website\n↗",
+      "href": "https://jaingrill.netlify.app/",
+      "target": "_blank"
+    },
+    {
+      "text": "Try Assistant\n↗",
+      "href": "#dee-chat-window",
+      "target": null
+    },
+    {
+      "text": "Get your own System\n↗",
+      "href": "#contact",
+      "target": null
+    },
+    {
+      "text": "Explore design work\n→",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Explore builds\n→",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Explore AI work\n→",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Explore systems\n→",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "View Our Work →",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Chat on WhatsApp ↗",
+      "href": "https://wa.me/918082017828",
+      "target": "_blank"
+    },
+    {
+      "text": "hello@designmela.com",
+      "href": "mailto:hello@designmela.com",
+      "target": null
+    },
+    {
+      "text": "",
+      "href": "#",
+      "target": null
+    },
+    {
+      "text": "Work",
+      "href": "#work",
+      "target": null
+    },
+    {
+      "text": "Services",
+      "href": "#services",
+      "target": null
+    },
+    {
+      "text": "About",
+      "href": "#about",
+      "target": null
+    },
+    {
+      "text": "Contact",
+      "href": "#contact",
+      "target": null
+    },
+    {
+      "text": "Automation Finder",
+      "href": "automation-finder.html",
+      "target": null
+    },
+    {
+      "text": "WhatsApp Audit",
+      "href": "whatsapp-audit.html",
+      "target": null
+    },
+    {
+      "text": "Terms & Conditions",
+      "href": "terms.html",
+      "target": null
+    },
+    {
+      "text": "Privacy Policy",
+      "href": "privacy.html",
+      "target": null
+    },
+    {
+      "text": "",
+      "href": "mailto:hello@designmela.com",
+      "target": null
+    },
+    {
+      "text": "",
+      "href": "https://www.instagram.com/designmela_com/",
+      "target": "_blank"
+    },
+    {
+      "text": "1",
+      "href": "https://wa.me/918082017828",
+      "target": "_blank"
+    },
+    {
+      "text": "2",
+      "href": "https://wa.me/919599320907",
+      "target": "_blank"
+    },
+    {
+      "text": "",
+      "href": "https://wa.me/918082017828?text=Hi!%20I%20found%20Designmela's%20website%20and%20I'd%20like%20to%20know%20more%20about%20your%20services.",
+      "target": "_blank"
+    },
+    {
+      "text": "Prefer email? Use the contact form →",
+      "href": "#contact",
+      "target": null
+    }
+  ],
+  "brokenImages": [],
+  "headings": [
+    {
+      "tag": "h1",
+      "text": "Ideas are easy.\nMaking them real isn't.",
+      "id": ""
+    },
+    {
+      "tag": "h2",
+      "text": "From idea to something real.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Make it memorable.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Make it real.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Make it smarter.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Make it run without you.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Not sure where to start?",
+      "id": ""
+    },
+    {
+      "tag": "h2",
+      "text": "Things I've made.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Caliora Dental Studio",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "DRIPLY",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Hitesh Photography",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Jain Grill",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Designmela Assistant",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Lead Qualification Engine",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Not sure where to start?",
+      "id": ""
+    },
+    {
+      "tag": "h2",
+      "text": "From “what if?” to “it's live.”",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "START: Bring the idea.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "SHAPE: Find the right direction.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "BUILD: Make it work.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "LAUNCH: Put it to work.",
+      "id": ""
+    },
+    {
+      "tag": "h2",
+      "text": "A creative mind with modern tools.",
+      "id": ""
+    },
+    {
+      "tag": "h2",
+      "text": "Got questions? We've got answers.",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Your Details",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Your Project",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Vision",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Planning",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Inspiration",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "Final Step",
+      "id": ""
+    },
+    {
+      "tag": "h3",
+      "text": "You're In.",
+      "id": ""
+    },
+    {
+      "tag": "h2",
+      "text": "Free Digital Presence Audit",
+      "id": "audit-modal-title"
+    },
+    {
+      "tag": "h3",
+      "text": "Audit Request Received!",
+      "id": ""
+    }
+  ],
+  "overflows": {
+    "desktop-1440": {
+      "docWidth": 1440,
+      "scrollWidth": 1440,
+      "bodyWidth": 1440,
+      "hasOverflow": false,
+      "overflowingElementsCount": 28,
+      "topOverflowing": [
+        {
+          "tagName": "div",
+          "className": "marquee-track",
+          "id": "marquee-track",
+          "right": 3111.7360076904297,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 20.595382690429688,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1509.0797119140625,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1517.2515869140625,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1615.0797119140625,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1623.2515869140625,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1752.2828369140625,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1760.4547119140625,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1881.7672119140625,
+          "docWidth": 1440
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1889.9390869140625,
+          "docWidth": 1440
+        }
+      ]
+    },
+    "tablet-landscape-1024": {
+      "docWidth": 1024,
+      "scrollWidth": 1024,
+      "bodyWidth": 1024,
+      "hasOverflow": false,
+      "overflowingElementsCount": 34,
+      "topOverflowing": [
+        {
+          "tagName": "div",
+          "className": "marquee-track",
+          "id": "marquee-track",
+          "right": 3110.900604248047,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 19.759979248046875,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1127.791259765625,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1135.963134765625,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1250.166259765625,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1258.338134765625,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1346.400634765625,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1354.572509765625,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1508.244384765625,
+          "docWidth": 1024
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1516.416259765625,
+          "docWidth": 1024
+        }
+      ]
+    },
+    "tablet-portrait-768": {
+      "docWidth": 768,
+      "scrollWidth": 768,
+      "bodyWidth": 768,
+      "hasOverflow": false,
+      "overflowingElementsCount": 36,
+      "topOverflowing": [
+        {
+          "tagName": "div",
+          "className": "marquee-track",
+          "id": "marquee-track",
+          "right": 2740.6108932495117,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 14.876518249511719,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 881.9390258789062,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 889.2827758789062,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 994.3765258789062,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1001.7202758789062,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1101.04833984375,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1108.39208984375,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 1183.09521484375,
+          "docWidth": 768
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 1190.43896484375,
+          "docWidth": 768
+        }
+      ]
+    },
+    "mobile-standard-390": {
+      "docWidth": 390,
+      "scrollWidth": 390,
+      "bodyWidth": 390,
+      "hasOverflow": false,
+      "overflowingElementsCount": 46,
+      "topOverflowing": [
+        {
+          "tagName": "div",
+          "className": "marquee-track",
+          "id": "marquee-track",
+          "right": 2750.695472717285,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 14.867347717285156,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 528.8517456054688,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 536.1954956054688,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 651.4298706054688,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 658.7736206054688,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 747.3986206054688,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 754.7423706054688,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 885.0548706054688,
+          "docWidth": 390
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 892.3986206054688,
+          "docWidth": 390
+        }
+      ]
+    },
+    "mobile-small-320": {
+      "docWidth": 320,
+      "scrollWidth": 320,
+      "bodyWidth": 320,
+      "hasOverflow": false,
+      "overflowingElementsCount": 48,
+      "topOverflowing": [
+        {
+          "tagName": "div",
+          "className": "marquee-track",
+          "id": "marquee-track",
+          "right": 2750.6889114379883,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 14.860786437988281,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 366.00140380859375,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 373.34515380859375,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 528.8451538085938,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 536.1889038085938,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 651.4232788085938,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 658.7670288085938,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-item",
+          "id": "",
+          "right": 747.3920288085938,
+          "docWidth": 320
+        },
+        {
+          "tagName": "span",
+          "className": "marquee-sep",
+          "id": "",
+          "right": 754.7357788085938,
+          "docWidth": 320
+        }
+      ]
+    }
+  },
+  "chatbotTest": {
+    "foundToggle": true,
+    "opened": true,
+    "foundInput": true,
+    "error": "elementHandle.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m    - fill(\"What services do you offer?\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+  },
+  "interactiveTests": {
+    "faqCount": 15
+  },
+  "httpStatus": 200,
+  "pageTitle": "Designmela — Websites, AI, Automation & Digital Design",
+  "sections": [
+    {
+      "index": 0,
+      "id": "hero",
+      "className": "hero-section",
+      "tagName": "header",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 788,
+        "top": 0,
+        "right": 1440,
+        "bottom": 788,
+        "left": 0
+      }
+    },
+    {
+      "index": 1,
+      "id": "services",
+      "className": "services-section",
+      "tagName": "section",
+      "rect": {
+        "x": 0,
+        "y": 788,
+        "width": 1440,
+        "height": 1833.78125,
+        "top": 788,
+        "right": 1440,
+        "bottom": 2621.78125,
+        "left": 0
+      }
+    },
+    {
+      "index": 2,
+      "id": "work",
+      "className": "work-section",
+      "tagName": "section",
+      "rect": {
+        "x": 0,
+        "y": 2621.78125,
+        "width": 1440,
+        "height": 7155.28125,
+        "top": 2621.78125,
+        "right": 1440,
+        "bottom": 9777.0625,
+        "left": 0
+      }
+    },
+    {
+      "index": 3,
+      "id": "",
+      "className": "audit-strip-section",
+      "tagName": "section",
+      "rect": {
+        "x": 0,
+        "y": 9777.0625,
+        "width": 1440,
+        "height": 264.984375,
+        "top": 9777.0625,
+        "right": 1440,
+        "bottom": 10042.046875,
+        "left": 0
+      }
+    },
+    {
+      "index": 4,
+      "id": "process",
+      "className": "process-section",
+      "tagName": "section",
+      "rect": {
+        "x": 0,
+        "y": 10042.046875,
+        "width": 1440,
+        "height": 756.578125,
+        "top": 10042.046875,
+        "right": 1440,
+        "bottom": 10798.625,
+        "left": 0
+      }
+    },
+    {
+      "index": 5,
+      "id": "about",
+      "className": "about-section",
+      "tagName": "section",
+      "rect": {
+        "x": 0,
+        "y": 10798.625,
+        "width": 1440,
+        "height": 551.515625,
+        "top": 10798.625,
+        "right": 1440,
+        "bottom": 11350.140625,
+        "left": 0
+      }
+    },
+    {
+      "index": 6,
+      "id": "faq",
+      "className": "faq-section",
+      "tagName": "section",
+      "rect": {
+        "x": 0,
+        "y": 11350.140625,
+        "width": 1440,
+        "height": 1129.125,
+        "top": 11350.140625,
+        "right": 1440,
+        "bottom": 12479.265625,
+        "left": 0
+      }
+    },
+    {
+      "index": 7,
+      "id": "contact",
+      "className": "final-cta-section",
+      "tagName": "section",
+      "rect": {
+        "x": 0,
+        "y": 12479.265625,
+        "width": 1440,
+        "height": 686.359375,
+        "top": 12479.265625,
+        "right": 1440,
+        "bottom": 13165.625,
+        "left": 0
+      }
+    },
+    {
+      "index": 8,
+      "id": "",
+      "className": "footer-section",
+      "tagName": "footer",
+      "rect": {
+        "x": 0,
+        "y": 13165.625,
+        "width": 1440,
+        "height": 358.5625,
+        "top": 13165.625,
+        "right": 1440,
+        "bottom": 13524.1875,
+        "left": 0
+      }
+    }
+  ],
+  "images": [
+    {
+      "src": "assets/logo-icon-transparent.webp",
+      "alt": "Designmela Icon",
+      "naturalWidth": 1024,
+      "naturalHeight": 1024,
+      "clientWidth": 56,
+      "clientHeight": 56,
+      "loading": null
+    },
+    {
+      "src": "assets/logo-text-transparent.webp",
+      "alt": "Designmela Text",
+      "naturalWidth": 1024,
+      "naturalHeight": 342,
+      "clientWidth": 263,
+      "clientHeight": 88,
+      "loading": null
+    },
+    {
+      "src": "assets/hero-slide-1.webp",
+      "alt": "Restore Your True Smile Dental Site Preview",
+      "naturalWidth": 1200,
+      "naturalHeight": 900,
+      "clientWidth": 495,
+      "clientHeight": 336,
+      "loading": "eager"
+    },
+    {
+      "src": "assets/hero-slide-2.webp",
+      "alt": "Royale Fine Jewellery App Preview",
+      "naturalWidth": 1200,
+      "naturalHeight": 900,
+      "clientWidth": 495,
+      "clientHeight": 336,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/hero-slide-3.webp",
+      "alt": "Jaipur Travel & Real Estate Site Preview",
+      "naturalWidth": 1200,
+      "naturalHeight": 900,
+      "clientWidth": 495,
+      "clientHeight": 336,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/hero-slide-4.webp",
+      "alt": "Bharat AI Travel Itinerary Site Preview",
+      "naturalWidth": 1200,
+      "naturalHeight": 900,
+      "clientWidth": 495,
+      "clientHeight": 336,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/hero-slide-5.webp",
+      "alt": "Surya Uday Energy Solar Solutions Site Preview",
+      "naturalWidth": 1200,
+      "naturalHeight": 900,
+      "clientWidth": 495,
+      "clientHeight": 336,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/caliora.webp",
+      "alt": "Caliora Dental Studio Showcase",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 677,
+      "clientHeight": 1016,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/driply.webp",
+      "alt": "Driply Brand Identity Showcase",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 677,
+      "clientHeight": 1018,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/jaingrill.webp",
+      "alt": "Jain Grill Website Showcase",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 677,
+      "clientHeight": 1129,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/ai.webp",
+      "alt": "Designmela Assistant Dee Chatbot Showcase",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 436,
+      "clientHeight": 583,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/workflow.webp",
+      "alt": "Designmela Lead Qualification Engine Showcase",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 677,
+      "clientHeight": 451,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/process/stage-1.webp",
+      "alt": "Process stage 1",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 416,
+      "clientHeight": 416,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/process/stage-2.webp",
+      "alt": "Process stage 2",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 416,
+      "clientHeight": 416,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/process/stage-3.webp",
+      "alt": "Process stage 3",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 416,
+      "clientHeight": 416,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/process/stage-4.webp",
+      "alt": "Process stage 4",
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "clientWidth": 416,
+      "clientHeight": 416,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/logo-icon-transparent.webp",
+      "alt": "Designmela Icon",
+      "naturalWidth": 1024,
+      "naturalHeight": 1024,
+      "clientWidth": 56,
+      "clientHeight": 56,
+      "loading": "lazy"
+    },
+    {
+      "src": "assets/logo-text-transparent.webp",
+      "alt": "Designmela Text",
+      "naturalWidth": 1024,
+      "naturalHeight": 342,
+      "clientWidth": 263,
+      "clientHeight": 88,
+      "loading": "lazy"
+    }
+  ],
+  "otherPages": {
+    "/automation-finder": {
+      "status": 200,
+      "title": "Automation Opportunity Finder — Calculate Time Saved | Designmela",
+      "url": "https://www.designmela.com/automation-finder"
+    },
+    "/whatsapp-audit": {
+      "status": 200,
+      "title": "WhatsApp Business Audit — Score Your WhatsApp Profile | Designmela",
+      "url": "https://www.designmela.com/whatsapp-audit"
+    },
+    "/privacy": {
+      "status": 200,
+      "title": "Privacy Policy — Designmela",
+      "url": "https://www.designmela.com/privacy"
+    },
+    "/terms": {
+      "status": 200,
+      "title": "Terms & Conditions — Designmela",
+      "url": "https://www.designmela.com/terms"
+    },
+    "/404": {
+      "status": 200,
+      "title": "404 — Even Dee Couldn't Find This One | Designmela",
+      "url": "https://www.designmela.com/404"
+    }
+  }
+}

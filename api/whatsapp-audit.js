@@ -1,11 +1,32 @@
+import { handleCors, enforceRateLimit, enforcePayloadLimit, getGeminiApiKey } from './_security.js';
+
 export default async function handler(req, res) {
+  if (!handleCors(req, res)) {
+    return res.status(403).json({ error: 'Origin not allowed' });
+  }
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader('Allow', ['POST', 'OPTIONS']);
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const DEFAULT_KEY = Buffer.from('QVEuQWI4Uk42S3F1ejlPY0VSeXdOdU0xTkx0ZmNMUjE4Rkk5dkM3cDVjN05rV3JtTUd2a3c=', 'base64').toString('utf8');
-  const apiKey = process.env.GEMINI_API_KEY || DEFAULT_KEY;
+  if (!enforceRateLimit(req, res, { routeKey: 'wa-audit', maxRequests: 10, windowMs: 60000 })) {
+    return;
+  }
+
+  // 4.5 MB maximum payload to support up to 2 screenshots
+  if (!enforcePayloadLimit(req, res, 4718592)) {
+    return;
+  }
+
+  const apiKey = getGeminiApiKey();
+  if (!apiKey) {
+    return res.status(500).json({ error: 'AI service configuration unavailable. Please try again later.' });
+  }
 
   try {
     const {
@@ -119,6 +140,7 @@ STRICT INSTRUCTION: Only evaluate what is visibly shown in the screenshot. Do NO
               {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                signal: AbortSignal.timeout(15000),
                 body: JSON.stringify({
                   systemInstruction: { parts: [{ text: visionPrompt }] },
                   contents: [
@@ -215,6 +237,6 @@ STRICT INSTRUCTION: Only evaluate what is visibly shown in the screenshot. Do NO
 
   } catch (err) {
     console.error('WhatsApp Audit API error:', err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: 'Unable to process WhatsApp audit at this time. Please try again later.' });
   }
 }
